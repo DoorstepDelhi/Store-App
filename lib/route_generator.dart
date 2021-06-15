@@ -1,6 +1,7 @@
 import 'src/models/route_argument.dart';
 import 'src/screens/brand.dart';
 import 'src/screens/brands.dart';
+import 'src/screens/wallet.dart';
 import 'src/screens/cart.dart';
 import 'src/screens/categories.dart';
 import 'src/screens/category.dart';
@@ -56,6 +57,8 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 ProductWidget(routeArgument: args as RouteArgument));
+      case '/Wallet':
+        return MaterialPageRoute(builder: (_) => WalletWidget());
 //      case '/Food':
 //        return MaterialPageRoute(
 //            builder: (_) => FoodWidget(

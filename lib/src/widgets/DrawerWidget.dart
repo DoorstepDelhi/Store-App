@@ -96,6 +96,19 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed('/Wallet');
+            },
+            leading: Icon(
+              UiIcons.money,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Wallet",
+              style: Theme.of(context).textTheme.subhead,
+            ),
+          ),
+          ListTile(
             dense: true,
             title: Text(
               "Products",

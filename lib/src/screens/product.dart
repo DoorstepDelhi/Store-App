@@ -1,3 +1,5 @@
+import 'package:store_app/src/models/user.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/product.dart';
 import '../models/route_argument.dart';
@@ -6,6 +8,7 @@ import '../widgets/ProductDetailsTabWidget.dart';
 import '../widgets/ProductHomeTabWidget.dart';
 import '../widgets/ReviewsListWidget.dart';
 import '../widgets/ShoppingCartButtonWidget.dart';
+import '../screens/messages.dart';
 import 'package:flutter/material.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -27,7 +30,7 @@ class _ProductWidgetState extends State<ProductWidget>
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _tabIndex = 0;
-
+  User _user = new User.init().getCurrentUser();
   @override
   void initState() {
     _tabController =
@@ -72,6 +75,104 @@ class _ProductWidgetState extends State<ProductWidget>
                   onPressed: () {
                     setState(() {
 //                      this.cartCount += this.quantity;
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 600,
+                            color: Colors.white,
+                            child: ListView(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(
+                                          'Add To Wishlist',
+                                          style: TextStyle(
+                                            color: Theme.of(context).accentColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Theme.of(context).accentColor,
+
+                                        ),
+                                      )
+                                    ]
+                                  ),
+                                ),
+                                Divider(
+                                  height: 10,
+                                  color: Colors.grey[200],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          child: CircleAvatar(
+                                            backgroundImage: AssetImage(_user.avatar),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            child: Text(
+                                              'Add To My Wishlist',
+                                              style: TextStyle(
+                                                  color: Theme.of(context).accentColor,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Icon(
+                                            Icons.check,
+                                            color: Theme.of(context).accentColor,
+
+                                          ),
+                                        )
+                                      ]
+                                  ),
+                                ),
+                                Divider(
+                                  height: 10,
+                                  color: Colors.grey[200],
+                                ),
+                                MessagesWidget(),
+                                FlatButton(
+                                    onPressed: (){},
+                                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                                    color: Theme.of(context).accentColor,
+                                    child: Text(
+                                      'Add to their WishList',
+                                      style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                  shape: StadiumBorder(),
+                                )
+                              ],
+                            ),
+
+                          );
+                        },
+                      );
                     });
                   },
                   padding: EdgeInsets.symmetric(vertical: 14),
