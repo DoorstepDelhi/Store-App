@@ -47,12 +47,23 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           style: TextStyle(color: Theme.of(context).hintColor),
                           keyboardType: TextInputType.text,
                           decoration: getInputDecoration(
-                              hintText: 'John Doe', labelText: 'Full Name'),
-                          initialValue: widget.user.name,
-                          validator: (input) => input.trim().length < 3
+                              hintText: 'John', labelText: 'First Name'),
+                          initialValue: widget.user.firstName,
+                          validator: (input) => input.trim().length < 2
+                              ? 'Not a valid first name'
+                              : null,
+                          onSaved: (input) => widget.user.firstName = input,
+                        ),
+                        new TextFormField(
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                          keyboardType: TextInputType.text,
+                          decoration: getInputDecoration(
+                              hintText: 'Doe', labelText: 'Last Name'),
+                          initialValue: widget.user.lastName,
+                          validator: (input) => input.trim().length < 2
                               ? 'Not a valid full name'
                               : null,
-                          onSaved: (input) => widget.user.name = input,
+                          onSaved: (input) => widget.user.lastName = input,
                         ),
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
@@ -65,50 +76,16 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                               !input.contains('@') ? 'Not a valid email' : null,
                           onSaved: (input) => widget.user.email = input,
                         ),
-                        FormField<String>(
-                          builder: (FormFieldState<String> state) {
-                            return DropdownButtonFormField<String>(
-                              decoration: getInputDecoration(
-                                  hintText: 'Female', labelText: 'Gender'),
-                              hint: Text("Select Device"),
-                              value: widget.user.gender,
-                              onChanged: (input) {
-                                setState(() {
-                                  widget.user.gender = input;
-                                  widget.onChanged();
-                                });
-                              },
-                              onSaved: (input) => widget.user.gender = input,
-                              items: [
-                                new DropdownMenuItem(
-                                    value: 'Male', child: Text('Male')),
-                                new DropdownMenuItem(
-                                    value: 'Female', child: Text('Female')),
-                              ],
-                            );
-                          },
-                        ),
-                        FormField<String>(
-                          builder: (FormFieldState<String> state) {
-                            return DateTimeField(
-                              decoration: getInputDecoration(
-                                  hintText: '1996-12-31',
-                                  labelText: 'Birth Date'),
-                              format: new DateFormat('yyyy-MM-dd'),
-                              initialValue: widget.user.dateOfBirth,
-                              onShowPicker: (context, currentValue) {
-                                return showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime(1900),
-                                    initialDate: currentValue ?? DateTime.now(),
-                                    lastDate: DateTime(2100));
-                              },
-                              onSaved: (input) => setState(() {
-                                widget.user.dateOfBirth = input;
-                                widget.onChanged();
-                              }),
-                            );
-                          },
+                        new TextFormField(
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                          keyboardType: TextInputType.phone,
+                          decoration: getInputDecoration(
+                              hintText: '+911234567890',
+                              labelText: 'Phone Number'),
+                          initialValue: widget.user.phoneNumber,
+                          //validator: (input) =>
+                          //  !input.contains('') ? 'Not a valid email' : null,
+                          onSaved: (input) => widget.user.phoneNumber = input,
                         ),
                       ],
                     ),

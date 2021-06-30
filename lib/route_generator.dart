@@ -1,3 +1,5 @@
+
+import 'package:store_app/src/screens/shippingaddressmain.dart';
 import 'package:store_app/src/screens/chat.dart';
 import 'src/models/route_argument.dart';
 import 'src/screens/brand.dart';
@@ -11,10 +13,12 @@ import 'src/screens/help.dart';
 import 'src/screens/languages.dart';
 import 'src/screens/on_boarding.dart';
 import 'src/screens/orders.dart';
+import 'src/screens/grouporders.dart';
 import 'src/screens/product.dart';
 import 'src/screens/signin.dart';
 import 'src/screens/signup.dart';
 import 'src/screens/tabs.dart';
+import 'src/screens/orderSummary.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -35,6 +39,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OrdersWidget());
       case '/Brands':
         return MaterialPageRoute(builder: (_) => BrandsWidget());
+      case '/GroupOrders':
+        return MaterialPageRoute(builder: (_) => GroupOrdersWidget());
 //      case '/MobileVerification':
 //        return MaterialPageRoute(builder: (_) => MobileVerification());
 //      case '/MobileVerification2':
@@ -72,6 +78,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HelpWidget());
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
+      case '/Shipping Address':
+        return MaterialPageRoute(builder: (_) => MyHomePage());
+      case '/Order':
+        return MaterialPageRoute(builder: (_) => OrderSummaryWidget());
       case '/Chat':
         return MaterialPageRoute(builder: (_) => ChatWidget());
 //      case '/second':

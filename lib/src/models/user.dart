@@ -1,37 +1,40 @@
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart' show DateFormat;
+import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart' show DateFormat;
 
 enum UserState { available, away, busy }
 
 class User {
   String id = UniqueKey().toString();
-  String name;
+  String firstName;
+  String lastName;
   String email;
-  String gender;
-  DateTime dateOfBirth;
   String avatar;
   String address;
   UserState userState;
+  String phoneNumber;
 
   User.init();
 
-  User.basic(this.name, this.avatar, this.userState);
+  User.basic({this.firstName, this.lastName, this.avatar, this.userState});
 
-  User.advanced(this.name, this.email, this.gender, this.dateOfBirth,
-      this.avatar, this.address, this.userState);
+  User.advanced(
+      {this.firstName,
+      this.lastName,
+      this.email,
+      this.avatar,
+      this.address,
+      this.userState,
+      this.phoneNumber});
 
   User getCurrentUser() {
     return User.advanced(
-        'Rahul Dev Kureel',
-        'rahul@gmail.com',
-        'Male',
-        DateTime(1999, 12, 31),
-        'img/user3.jpg',
-        'House Number 4600, Sector 11, Dwarka, Delhi 62339',
-        UserState.available);
-  }
-
-  getDateOfBirth() {
-    return DateFormat('yyyy-MM-dd').format(this.dateOfBirth);
+        firstName: 'Andrew',
+        lastName: 'R. Whitesides',
+        email: 'andrew@gmail.com',
+        avatar: 'img/user2.jpg',
+        address: '4600 Isaacs Creek Road Golden, IL 62339',
+        userState: UserState.available,
+        phoneNumber: '9080789067');
   }
 }

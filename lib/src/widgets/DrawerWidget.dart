@@ -20,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
 //              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35)),
               ),
               accountName: Text(
-                _user.name,
+                _user.firstName + " " + _user.lastName,
                 style: Theme.of(context).textTheme.title,
               ),
               accountEmail: Text(
@@ -120,48 +120,28 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Orders', arguments: 0);
+              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
-              UiIcons.credit_card,
+              UiIcons.wallet,
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
               "Wallet",
               style: Theme.of(context).textTheme.subhead,
             ),
-            trailing: Chip(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              backgroundColor: Colors.transparent,
-              shape: StadiumBorder(
-                  side: BorderSide(color: Theme.of(context).focusColor)),
-              label: Text(
-                '8',
-                style: TextStyle(color: Theme.of(context).focusColor),
-              ),
-            ),
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Orders', arguments: 0);
+              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
-              UiIcons.gift,
+              UiIcons.tag,
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
               "Offers",
               style: Theme.of(context).textTheme.subhead,
-            ),
-            trailing: Chip(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              backgroundColor: Colors.transparent,
-              shape: StadiumBorder(
-                  side: BorderSide(color: Theme.of(context).focusColor)),
-              label: Text(
-                '8',
-                style: TextStyle(color: Theme.of(context).focusColor),
-              ),
             ),
           ),
           ListTile(

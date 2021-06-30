@@ -20,7 +20,9 @@ class OrderGridItemWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed('/Order',
             arguments: new RouteArgument(
-                argumentsList: [this.heroTag], id: this.order.id));
+              argumentsList: [this.heroTag],
+              id: this.order.id,
+            ));
       },
       child: Container(
         decoration: BoxDecoration(
