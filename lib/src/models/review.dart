@@ -27,45 +27,50 @@ class ReviewsList {
   ReviewsList() {
     this._reviewsList = [
       new Review(
-          new User.basic(
+          user: new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
               avatar: 'img/user0.jpg',
               userState: UserState.available),
-          'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-          3.2),
+          review:
+              'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
+          rate: 3.2),
       new Review(
-          new User.basic(
+          user: new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
               avatar: 'img/user1.jpg',
               userState: UserState.available),
-          'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-          3.2),
+          review:
+              'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
+          rate: 3.2),
       new Review(
-          new User.basic(
+          user: new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
               avatar: 'img/user2.jpg',
               userState: UserState.available),
-          'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-          3.2),
+          review:
+              'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
+          rate: 3.2),
       new Review(
-          new User.basic(
+          user: new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
               avatar: 'img/user3.jpg',
               userState: UserState.available),
-          'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-          3.2),
+          review:
+              'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
+          rate: 3.2),
       new Review(
-          new User.basic(
+          user: new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
               avatar: 'img/user1.jpg',
               userState: UserState.available),
-          'There are a few foods that predate colonization, and the European colonization of the Americas brought',
-          3.2)
+          review:
+              'There are a few foods that predate colonization, and the European colonization of the Americas brought',
+          rate: 3.2)
     ];
   }
 }
