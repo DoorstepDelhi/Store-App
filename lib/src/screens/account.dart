@@ -30,7 +30,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        _user.name,
+                        _user.firstName + " " + _user.lastName,
                         textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.display2,
                       ),
@@ -75,13 +75,13 @@ class _AccountWidgetState extends State<AccountWidget> {
                   child: FlatButton(
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/Tabs', arguments: 4);
+                      Navigator.of(context).pushNamed('/Tabs', arguments: 1);
                     },
                     child: Column(
                       children: <Widget>[
-                        Icon(UiIcons.heart),
+                        Icon(UiIcons.wallet),
                         Text(
-                          'Wish List',
+                          'Wallet',
                           style: Theme.of(context).textTheme.body1,
                         )
                       ],
@@ -96,9 +96,9 @@ class _AccountWidgetState extends State<AccountWidget> {
                     },
                     child: Column(
                       children: <Widget>[
-                        Icon(UiIcons.favorites),
+                        Icon(UiIcons.contact),
                         Text(
-                          'Following',
+                          'Contacts',
                           style: Theme.of(context).textTheme.body1,
                         )
                       ],
@@ -252,6 +252,116 @@ class _AccountWidgetState extends State<AccountWidget> {
               primary: false,
               children: <Widget>[
                 ListTile(
+                  leading: Icon(UiIcons.group),
+                  title: Text(
+                    'Group Orders',
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                  trailing: ButtonTheme(
+                    padding: EdgeInsets.all(0),
+                    minWidth: 50.0,
+                    height: 25.0,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/GroupOrders');
+                      },
+                      child: Text(
+                        "View all",
+                        style: Theme.of(context).textTheme.body1,
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/GroupOrders');
+                  },
+                  dense: true,
+                  title: Text(
+                    'Unpaid',
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                  trailing: Chip(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    backgroundColor: Colors.transparent,
+                    shape: StadiumBorder(
+                        side: BorderSide(color: Theme.of(context).focusColor)),
+                    label: Text(
+                      '1',
+                      style: TextStyle(color: Theme.of(context).focusColor),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/GroupOrders');
+                  },
+                  dense: true,
+                  title: Text(
+                    'To be shipped',
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                  trailing: Chip(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    backgroundColor: Colors.transparent,
+                    shape: StadiumBorder(
+                        side: BorderSide(color: Theme.of(context).focusColor)),
+                    label: Text(
+                      '5',
+                      style: TextStyle(color: Theme.of(context).focusColor),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/GroupOrders');
+                  },
+                  dense: true,
+                  title: Text(
+                    'Shipped',
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                  trailing: Chip(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    backgroundColor: Colors.transparent,
+                    shape: StadiumBorder(
+                        side: BorderSide(color: Theme.of(context).focusColor)),
+                    label: Text(
+                      '3',
+                      style: TextStyle(color: Theme.of(context).focusColor),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/GroupOrders');
+                  },
+                  dense: true,
+                  title: Text(
+                    'In dispute',
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(6),
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).hintColor.withOpacity(0.15),
+                    offset: Offset(0, 3),
+                    blurRadius: 10)
+              ],
+            ),
+            child: ListView(
+              shrinkWrap: true,
+              primary: false,
+              children: <Widget>[
+                ListTile(
                   leading: Icon(UiIcons.user_1),
                   title: Text(
                     'Profile Settings',
@@ -273,11 +383,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                   onTap: () {},
                   dense: true,
                   title: Text(
-                    'Full name',
+                    'First name',
                     style: Theme.of(context).textTheme.body1,
                   ),
                   trailing: Text(
-                    _user.name,
+                    _user.firstName,
+                    style: TextStyle(color: Theme.of(context).focusColor),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {},
+                  dense: true,
+                  title: Text(
+                    'Last name',
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                  trailing: Text(
+                    _user.lastName,
                     style: TextStyle(color: Theme.of(context).focusColor),
                   ),
                 ),
@@ -297,23 +419,11 @@ class _AccountWidgetState extends State<AccountWidget> {
                   onTap: () {},
                   dense: true,
                   title: Text(
-                    'Gender',
+                    'Phone Number',
                     style: Theme.of(context).textTheme.body1,
                   ),
                   trailing: Text(
-                    _user.gender,
-                    style: TextStyle(color: Theme.of(context).focusColor),
-                  ),
-                ),
-                ListTile(
-                  onTap: () {},
-                  dense: true,
-                  title: Text(
-                    'Birth Date',
-                    style: Theme.of(context).textTheme.body1,
-                  ),
-                  trailing: Text(
-                    _user.getDateOfBirth(),
+                    _user.phoneNumber,
                     style: TextStyle(color: Theme.of(context).focusColor),
                   ),
                 ),

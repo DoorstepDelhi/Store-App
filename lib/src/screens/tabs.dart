@@ -52,8 +52,8 @@ class _TabsWidgetState extends State<TabsWidget> {
           widget.currentPage = NotificationsWidget();
           break;
         case 1:
-          widget.currentTitle = 'Account';
-          widget.currentPage = AccountWidget();
+          widget.currentTitle = 'Favorites';
+          widget.currentPage = FavoritesWidget();
           break;
         case 2:
           widget.currentTitle = 'Home';
@@ -64,8 +64,8 @@ class _TabsWidgetState extends State<TabsWidget> {
           widget.currentPage = MessagesWidget();
           break;
         case 4:
-          widget.currentTitle = 'Favorites';
-          widget.currentPage = FavoritesWidget();
+          widget.currentTitle = 'Account';
+          widget.currentPage = AccountWidget();
           break;
         case 5:
           widget.selectedTab = 3;
@@ -109,7 +109,7 @@ class _TabsWidgetState extends State<TabsWidget> {
               child: InkWell(
                 borderRadius: BorderRadius.circular(300),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/Tabs', arguments: 1);
+                  Navigator.of(context).pushNamed('/Tabs', arguments: 4);
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage('img/user2.jpg'),
@@ -176,7 +176,7 @@ class _TabsWidgetState extends State<TabsWidget> {
             title: new Container(height: 0.0),
           ),
           BottomNavigationBarItem(
-            icon: Icon(UiIcons.user_1),
+            icon: Icon(UiIcons.heart),
             title: new Container(height: 0.0),
           ),
           BottomNavigationBarItem(
@@ -208,7 +208,7 @@ class _TabsWidgetState extends State<TabsWidget> {
             title: new Container(height: 0.0),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(UiIcons.heart),
+            icon: new Icon(UiIcons.user_1),
             title: new Container(height: 0.0),
           ),
         ],

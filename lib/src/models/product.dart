@@ -16,9 +16,9 @@ class Product {
 
   String getPrice({double myPrice}) {
     if (myPrice != null) {
-      return '\$${myPrice.toStringAsFixed(2)}';
+      return '\₹${myPrice.toStringAsFixed(2)}';
     }
-    return '\$${this.price.toStringAsFixed(2)}';
+    return '\₹${this.price.toStringAsFixed(2)}';
   }
 }
 

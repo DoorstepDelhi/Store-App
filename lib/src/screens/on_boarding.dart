@@ -29,7 +29,11 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
             Padding(
               padding: const EdgeInsets.only(right: 20, top: 50),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  // 2 number refer the index of Home page
+                  Navigator.of(context)
+                      .pushReplacementNamed('/Tabs', arguments: 2);
+                },
                 child: Text(
                   'Skip',
                   style: Theme.of(context).textTheme.button,

@@ -20,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
 //              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35)),
               ),
               accountName: Text(
-                _user.name,
+                _user.firstName + " " + _user.lastName,
                 style: Theme.of(context).textTheme.title,
               ),
               accountEmail: Text(
@@ -64,7 +64,7 @@ class DrawerWidget extends StatelessWidget {
               Navigator.of(context).pushNamed('/Orders', arguments: 0);
             },
             leading: Icon(
-              UiIcons.inbox,
+              UiIcons.shopping_cart,
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
@@ -84,7 +84,30 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
+              Navigator.of(context).pushNamed('/Orders', arguments: 0);
+            },
+            leading: Icon(
+              UiIcons.inbox,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Group Orders",
+              style: Theme.of(context).textTheme.subhead,
+            ),
+            trailing: Chip(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              backgroundColor: Colors.transparent,
+              shape: StadiumBorder(
+                  side: BorderSide(color: Theme.of(context).focusColor)),
+              label: Text(
+                '8',
+                style: TextStyle(color: Theme.of(context).focusColor),
+              ),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed('/Tabs', arguments: 1);
             },
             leading: Icon(
               UiIcons.heart,
@@ -92,6 +115,32 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Wish List",
+              style: Theme.of(context).textTheme.subhead,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
+            },
+            leading: Icon(
+              UiIcons.wallet,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Wallet",
+              style: Theme.of(context).textTheme.subhead,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
+            },
+            leading: Icon(
+              UiIcons.tag,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Offers",
               style: Theme.of(context).textTheme.subhead,
             ),
           ),
@@ -158,7 +207,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Tabs', arguments: 1);
+              Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
               UiIcons.settings_1,

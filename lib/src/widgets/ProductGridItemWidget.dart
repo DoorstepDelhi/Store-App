@@ -63,7 +63,7 @@ class ProductGridItemWidget extends StatelessWidget {
                   // The title of the product
                   Expanded(
                     child: Text(
-                      '${product.sales} Sales',
+                      'Min. Qty.: ${product.sales}',
                       style: Theme.of(context).textTheme.body1,
                       overflow: TextOverflow.fade,
                       softWrap: false,

@@ -9,8 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class BaseApi {
-  final String _baseUrl =
-      'doorstepdelhi-test.herokuapp.com'; //'36eb00ef8692.ngrok.io'
+  final String _baseUrl = '4480e90bb7c8.ngrok.io'; //'36eb00ef8692.ngrok.io'
   final String _authToken = Prefs().getToken();
 
   Future<ApiResponse> signUp(Map data, String endpoint) async {
@@ -132,10 +131,10 @@ abstract class BaseApi {
   }
 
   Future<ApiResponse> processResponse(Response response) async {
-    if (_authToken.isEmpty || _authToken == null) {
-      print('not logged in');
-      return ApiResponse(error: true, errorMessage: 'User not logged in');
-    }
+    // if (_authToken == null && _authToken.isEmpty) {
+    //   print('not logged in');
+    //   return ApiResponse(error: true, errorMessage: 'User not logged in');
+    // }
     try {
       if (response.statusCode >= 200 && response.statusCode <= 207) {
         print('==');
@@ -144,10 +143,10 @@ abstract class BaseApi {
         Map<String, dynamic> data = jsonDecode(response.body);
         String error = 'Error occurred';
         data.keys.forEach((String key) {
-          if (key.contains('error')) {
-            error = data[key][0];
-            print(error);
-          }
+          // if (key.contains('error')) {
+          error = data[key][0];
+          print(error);
+          // }
         });
         return ApiResponse(error: true, errorMessage: error);
       }

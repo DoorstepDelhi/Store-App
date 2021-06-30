@@ -109,7 +109,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 7),
                   Text(
-                    '${product.available} Available',
+                    'Min. Qty.: ${product.available}',
                     style: Theme.of(context).textTheme.body1,
                     overflow: TextOverflow.ellipsis,
                   ),

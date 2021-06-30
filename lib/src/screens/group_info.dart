@@ -1,37 +1,47 @@
-import 'dart:async';
-
-import 'package:store_app/src/models/group_cart_page.dart';
-import 'package:store_app/src/screens/cart.dart';
-import 'package:store_app/src/screens/group_info.dart';
-import 'package:store_app/src/screens/group_wish_list.dart';
-
-import '../../config/ui_icons.dart';
-import '../models/chat.dart';
-import '../models/conversation.dart';
-import '../models/user.dart';
-import '../widgets/ChatMessageListItemWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:store_app/config/ui_icons.dart';
+import 'package:store_app/src/models/group_cart_page.dart';
 
-class ChatWidget extends StatefulWidget {
+import 'group_wish_list.dart';
+
+class GroupInfo extends StatefulWidget {
   @override
-  _ChatWidgetState createState() => _ChatWidgetState();
+  _GroupInfoState createState() => _GroupInfoState();
 }
 
-class _ChatWidgetState extends State<ChatWidget> {
-  ConversationsList _conversationList = new ConversationsList();
-  User _currentUser = new User.init().getCurrentUser();
-  final _myListKey = GlobalKey<AnimatedListState>();
-  final myController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
-
-  var labelCount = 0;
-
+class _GroupInfoState extends State<GroupInfo> {
+  var groupName = "Group name", labelCount = 0;
+  Image groupIcon = Image.network(
+      "https://www.seoclerk.com/pics/want55776-16Dnv61508955325.png");
+  var description =
+      "Group Description:- aaaaaaaaaaa bbbbb vfddddddddds aaaaaaaafffgbnjk dyuhfcffffffds";
+  List<dynamic> members = [
+    {
+      "name": "member 1",
+      "imageUrl":
+          "https://www.publicdomainpictures.net/pictures/270000/velka/avatar-people-person-business-.jpg"
+    },
+    {
+      "name": "member 2",
+      "imageUrl":
+          "https://www.publicdomainpictures.net/pictures/270000/velka/avatar-people-person-business-.jpg"
+    },
+    {
+      "name": "member 3",
+      "imageUrl":
+          "https://www.publicdomainpictures.net/pictures/270000/velka/avatar-people-person-business-.jpg"
+    },
+    {
+      "name": "member 4",
+      "imageUrl":
+          "https://static.vecteezy.com/system/resources/thumbnails/001/980/744/small/little-boy-using-face-mask-for-covid19-in-the-camp-free-vector.jpg"
+    },
+    {
+      "name": "member 5",
+      "imageUrl":
+          "https://static.vecteezy.com/system/resources/thumbnails/001/980/744/small/little-boy-using-face-mask-for-covid19-in-the-camp-free-vector.jpg"
+    }
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,66 +60,107 @@ class _ChatWidgetState extends State<ChatWidget> {
           appBarActions(),
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: AnimatedList(
-              key: _myListKey,
-              reverse: true,
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              initialItemCount: _conversationList.conversations[0].chats.length,
-              itemBuilder: (context, index, Animation<double> animation) {
-                Chat chat = _conversationList.conversations[0].chats[index];
-                return ChatMessageListItem(
-                  chat: chat,
-                  animation: animation,
-                );
-              },
-            ),
+      body: ListView(
+        children: [
+          Stack(
+            children: [
+              Container(
+                child: groupIcon,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.35,
+              ),
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.35,
+                alignment: Alignment.bottomLeft,
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  "${groupName}",
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.headline,
+                ),
+              )
+            ],
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).hintColor.withOpacity(0.10),
-                    offset: Offset(0, -4),
-                    blurRadius: 10)
+            padding: EdgeInsets.all(15.0),
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Description",
+                  style: Theme.of(context).textTheme.body2,
+                ),
+                Text(
+                  "${description}",
+                  style: Theme.of(context).textTheme.body1,
+                  maxLines: 2,
+                ),
               ],
             ),
-            child: TextField(
-              controller: myController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Chat text here',
-                hintStyle: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(0.8)),
-                suffixIcon: IconButton(
-                  padding: EdgeInsets.only(right: 30),
-                  onPressed: () {
-                    setState(() {
-                      _conversationList.conversations[0].chats.insert(
-                          0,
-                          new Chat(
-                              myController.text, '21min ago', _currentUser));
-                      _myListKey.currentState.insertItem(0);
-                    });
-                    Timer(Duration(milliseconds: 100), () {
-                      myController.clear();
-                    });
-                  },
-                  icon: Icon(
-                    UiIcons.cursor,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
+          ),
+          Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(15.0),
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Group Members",
+                        style: Theme.of(context).textTheme.body2,
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: CircleAvatar(
+                                child: Image.network(
+                                    "https://www.divinesolitaires.com/upload/images/slug-master/jklmn07083png.png")),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              child: Text(
+                                "Add Participants",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    for (int i = 0; i < members.length; i++) memberContainer(i),
+                  ],
                 ),
-                border: UnderlineInputBorder(borderSide: BorderSide.none),
-                enabledBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  memberContainer(int i) {
+    return Container(
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CircleAvatar(child: Image.network(members[i]["imageUrl"])),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              child: Text(
+                members[i]["name"],
+                style: Theme.of(context).textTheme.body2,
               ),
             ),
           )
@@ -119,10 +170,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   appBarTitle() {
-    return TextButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
-      },
+    return Container(
       child: Row(
         children: [
           Container(

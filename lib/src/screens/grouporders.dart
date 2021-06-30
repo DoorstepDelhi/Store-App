@@ -4,14 +4,14 @@ import '../widgets/DrawerWidget.dart';
 import '../widgets/ShoppingCartButtonWidget.dart';
 import 'package:flutter/material.dart';
 
-class OrdersWidget extends StatefulWidget {
+class GroupOrdersWidget extends StatefulWidget {
   int currentTab;
-  OrdersWidget({Key key, this.currentTab}) : super(key: key);
+  GroupOrdersWidget({Key key, this.currentTab}) : super(key: key);
   @override
-  _OrdersWidgetState createState() => _OrdersWidgetState();
+  _GroupOrdersWidgetState createState() => _GroupOrdersWidgetState();
 }
 
-class _OrdersWidgetState extends State<OrdersWidget> {
+class _GroupOrdersWidgetState extends State<GroupOrdersWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final OrderList _orderList = new OrderList();
 
@@ -36,7 +36,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
-              'Order Summary',
+              'Group Orders',
               style: Theme.of(context).textTheme.display1,
             ),
             actions: <Widget>[
