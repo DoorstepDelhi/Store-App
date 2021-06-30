@@ -454,7 +454,9 @@ class _AccountWidgetState extends State<AccountWidget> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/Shipping Address');
+                  },
                   dense: true,
                   title: Row(
                     children: <Widget>[

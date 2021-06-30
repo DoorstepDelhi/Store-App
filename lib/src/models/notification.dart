@@ -4,7 +4,7 @@ class Notification {
   String time;
   bool read;
 
-  Notification(this.image, this.title, this.time, this.read);
+  Notification({this.image, this.title, this.time, this.read});
 }
 
 class NotificationList {
@@ -12,22 +12,54 @@ class NotificationList {
 
   NotificationList() {
     this._notifications = [
-      new Notification('img/man1.webp', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-          '33min ago', false),
       new Notification(
-          'img/home4.webp', 'It is a long established fact that a reader will be distracted', '32min ago', true),
+          image: 'img/man1.webp',
+          title:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+          time: '33min ago',
+          read: false),
       new Notification(
-          'img/sport1.webp', 'There are many variations of passages of Lorem Ipsum available', '34min ago', true),
+          image: 'img/home4.webp',
+          title:
+              'It is a long established fact that a reader will be distracted',
+          time: '32min ago',
+          read: true),
       new Notification(
-          'img/man3.webp', 'Contrary to popular belief, Lorem Ipsum is not simply random text', '52min ago', true),
-      new Notification('img/pro1.webp', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-          '10min ago', false),
+          image: 'img/sport1.webp',
+          title:
+              'There are many variations of passages of Lorem Ipsum available',
+          time: '34min ago',
+          read: true),
       new Notification(
-          'img/user0.jpg', 'It is a long established fact that a reader will be distracted', '12min ago', false),
+          image: 'img/man3.webp',
+          title:
+              'Contrary to popular belief, Lorem Ipsum is not simply random text',
+          time: '52min ago',
+          read: true),
       new Notification(
-          'img/man5.webp', 'There are many variations of passages of Lorem Ipsum available', '2 hours ago', true),
+          image: 'img/pro1.webp',
+          title:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+          time: '10min ago',
+          read: false),
       new Notification(
-          'img/baby2.webp', 'Contrary to popular belief, Lorem Ipsum is not simply random text', '1 day ago', false),
+          image: 'img/user0.jpg',
+          title:
+              'It is a long established fact that a reader will be distracted',
+          time: '12min ago',
+          read: false),
+      new Notification(
+          image: 'img/man5.webp',
+          title:
+              'There are many variations of passages of Lorem Ipsum available',
+          time: '2 hours ago',
+          read: true),
+      new Notification(
+          image: 'img/baby2.webp',
+          title:
+              'Contrary to popular belief, Lorem Ipsum is not simply random text',
+          time: '1 day ago',
+          read: false),
     ];
   }
 

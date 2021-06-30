@@ -6,7 +6,7 @@ class ProductSize {
   String name;
   bool selected;
 
-  ProductSize(this.code, this.name, this.selected);
+  ProductSize({this.code, this.name, this.selected});
 }
 
 class ProductSizesList {
@@ -16,12 +16,12 @@ class ProductSizesList {
 
   ProductSizesList() {
     _list = [
-      new ProductSize('XS', 'Extra Small', true),
-      new ProductSize('S', 'Small', true),
-      new ProductSize('M', 'Medium', false),
-      new ProductSize('L', 'Large', true),
-      new ProductSize('XL', 'Extra Large', false),
-      new ProductSize('XXL', '2 Extra Large', false),
+      new ProductSize(code: 'XS', name: 'Extra Small', selected: true),
+      new ProductSize(code: 'S', name: 'Small', selected: true),
+      new ProductSize(code: 'M', name: 'Medium', selected: false),
+      new ProductSize(code: 'L', name: 'Large', selected: true),
+      new ProductSize(code: 'XL', name: 'Extra Large', selected: false),
+      new ProductSize(code: 'XXL', name: '2 Extra Large', selected: false),
     ];
   }
   void clearSelection() {

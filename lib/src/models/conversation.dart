@@ -8,7 +8,7 @@ class Conversation {
   bool read;
   User user;
 
-  Conversation(this.user, this.chats, this.read);
+  Conversation({this.user, this.chats, this.read});
 }
 
 class ConversationsList {
@@ -43,7 +43,7 @@ class ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          false),
+          read: false),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -70,7 +70,7 @@ class ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          true),
+          read: true),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -96,7 +96,7 @@ class ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          true),
+          read: true),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -123,8 +123,30 @@ class ConversationsList {
             new Chat('Supports overlapping (AppBars for example).', '33min ago',
                 _currentUser)
           ],
-          true),
+          read: true),
       new Conversation(
+          user: new User.basic(
+              name: 'Jordan P. Jeffries',
+              avatar: 'img/user0.jpg',
+              userState: UserState.away),
+          chats: [
+            new Chat(
+                text: 'For help getting started with Flutter ',
+                time: '31min ago',
+                user: new User.basic(
+                    name: 'Jordan P. Jeffries',
+                    avatar: 'img/user1.jpg',
+                    userState: UserState.available)),
+            new Chat(
+                text: 'Supports overlapping (AppBars for example). ',
+                time: '31min ago',
+                user: _currentUser),
+            new Chat(
+                text: 'Accepts one sliver as content. ',
+                time: '43min ago',
+                user: new User.basic(
+                    name: 'Jordan P. Jeffries',
+                    avatar: 'img/user1.jpg',
           new User.basic(
               firstName: 'Maria',
               lastName: 'R. Garza',
@@ -150,7 +172,7 @@ class ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          false),
+          read: false),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -177,7 +199,7 @@ class ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          false),
+          read: false),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -550,7 +572,7 @@ class PeopleNearbyConversationsList extends ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          true),
+          read: true),
       new Conversation(
           new User.basic(
               firstName: 'Maria',
@@ -577,7 +599,7 @@ class PeopleNearbyConversationsList extends ConversationsList {
                     avatar: 'img/user0.jpg',
                     userState: UserState.available))
           ],
-          false),
+          read: false),
     ];
   }
 

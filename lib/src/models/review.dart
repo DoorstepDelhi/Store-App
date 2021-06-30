@@ -12,7 +12,7 @@ class Review {
   DateTime dateTime =
       DateTime.now().subtract(Duration(days: Random().nextInt(20)));
 
-  Review(this.user, this.review, this.rate);
+  Review({this.user, this.review, this.rate});
 
   getDateTime() {
     return DateFormat('yyyy-MM-dd HH:mm').format(this.dateTime);

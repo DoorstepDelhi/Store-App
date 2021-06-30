@@ -6,7 +6,7 @@ class ProductColor {
   String name;
   bool selected;
 
-  ProductColor(this.color, this.name, this.selected);
+  ProductColor({this.color, this.name, this.selected});
 }
 
 class ProductColorsList {
@@ -15,12 +15,16 @@ class ProductColorsList {
   List<ProductColor> get list => _list;
 
   ProductColorsList() {
+    ;
     _list = [
-      new ProductColor(Colors.blueAccent, 'Blue', true),
-      new ProductColor(Colors.greenAccent, 'Green', true),
-      new ProductColor(Colors.blueGrey, 'Blue Grey', false),
-      new ProductColor(Colors.cyanAccent, 'Cyan', true),
-      new ProductColor(Colors.deepPurpleAccent, 'Purple', false),
+      new ProductColor(color: Colors.blueAccent, name: 'Blue', selected: true),
+      new ProductColor(
+          color: Colors.greenAccent, name: 'Green', selected: true),
+      new ProductColor(
+          color: Colors.blueGrey, name: 'Blue Grey', selected: false),
+      new ProductColor(color: Colors.cyanAccent, name: 'Cyan', selected: true),
+      new ProductColor(
+          color: Colors.deepPurpleAccent, name: 'Purple', selected: false),
     ];
   }
 

@@ -12,18 +12,26 @@ class Track {
   String currentLocation;
   DateTime dateTime;
 
-  Track(this.description, this.currentLocation, this.dateTime);
+  Track({this.description, this.currentLocation, this.dateTime});
 
   static List<Track> getTrackingList() {
     return [
-      new Track('Your Order in local post', 'United State',
-          DateTime.now().subtract(Duration(days: 1))),
-      new Track('Your Order arrived in destination', 'United State',
-          DateTime.now().subtract(Duration(days: 5))),
-      new Track('Order in aeroport', 'France',
-          DateTime.now().subtract(Duration(days: 8))),
-      new Track('Your order oversea in china', 'China',
-          DateTime.now().subtract(Duration(days: 10))),
+      new Track(
+          description: 'Your Order in local post',
+          currentLocation: 'United State',
+          dateTime: DateTime.now().subtract(Duration(days: 1))),
+      new Track(
+          description: 'Your Order arrived in destination',
+          currentLocation: 'United State',
+          dateTime: DateTime.now().subtract(Duration(days: 5))),
+      new Track(
+          description: 'Order in aeroport',
+          currentLocation: 'France',
+          dateTime: DateTime.now().subtract(Duration(days: 8))),
+      new Track(
+          description: 'Your order oversea in china',
+          currentLocation: 'China',
+          dateTime: DateTime.now().subtract(Duration(days: 10))),
     ];
   }
 }
@@ -53,23 +61,51 @@ class OrderList {
   OrderList() {
     this._list = [
       new Order(
-          new Product('Digital Display Bracelet Watch', 'img/watch6.webp', 80,
-              63.98, 200, 2554, 3.1, 10.5),
+          new Product(
+              name: 'Digital Display Bracelet Watch',
+              image: 'img/watch6.webp',
+              available: 80,
+              price: 63.98,
+              quantity: 200,
+              sales: 2554,
+              rate: 3.1,
+              discount: 10.5),
           'RB4551532214564',
           OrderState.shipped),
       new Order(
-          new Product('Spring Hand Grip Finger Strength', 'img/sport5.webp', 10,
-              12.36, 153, 166, 4.2, 11.5),
+          new Product(
+              name: 'Spring Hand Grip Finger Strength',
+              image: 'img/sport5.webp',
+              available: 10,
+              price: 12.36,
+              quantity: 153,
+              sales: 166,
+              rate: 4.2,
+              discount: 11.5),
           'CH4561454563156',
           OrderState.toBeShipped),
       new Order(
-          new Product('Digital Display Bracelet Watch', 'img/home10.webp', 80,
-              63.98, 200, 2554, 3.1, 10.5),
+          new Product(
+              name: 'Digital Display Bracelet Watch',
+              image: 'img/home10.webp',
+              available: 80,
+              price: 63.98,
+              quantity: 200,
+              sales: 2554,
+              rate: 3.1,
+              discount: 10.5),
           'RB4551532214564',
           OrderState.unpaid),
       new Order(
           new Product(
-              'Robe pin up', 'img/home2.webp', 10, 12.36, 153, 166, 4.2, 11.5),
+              name: 'Robe pin up',
+              image: 'img/home2.webp',
+              available: 10,
+              price: 12.36,
+              quantity: 153,
+              sales: 166,
+              rate: 4.2,
+              discount: 11.5),
           'CH456124566652',
           OrderState.shipped),
     ];
