@@ -9,12 +9,10 @@ class WalletHomeTabWidget extends StatefulWidget {
 
 class _WalletHomeTabWidgetState extends State<WalletHomeTabWidget> {
   List<pieData> _chartData;
-  List<lineData> _Data;
 
   @override
   void initState() {
     // TODO: implement initState
-    _Data = getchartData();
     _chartData = getpieData();
     super.initState();
   }
@@ -125,26 +123,7 @@ class _WalletHomeTabWidgetState extends State<WalletHomeTabWidget> {
               ),
             ),
           ),
-        ),
-        Container(
-          height: 200,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SfCartesianChart(
-              legend: Legend(
-                  isVisible: true,
-                  overflowMode: LegendItemOverflowMode.wrap
-              ),
-              series: <ChartSeries>[
-                LineSeries<lineData, String>(
-                  dataSource: _Data,
-                  xValueMapper: (lineData data, _) => data.month,
-                  yValueMapper: (lineData data, _) => data.spent,
-                )
-              ],
-            ),
-          ),
-        ),
+        )
       ],
     );
   }
@@ -156,16 +135,7 @@ class _WalletHomeTabWidgetState extends State<WalletHomeTabWidget> {
     return chartData;
   }
 
-  List<lineData> getchartData() {
-    final List<lineData> Data =[
-      lineData('January', 1200),
-      lineData('February', 2000),
-      lineData('March', 1500),
-      lineData('April', 600),
-      lineData('May', 1800),
-    ];
-    return Data;
-  }
+
 }
 
 class pieData{
@@ -174,8 +144,3 @@ class pieData{
   final int point;
 }
 
-class lineData{
-  lineData(this.month, this.spent);
-  final String month;
-  final int spent;
-}
