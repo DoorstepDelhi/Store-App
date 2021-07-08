@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:store_app/src/models/group_cart_page.dart';
+import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/cart.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';

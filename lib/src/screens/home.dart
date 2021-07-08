@@ -1,9 +1,11 @@
+import 'package:get_it/get_it.dart';
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 
 import '../../config/ui_icons.dart';
 import '../models/brand.dart';
+import '../../provider/getit.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../widgets/BrandsIconsCarouselWidget.dart';
@@ -23,11 +25,12 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget>
     with SingleTickerProviderStateMixin {
-  List<Product> _productsOfCategoryList;
-  List<Product> _productsOfBrandList;
-  CategoriesList _categoriesList = new CategoriesList();
-  BrandsList _brandsList = new BrandsList();
+  // List<Product> _productsOfCategoryList;
+  // List<Product> _productsOfBrandList;
+  // CategoriesList _categoriesList = new CategoriesList();
+  // BrandsList _brandsList = new BrandsList();
   ProductsList _productsList = new ProductsList();
+  // final HomeViewModel viewmodel = getIt<HomeViewModel>();
 
   Animation animationOpacity;
   AnimationController animationController;
@@ -45,13 +48,13 @@ class _HomeWidgetState extends State<HomeWidget>
 
     animationController.forward();
 
-    _productsOfCategoryList = _categoriesList.list.firstWhere((category) {
-      return category.selected;
-    }).products;
+    // _productsOfCategoryList = _categoriesList.list.firstWhere((category) {
+    //   return category.selected;
+    // }).products;
 
-    _productsOfBrandList = _brandsList.list.firstWhere((brand) {
-      return brand.selected;
-    }).products;
+    // _productsOfBrandList = _brandsList.list.firstWhere((brand) {
+    //   return brand.selected;
+    // }).products;
     super.initState();
   }
 
@@ -59,47 +62,48 @@ class _HomeWidgetState extends State<HomeWidget>
   Widget build(BuildContext context) {
     return BaseView<HomeViewModel>(
       onModelReady: (model) => model.fetchInitData(),
-      builder: (ctx, model, child) => model.state == ViewState.Busy
-          ? Center(child: CircularProgressIndicator())
-          : ListView(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SearchBarWidget(),
-                ),
-                HomeSliderWidget(),
-                FlashSalesHeaderWidget(),
-                FlashSalesCarouselWidget(
-                    heroTag: 'home_flash_sales',
-                    productsList: _productsList.flashSalesList),
-                // Heading (Recommended for you)
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: ListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 0),
-                    leading: Icon(
-                      UiIcons.favorites,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    title: Text(
-                      'Recommended For You',
-                      style: Theme.of(context).textTheme.display1,
-                    ),
-                    trailing:
-                        TextButton(onPressed: () {}, child: Text('See more')),
-                  ),
-                ),
-                StickyHeader(
+      builder: (ctx, model, child) => ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SearchBarWidget(),
+          ),
+          HomeSliderWidget(),
+          FlashSalesHeaderWidget(),
+          FlashSalesCarouselWidget(
+              heroTag: 'home_flash_sales',
+              productsList: _productsList.flashSalesList),
+          // Heading (Recommended for you)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: ListTile(
+              dense: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 0),
+              leading: Icon(
+                UiIcons.favorites,
+                color: Theme.of(context).hintColor,
+              ),
+              title: Text(
+                'Recommended For You',
+                style: Theme.of(context).textTheme.display1,
+              ),
+              trailing: TextButton(onPressed: () {}, child: Text('See more')),
+            ),
+          ),
+          model.categoriesFetched
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : StickyHeader(
                   header: CategoriesIconsCarouselWidget(
                       heroTag: 'home_categories_1',
-                      categoriesList: _categoriesList,
+                      categoriesList: model.categoriesList,
                       onChanged: (id) {
                         setState(() {
                           animationController.reverse().then((f) {
-                            _productsOfCategoryList =
-                                _categoriesList.list.firstWhere((category) {
+                            model.productsOfCategoryList = model
+                                .categoriesList.list
+                                .firstWhere((category) {
                               return category.id == id;
                             }).products;
                             animationController.forward();
@@ -108,34 +112,38 @@ class _HomeWidgetState extends State<HomeWidget>
                       }),
                   content: CategorizedProductsWidget(
                       animationOpacity: animationOpacity,
-                      productsList: _productsOfCategoryList),
+                      productsList: model.productsOfCategoryList),
                 ),
-                // Heading (Brands)
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: ListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 0),
-                    leading: Icon(
-                      UiIcons.flag,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    title: Text(
-                      'Brands',
-                      style: Theme.of(context).textTheme.display1,
-                    ),
-                  ),
-                ),
-                StickyHeader(
+
+          // Heading (Brands)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: ListTile(
+              dense: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 0),
+              leading: Icon(
+                UiIcons.flag,
+                color: Theme.of(context).hintColor,
+              ),
+              title: Text(
+                'Brands',
+                style: Theme.of(context).textTheme.display1,
+              ),
+            ),
+          ),
+          model.brandsFetched
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : StickyHeader(
                   header: BrandsIconsCarouselWidget(
                       heroTag: 'home_brand_1',
-                      brandsList: _brandsList,
+                      brandsList: model.brandsList,
                       onChanged: (id) {
                         setState(() {
                           animationController.reverse().then((f) {
-                            _productsOfBrandList =
-                                _brandsList.list.firstWhere((brand) {
+                            model.productsOfBrandsList =
+                                model.brandsList.list.firstWhere((brand) {
                               return brand.id == id;
                             }).products;
                             animationController.forward();
@@ -144,10 +152,10 @@ class _HomeWidgetState extends State<HomeWidget>
                       }),
                   content: CategorizedProductsWidget(
                       animationOpacity: animationOpacity,
-                      productsList: _productsOfBrandList),
+                      productsList: model.productsOfBrandsList),
                 ),
-              ],
-            ),
+        ],
+      ),
     );
 //      ],
 //    );

@@ -32,7 +32,7 @@ class ApiService extends BaseApi {
     ApiResponse response;
     try {
       response = await getWithoutAuthRequest(
-        endpoint: categories,
+        endpoint: homecategories,
       );
     } catch (e) {
       response = ApiResponse(error: true, errorMessage: e.toString());
@@ -44,7 +44,7 @@ class ApiService extends BaseApi {
     ApiResponse response;
     try {
       response = await getWithoutAuthRequest(
-        endpoint: brands,
+        endpoint: homebrands,
       );
     } catch (e) {
       response = ApiResponse(error: true, errorMessage: e.toString());

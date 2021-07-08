@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:store_app/constant/assetImages.dart';
 
 class Product {
   String id = UniqueKey().toString();
+  int productId;
   String name;
   String image;
+  double averageRating;
+  int minQty;
+  double minWholesalePrice;
   //String description;
   double price;
   int available;
@@ -15,12 +20,38 @@ class Product {
   Product(
       {this.name,
       this.image,
+      this.averageRating,
+      this.minQty,
+      this.minWholesalePrice,
       this.available,
       this.price,
       this.quantity,
       this.sales,
       this.rate,
       this.discount});
+
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'].toString();
+    name = json['name'];
+    averageRating = json['average_rating'];
+    image =
+        json['image']['url'] != null ? json['image']['url'] : Images.noImage;
+    minQty = json['min_qty'];
+    minWholesalePrice = json['min_wholesale_price'];
+  }
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['id'] = this.id;
+  //   data['name'] = this.name;
+  //   data['average_rating'] = this.averageRating;
+  //   if (this.image != null) {
+  //     data['image'] = this.image.toJson();
+  //   }
+  //   data['min_qty'] = this.minQty;
+  //   data['min_wholesale_price'] = this.minWholesalePrice;
+  //   return data;
+  // }
 
   String getPrice({double myPrice}) {
     if (myPrice != null) {

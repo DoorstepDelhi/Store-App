@@ -1,6 +1,7 @@
 import 'package:store_app/provider/getit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store_app/view/home_viewmodel.dart';
 import 'base_model.dart';
 
 class BaseView<T extends BaseModel> extends StatefulWidget {
@@ -16,10 +17,17 @@ class BaseView<T extends BaseModel> extends StatefulWidget {
 }
 
 class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
-  T model = getIt<T>();
+  T model;
 
   @override
   void initState() {
+    // if (T == HomeViewModel) {
+    //   print('ohho hahaha');
+
+    // } else {
+    //   model = getIt<T>();
+    // }
+    model = getIt.get<T>();
     if (widget.onModelReady != null) {
       widget.onModelReady(model);
     }

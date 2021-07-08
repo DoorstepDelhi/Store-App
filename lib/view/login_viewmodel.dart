@@ -16,7 +16,7 @@ class LogInViewModel extends BaseModel {
   TextEditingController referralCodeController = TextEditingController();
 
   void signUp(BuildContext context) async {
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response = await _apiService.signupMethod({
       'first_name': firstNameController.text,
       'last_name': lastNameController.text,
@@ -27,7 +27,7 @@ class LogInViewModel extends BaseModel {
       'referral_code': referralCodeController.text,
     });
     if (!response.error) {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       _prefs.setAuthToken(response.data['key']);
       _prefs.setUID(response.data['user'].toString());
 
@@ -35,26 +35,26 @@ class LogInViewModel extends BaseModel {
       navigationService.navigateTo('/Tabs',
           arguments: 2, withreplacement: true);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       AppConstant.showFailToast(context, response.errorMessage);
     }
   }
 
   void logIn(BuildContext context) async {
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response = await _apiService.loginMethod({
       'username': userNameController.text,
       'password': passwordController.text
     });
     if (!response.error) {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       _prefs.setAuthToken(response.data['key']);
       _prefs.setUID(response.data['user'].toString());
       print('success');
       navigationService.navigateTo('/Tabs',
           arguments: 2, withreplacement: true);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       AppConstant.showFailToast(context, response.errorMessage);
     }
   }

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class Brand {
   String id = UniqueKey().toString();
   String name;
+  String image;
   String logo;
+  double averageRating;
   bool selected;
   double rate;
   List<Product> products;
@@ -18,12 +20,24 @@ class Brand {
       this.selected,
       this.rate,
       this.products});
+  Brand.fromJson(Map<String, dynamic> json) {
+    this.name = json['name'];
+    this.selected = false;
+    if (json['products'] != null) {
+      this.products = [];
+      for (var x in json['products']) {
+        Product product = Product.fromJson(x);
+        products.add(product);
+      }
+    }
+  }
 }
 
 class BrandsList {
   List<Brand> _list;
 
   List<Brand> get list => _list;
+  set list(list) => _list = list;
 
   BrandsList() {
     _list = [

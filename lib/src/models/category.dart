@@ -11,9 +11,11 @@ class Category {
   List<SubCategory> subCategories;
   Category({this.name, this.icon, this.selected, this.products});
 
-  void fromJson(Map<String, dynamic> res) {
-    this.id = res['id'];
+  Category.fromJson(Map<String, dynamic> res) {
+    this.id = res['id'].toString();
     this.name = res['name'];
+    // this.icon = res['icon'] as IconData;
+    this.selected = false;
     if (res['sub_categories'] != null) {
       subCategories = [];
       for (var x in res['sub_categories']) {
@@ -25,7 +27,8 @@ class Category {
     if (res['products'] != null) {
       products = [];
       for (var x in res['products']) {
-        // Product product=Product(name, image, available, price, quantity, sales, rate, discount)
+        Product product = Product.fromJson(x);
+        products.add(product);
       }
     }
   }
@@ -48,6 +51,7 @@ class CategoriesList {
   List<Category> _list;
 
   List<Category> get list => _list;
+  set list(x) => _list = x;
 
   CategoriesList() {
     this._list = [

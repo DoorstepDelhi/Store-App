@@ -9,6 +9,7 @@ void setupLocator() {
   getIt.registerLazySingleton(() => NavigationService());
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
-  getIt.registerFactory(() => HomeViewModel());
+  getIt.registerSingleton(HomeViewModel());
+
   // getIt.registerFactory(() => WebsiteViewModel());
 }
