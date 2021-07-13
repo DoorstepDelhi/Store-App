@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
-import 'package:store_app/src/screens/cart.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
+import 'package:store_app/src/widgets/RecommendedCarouselItemWidget.dart';
 
 import '../../config/ui_icons.dart';
 import '../models/chat.dart';
@@ -31,6 +32,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   var labelCount = 0;
+  ProductsList _productsList = new ProductsList();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,42 @@ class _ChatWidgetState extends State<ChatWidget> {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
+          Container(
+            height: 175.0,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 20.0,
+                  left: 0.0,
+                  bottom: 0.0,
+                  right: 0.0,
+                  child: SizedBox(
+                    height: 170.0,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: _productsList.flashSalesList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        Product product =
+                            _productsList.flashSalesList.elementAt(index);
+                        return RecommendedCarouselItemWidget(
+                          product: product,
+                          heroTag: 'flash_sales',
+                          marginLeft: 10.0,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: 10.0,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: AnimatedList(
               key: _myListKey,
