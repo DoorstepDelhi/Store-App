@@ -74,7 +74,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           style: Theme.of(context).textTheme.display1,
                         ),
                         Text(
-                          "Min. Qty. ${widget.product.available.toString()}",
+                          "Group-Qty.  6/10",
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ],

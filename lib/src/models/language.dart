@@ -11,6 +11,7 @@ class LanguagesList {
 
   LanguagesList() {
     this._languages = [
+<<<<<<< Updated upstream
       new Language("English", "English", "img/united-states-of-america.png"),
       new Language("Arabic", "العربية", "img/united-arab-emirates.png"),
       new Language("Spanish", "Spana", "img/spain.png"),
@@ -21,6 +22,16 @@ class LanguagesList {
       new Language("Chineeze", "Chineeze", "img/china.png"),
       new Language("Italian", "Italiano", "img/italy.png"),
       new Language("Netherlands", "Netherlands", "img/netherlands.png"),
+=======
+      new Language(
+          englishName: "English",
+          localName: "English",
+          flag: "img/united-states-of-america.png"),
+      new Language(
+          englishName: "Hindi",
+          localName: "हिन्दी",
+          flag: "img/Flag_India.jpg"),
+>>>>>>> Stashed changes
     ];
   }
 

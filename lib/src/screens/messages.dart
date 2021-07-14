@@ -9,15 +9,33 @@ class MessagesWidget extends StatefulWidget {
   _MessagesWidgetState createState() => _MessagesWidgetState();
 }
 
-class _MessagesWidgetState extends State<MessagesWidget> {
+class _MessagesWidgetState extends State<MessagesWidget>
+    with SingleTickerProviderStateMixin {
   var topNavigator1 = true,
       topNavigator2 = false,
       topNavigator3 = false,
       topNavigator4 = false;
   model.ConversationsList _conversationList;
+  TabController _tabController;
+
+  int _selectedIndex = 0;
+  List<Widget> list = [
+    Tab(
+      text: 'People Nearby',
+    ),
+    Tab(text: 'Groups Nearby'),
+  ];
+
   @override
   void initState() {
     this._conversationList = new model.GroupConversationsList();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+      });
+      print("Selected Index: " + _tabController.index.toString());
+    });
     super.initState();
   }
 
@@ -122,39 +140,15 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                   ],
                 ),
               ),
-              if(!topNavigator4) Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SearchBarWidget(),
-              ),
+              if (!topNavigator4)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SearchBarWidget(),
+                ),
               (topNavigator4)
-                  ? Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(15.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            "People Nearby",
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Theme.of(context).accentColor,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                        Visible(),
-                        ListView.separated(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: nearbyPeople.length,
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: 7);
-                          },
-                          itemBuilder: (context, index) {
-                            return nearby(index);
-                          },
-                        ),
-                      ],
+                  ? TabBar(
+                      tabs: list,
+                      controller: _tabController,
                     )
                   : Offstage(
                       offstage: _conversationList.conversations.isEmpty,
@@ -179,6 +173,66 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                         },
                       ),
                     ),
+              (topNavigator4
+                  ? TabBarView(controller: _tabController, children: [
+                      Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(15.0),
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              "People Nearby",
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Theme.of(context).accentColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Visible(),
+                          ListView.separated(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: nearbyPeople.length,
+                            separatorBuilder: (context, index) {
+                              return SizedBox(height: 7);
+                            },
+                            itemBuilder: (context, index) {
+                              return nearby(index);
+                            },
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(15.0),
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              "People Nearby",
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Theme.of(context).accentColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Visible(),
+                          ListView.separated(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: nearbyPeople.length,
+                            separatorBuilder: (context, index) {
+                              return SizedBox(height: 7);
+                            },
+                            itemBuilder: (context, index) {
+                              return nearby(index);
+                            },
+                          ),
+                        ],
+                      ),
+                    ])
+                  : Container()),
               Offstage(
                 offstage: _conversationList.conversations.isNotEmpty,
                 child: EmptyMessagesWidget(),
@@ -338,8 +392,14 @@ class _MessagesWidgetState extends State<MessagesWidget> {
               SizedBox(
                 width: 60,
                 height: 60,
-                child:  CircleAvatar(backgroundColor: Color.fromRGBO(0, 0, 0, 0), radius: 7.0, child: Image.asset("img/peopleNearby.png", fit: BoxFit.fill, color: Theme.of(context).accentColor,)),
-                
+                child: CircleAvatar(
+                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                    radius: 7.0,
+                    child: Image.asset(
+                      "img/peopleNearby.png",
+                      fit: BoxFit.fill,
+                      color: Theme.of(context).accentColor,
+                    )),
               ),
             ],
           ),

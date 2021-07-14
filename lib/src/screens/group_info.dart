@@ -10,7 +10,7 @@ class GroupInfo extends StatefulWidget {
 }
 
 class _GroupInfoState extends State<GroupInfo> {
-  var groupName = "Group name", labelCount = 0;
+  var groupName = "Delhi Wholesalers", labelCount = 0;
   Image groupIcon = Image.network(
       "https://www.seoclerk.com/pics/want55776-16Dnv61508955325.png");
   var description =

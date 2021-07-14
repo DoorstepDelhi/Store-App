@@ -13,7 +13,7 @@ class FavoritesWidget extends StatefulWidget {
 }
 
 class _FavoritesWidgetState extends State<FavoritesWidget> {
-  String layout = 'grid';
+  String layout = 'list';
   ProductsList _productsList = new ProductsList();
 
   @override
@@ -46,37 +46,37 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                   softWrap: false,
                   style: Theme.of(context).textTheme.display1,
                 ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          this.layout = 'list';
-                        });
-                      },
-                      icon: Icon(
-                        Icons.format_list_bulleted,
-                        color: this.layout == 'list'
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).focusColor,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          this.layout = 'grid';
-                        });
-                      },
-                      icon: Icon(
-                        Icons.apps,
-                        color: this.layout == 'grid'
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).focusColor,
-                      ),
-                    )
-                  ],
-                ),
+                // trailing: Row(
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: <Widget>[
+                //     IconButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           this.layout = 'list';
+                //         });
+                //       },
+                //       icon: Icon(
+                //         Icons.format_list_bulleted,
+                //         color: this.layout == 'list'
+                //             ? Theme.of(context).accentColor
+                //             : Theme.of(context).focusColor,
+                //       ),
+                //     ),
+                //     IconButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           this.layout = 'grid';
+                //         });
+                //       },
+                //       icon: Icon(
+                //         Icons.apps,
+                //         color: this.layout == 'grid'
+                //             ? Theme.of(context).accentColor
+                //             : Theme.of(context).focusColor,
+                //       ),
+                //     )
+                //   ],
+                // ),
               ),
             ),
           ),

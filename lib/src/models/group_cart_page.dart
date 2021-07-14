@@ -62,11 +62,11 @@ class _GroupCartPageState extends State<GroupCartPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Group Name",
+                "Delhi Wholesalers",
                 style: Theme.of(context).textTheme.body2,
               ),
               Text(
-                "me, mem1 and 7 others",
+                "You, Raghav and 7 others",
                 style: Theme.of(context).textTheme.body1,
               )
             ],

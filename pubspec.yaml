@@ -160,6 +160,13 @@ flutter:
     - img/slider3.jpg
     - img/invite.png
     - img/peopleNearby.png
+    - img/ic_launcher.png
+    - img/Flag_India.jpg
+    - img/temp/Raghav.jpeg
+    - img/temp/Rahul.jpeg
+    - img/temp/Vinay.jpeg
+    - img/temp/yuvansh.jpeg
+    - img/temp/group_icon.jpeg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -29,11 +29,11 @@ class User {
 
   User getCurrentUser() {
     return User.advanced(
-        firstName: 'Andrew',
-        lastName: 'R. Whitesides',
-        email: 'andrew@gmail.com',
-        avatar: 'img/user2.jpg',
-        address: '4600 Isaacs Creek Road Golden, IL 62339',
+        firstName: 'Rahul',
+        lastName: 'Dev',
+        email: 'rahuldev30@gmail.com',
+        avatar: 'img/temp/Rahul.jpeg',
+        address: 'B1 34, sector 69 Dwarka, Delhi',
         userState: UserState.available,
         phoneNumber: '9080789067');
   }
