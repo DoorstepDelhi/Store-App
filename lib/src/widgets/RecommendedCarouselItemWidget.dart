@@ -25,14 +25,14 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
                 id: product.id, argumentsList: [product, heroTag]));
       },
       child: Container(
-        margin: EdgeInsets.only(left: this.marginLeft, right: 20),
+        margin: EdgeInsets.only(left: this.marginLeft, right: 0),
         child: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: <Widget>[
             Hero(
               tag: heroTag + product.id,
               child: Container(
-                width: 160,
+                width: 120,
                 height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
@@ -60,7 +60,7 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 90),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              width: 140,
+              width: 100,
               height: 63,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,

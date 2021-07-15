@@ -171,15 +171,15 @@ class _ChatWidgetState extends State<ChatWidget> {
             child: Stack(
               children: [
                 Container(
-                  height: 250,
+                  height: 200,
                   // margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       color: config.secondColor(0.7),
                       borderRadius: BorderRadius.only(
                         // topRight: Radius.circular(50),
-                        bottomRight: Radius.circular(50),
-                        topLeft: Radius.circular(50),
-                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(15),
+                        topLeft: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
                       )),
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: Column(
@@ -189,19 +189,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                       ),
                       Center(
                         child: Text(
-                          "You might like this",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          "You might like these!",
+                          style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
                       ),
                       Expanded(
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 20.0,
-                              left: 0.0,
+                              top: 5.0,
+                              left: 5.0,
                               bottom: 0.0,
                               right: 0.0,
                               child: SizedBox(
@@ -220,7 +217,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                     return RecommendedCarouselItemWidget(
                                       product: product,
                                       heroTag: 'flash_sales',
-                                      marginLeft: 10.0,
+                                      marginLeft: 0.0,
                                     );
                                   },
                                   separatorBuilder:

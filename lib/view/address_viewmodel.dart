@@ -30,16 +30,16 @@ class AddressViewModel extends BaseModel {
     var data = address.toJson();
     print(data);
 
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response = await _apiService.postAddressMethod(
         endpoint: '/webtraffic/websites/', data: data);
     if (!response.error) {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print('success');
       navigationService.navigateTo('/Tabs',
           arguments: 1, withreplacement: true);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       print(response.errorMessage);
       AppConstant.showFailToast(context, response.errorMessage);
@@ -58,16 +58,16 @@ class AddressViewModel extends BaseModel {
     var data = address.toJson();
     print(data);
 
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response = await _apiService.patchAddressMethod(
         endpoint: '/accounts/websites/$id/', data: data);
     if (!response.error) {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print('success');
       navigationService.navigateTo('/Tabs',
           arguments: 1, withreplacement: true);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       print(response.errorMessage);
       AppConstant.showFailToast(context, response.errorMessage);
@@ -75,15 +75,15 @@ class AddressViewModel extends BaseModel {
   }
 
   void getAddresses(BuildContext context) async {
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response =
         await _apiService.getAddressMethod(endpoint: '/accounts/address/');
     if (!response.error) {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       initData = addressFromJson(response.data);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       print(response.errorMessage);
       AppConstant.showFailToast(context, response.errorMessage);
@@ -92,15 +92,15 @@ class AddressViewModel extends BaseModel {
 
   void deleteWebsite(BuildContext context, String id) async {
     print(id);
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response = await _apiService.deleteAddressMethod(
         endpoint: '/webtraffic/websites', id: id);
     if (!response.error) {
       print('====================================');
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       print(response.errorMessage);
       AppConstant.showFailToast(context, response.errorMessage);
@@ -112,12 +112,12 @@ class AddressViewModel extends BaseModel {
   void getOneAddress(BuildContext context, String id) async {
     print(id);
     if (id == null) return;
-    setState(ViewState.Busy);
+    setState(viewState: ViewState.Busy);
     final response =
         await _apiService.getRequest(endpoint: '/webtraffic/websites/$id');
     if (!response.error) {
       print('====================================');
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       final address = Address.fromJson(response.data);
 
@@ -129,7 +129,7 @@ class AddressViewModel extends BaseModel {
       postalCodeController.text = address.postalCode;
       phoneController.text = address.phone;
     } else {
-      setState(ViewState.Idle);
+      setState(viewState: ViewState.Idle);
       print(response.data);
       print(response.errorMessage);
       AppConstant.showFailToast(context, response.errorMessage);
