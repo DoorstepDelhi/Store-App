@@ -7,7 +7,7 @@ class Chat {
   String time;
   User user;
 
-  Chat(this.text, this.time, this.user);
+  Chat({this.text, this.time, this.user});
 }
 
 //class ChatList{

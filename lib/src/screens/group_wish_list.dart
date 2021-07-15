@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store_app/config/ui_icons.dart';
-import 'package:store_app/src/models/group_cart_page.dart';
+import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/favorites.dart';
 
 import 'cart.dart';

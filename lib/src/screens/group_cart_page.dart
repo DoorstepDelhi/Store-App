@@ -4,7 +4,7 @@ import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/cart.dart';
 import 'package:store_app/src/screens/chat.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
-import 'package:store_app/src/widgets/cart_page.dart';
+import 'package:store_app/src/widgets/GroupPageWidget.dart';
 
 class GroupCartPage extends StatefulWidget {
   @override

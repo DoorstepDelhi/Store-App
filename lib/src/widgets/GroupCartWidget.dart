@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store_app/config/ui_icons.dart';
 import 'package:store_app/src/models/product.dart';
+import 'package:store_app/src/widgets/GroupCartItemWidget.dart';
 
 import 'CartItemWidget.dart';
 
@@ -61,7 +62,7 @@ class _CartPageUIState extends State<CartPageUI> {
                     return SizedBox(height: 15);
                   },
                   itemBuilder: (context, index) {
-                    return CartItemWidget(
+                    return GroupCartItemWidget(
                         product: widget._productsList.cartList.elementAt(index),
                         heroTag: 'cart');
                   },

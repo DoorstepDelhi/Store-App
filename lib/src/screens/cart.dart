@@ -1,4 +1,4 @@
-import 'package:store_app/src/widgets/cart_page.dart';
+import 'package:store_app/src/widgets/GroupPageWidget.dart';
 
 import '../../config/ui_icons.dart';
 import '../models/product.dart';

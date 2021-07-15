@@ -1,17 +1,12 @@
 import 'dart:async';
-
-<<<<<<< Updated upstream
-import 'package:store_app/src/models/group_cart_page.dart';
-import 'package:store_app/src/screens/cart.dart';
-=======
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:store_app/config/app_config.dart' as cfg;
 import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
->>>>>>> Stashed changes
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
+import 'package:store_app/src/widgets/RecommendedCarouselItemWidget.dart';
 
 import '../../config/ui_icons.dart';
 import '../models/chat.dart';
@@ -40,6 +35,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   var labelCount = 0;
+  ProductsList _productsList = new ProductsList();
 
   @override
   Widget build(BuildContext context) {
@@ -59,73 +55,6 @@ class _ChatWidgetState extends State<ChatWidget> {
           appBarActions(),
         ],
       ),
-<<<<<<< Updated upstream
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: AnimatedList(
-              key: _myListKey,
-              reverse: true,
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              initialItemCount: _conversationList.conversations[0].chats.length,
-              itemBuilder: (context, index, Animation<double> animation) {
-                Chat chat = _conversationList.conversations[0].chats[index];
-                return ChatMessageListItem(
-                  chat: chat,
-                  animation: animation,
-                );
-              },
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).hintColor.withOpacity(0.10),
-                    offset: Offset(0, -4),
-                    blurRadius: 10)
-              ],
-            ),
-            child: TextField(
-              controller: myController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Chat text here',
-                hintStyle: TextStyle(
-                    color: Theme.of(context).focusColor.withOpacity(0.8)),
-                suffixIcon: IconButton(
-                  padding: EdgeInsets.only(right: 30),
-                  onPressed: () {
-                    setState(() {
-                      _conversationList.conversations[0].chats.insert(
-                          0,
-                          new Chat(
-                              myController.text, '21min ago', _currentUser));
-                      _myListKey.currentState.insertItem(0);
-                    });
-                    Timer(Duration(milliseconds: 100), () {
-                      myController.clear();
-                    });
-                  },
-                  icon: Icon(
-                    UiIcons.cursor,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                ),
-                border: UnderlineInputBorder(borderSide: BorderSide.none),
-                enabledBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
-              ),
-            ),
-          )
-        ],
-      ),
-=======
       body: Stack(children: [
         Column(
           mainAxisSize: MainAxisSize.max,
@@ -335,7 +264,6 @@ class _ChatWidgetState extends State<ChatWidget> {
           ),
         ),
       ]),
->>>>>>> Stashed changes
     );
   }
 
