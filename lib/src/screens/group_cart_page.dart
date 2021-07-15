@@ -4,7 +4,8 @@ import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/cart.dart';
 import 'package:store_app/src/screens/chat.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
-import 'package:store_app/src/widgets/cart_page.dart';
+import 'package:store_app/src/widgets/GroupPageWidget.dart';
+
 
 class GroupCartPage extends StatefulWidget {
   @override
@@ -62,11 +63,11 @@ class _GroupCartPageState extends State<GroupCartPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Group Name",
+                "Delhi Wholesalers",
                 style: Theme.of(context).textTheme.body2,
               ),
               Text(
-                "me, mem1 and 7 others",
+                "You, Raghav and 7 others",
                 style: Theme.of(context).textTheme.body1,
               )
             ],

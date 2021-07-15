@@ -63,10 +63,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: StickyHeader(
-          header: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SearchBarWidget(),
-          ),
+          header: Container(),
           content: Column(
             children: <Widget>[
               SizedBox(height: 15),
@@ -84,6 +81,38 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.display1,
                   ),
+                ),
+              ),
+              SizedBox(height: 10),
+              ListView.separated(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                primary: false,
+                itemCount: languagesList.languages.length,
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 10);
+                },
+                itemBuilder: (context, index) {
+                  return LanguageItemWidget(
+                      language: languagesList.languages.elementAt(index));
+                },
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  leading: Icon(
+                    Icons.translate,
+                    color: Theme.of(context).hintColor,
+                  ),
+                  title: Text(
+                    'Voice Notification Language',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.display1,
+                  ),
+                  trailing: Switch(value: true, onChanged: (val) {}),
                 ),
               ),
               SizedBox(height: 10),

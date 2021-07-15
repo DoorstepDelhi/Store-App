@@ -214,4 +214,7 @@ class UiIcons {
   static const IconData tag = IconData(63605, fontFamily: 'MaterialIcons');
   static const IconData contact = IconData(59532, fontFamily: 'MaterialIcons');
   static const IconData group = IconData(0xe9e9, fontFamily: 'MaterialIcons');
+  static const IconData vote_up = IconData(
+    0xf357,
+  );
 }
