@@ -1,6 +1,7 @@
 import 'package:store_app/services/api_services.dart';
 import 'package:store_app/services/navigation_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:store_app/view/address_viewmodel.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 import 'package:store_app/view/login_viewmodel.dart';
 
@@ -9,6 +10,7 @@ void setupLocator() {
   getIt.registerLazySingleton(() => NavigationService());
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
+  // getIt.registerFactory(() => AddressViewModel());
   getIt.registerSingleton(HomeViewModel());
   // getIt.registerFactory(() => WebsiteViewModel());
 }

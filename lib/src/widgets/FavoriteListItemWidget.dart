@@ -57,6 +57,7 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                   id: this.widget.product.id));
         },
         child: Container(
+          // height: 100,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor.withOpacity(0.9),
@@ -124,8 +125,23 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                       ),
                     ),
                     SizedBox(width: 8),
-                    Text(widget.product.getPrice(),
-                        style: Theme.of(context).textTheme.display1),
+                    Column(
+                      children: [
+                        Text(widget.product.getPrice(),
+                            style: Theme.of(context).textTheme.display1),
+                        Container(
+                          // height: 10,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  icon: Icon(Icons.arrow_upward_rounded),
+                                  onPressed: () {}),
+                              Text('8 Upvotes')
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               )

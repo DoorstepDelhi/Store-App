@@ -2,19 +2,19 @@ import '../models/product.dart';
 import '../models/route_argument.dart';
 import 'package:flutter/material.dart';
 
-class CartItemWidget extends StatefulWidget {
+class GroupCartItemWidget extends StatefulWidget {
   String heroTag;
   Product product;
   int quantity;
 
-  CartItemWidget({Key key, this.product, this.heroTag, this.quantity = 1})
+  GroupCartItemWidget({Key key, this.product, this.heroTag, this.quantity = 1})
       : super(key: key);
 
   @override
-  _CartItemWidgetState createState() => _CartItemWidgetState();
+  _GroupCartItemWidgetState createState() => _GroupCartItemWidgetState();
 }
 
-class _CartItemWidgetState extends State<CartItemWidget> {
+class _GroupCartItemWidgetState extends State<GroupCartItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -74,7 +74,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           style: Theme.of(context).textTheme.display1,
                         ),
                         Text(
-                          "Group-Qty.  6/10",
+                          "Group/ Min. Qty.  6/10",
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ],

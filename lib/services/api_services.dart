@@ -51,4 +51,53 @@ class ApiService extends BaseApi {
     }
     return response;
   }
+
+  // Address View Model
+  Future<ApiResponse> getAddressMethod({String endpoint}) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(endpoint: endpoint);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+
+    return response;
+  }
+
+  Future<ApiResponse> postAddressMethod(
+      {String endpoint, Map<String, dynamic> data}) async {
+    ApiResponse response;
+    try {
+      response = await postRequest(endpoint, data);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+
+    return response;
+  }
+
+  Future<ApiResponse> patchAddressMethod(
+      {String endpoint, Map<String, dynamic> data}) async {
+    ApiResponse response;
+    try {
+      response = await patchRequest(endpoint, data);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  Future<ApiResponse> deleteAddressMethod({String endpoint, String id}) async {
+    ApiResponse response;
+    try {
+      response = await deleteRequest(endpoint: endpoint, id: id);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
 }
