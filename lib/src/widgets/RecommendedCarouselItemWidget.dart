@@ -43,24 +43,10 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: 2,
-              right: 5,
-              child: IconButton(
-                icon: Container(
-                  color: Colors.red,
-                  child: Icon(
-                    Icons.close_rounded,
-                    size: 18.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
             Container(
               margin: EdgeInsets.only(top: 90),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              width: 100,
+              width: 120,
               height: 63,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,

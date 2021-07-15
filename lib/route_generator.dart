@@ -1,4 +1,4 @@
-
+import 'package:store_app/src/screens/chatbotscreen.dart';
 import 'package:store_app/src/screens/shippingaddressmain.dart';
 import 'package:store_app/src/screens/chat.dart';
 import 'src/models/route_argument.dart';
@@ -84,6 +84,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OrderSummaryWidget());
       case '/Chat':
         return MaterialPageRoute(builder: (_) => ChatWidget());
+      case '/Chatbot':
+        return MaterialPageRoute(builder: (_) => ChatBot());
 //      case '/second':
 //      // Validation of correct data type
 //        if (args is String) {

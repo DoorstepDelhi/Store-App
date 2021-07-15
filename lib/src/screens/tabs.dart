@@ -1,3 +1,5 @@
+import 'package:store_app/src/screens/chatbotscreen.dart';
+
 import '../../config/ui_icons.dart';
 import '../screens/account.dart';
 import '../screens/chat.dart';
@@ -213,6 +215,17 @@ class _TabsWidgetState extends State<TabsWidget> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: ClipRRect(
+          child: Image.asset('img/chatbot.jpg'),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        elevation: 10,
+        onPressed: () {
+          Navigator.of(context).pushNamed(ChatBot.routeName);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }

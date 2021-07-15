@@ -54,25 +54,33 @@ class ConversationsList {
               userState: UserState.available),
           chats: [
             new Chat(
-                text: 'Flutter project, add the following dependency ',
-                time: '32min ago',
+                text: 'Here\'s what you looking for',
+                time: 'Just now',
                 user: new User.basic(
-                    firstName: 'Maria',
-                    lastName: 'R. Garza',
-                    avatar: 'img/user0.jpg',
+                    firstName: 'Looper',
+                    lastName: ' ',
+                    avatar: 'img/chatbot.jpg',
                     userState: UserState.available)),
             new Chat(
-                text: 'Can scroll in any direction. ',
-                time: '42min ago',
+                text: 'Show me Redmi\'s latest phones',
+                time: 'Just now',
                 user: _currentUser),
             new Chat(
-                text: 'Notifies when the header scrolls outside the viewport. ',
-                time: '12min ago',
+                text: 'What would you like to shop today?',
+                time: 'Just now',
                 user: new User.basic(
-                    firstName: 'Maria',
-                    lastName: 'R. Garza',
-                    avatar: 'img/user0.jpg',
-                    userState: UserState.available))
+                    firstName: 'Looper',
+                    lastName: ' ',
+                    avatar: 'img/chatbot.jpg',
+                    userState: UserState.available)),
+            new Chat(
+                text: 'Hi! I\'m Looper. Happy to chat with you 🙂 ',
+                time: '1min ago',
+                user: new User.basic(
+                    firstName: 'Looper',
+                    lastName: ' ',
+                    avatar: 'img/chatbot.jpg',
+                    userState: UserState.available)),
           ],
           read: true),
       new Conversation(
