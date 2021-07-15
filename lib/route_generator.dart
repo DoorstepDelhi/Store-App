@@ -1,3 +1,5 @@
+
+import 'package:store_app/src/screens/shippingaddressmain.dart';
 import 'package:store_app/src/screens/chat.dart';
 import 'src/models/route_argument.dart';
 import 'src/screens/brand.dart';
@@ -76,6 +78,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HelpWidget());
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
+      case '/Shipping Address':
+        return MaterialPageRoute(builder: (_) => MyHomePage());
       case '/Order':
         return MaterialPageRoute(builder: (_) => OrderSummaryWidget());
       case '/Chat':

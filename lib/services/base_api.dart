@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class BaseApi {
-  final String _baseUrl = '4480e90bb7c8.ngrok.io'; //'36eb00ef8692.ngrok.io'
+  final String _baseUrl = 'a07c360e495b.ngrok.io'; //'36eb00ef8692.ngrok.io'
   final String _authToken = Prefs().getToken();
 
   Future<ApiResponse> signUp(Map data, String endpoint) async {

@@ -39,7 +39,7 @@ class ProductGridItemWidget extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: this.heroTag + product.id,
-              child: Image.asset(product.image),
+              child: Image.network(product.image),
             ),
             SizedBox(height: 12),
             Padding(
@@ -52,7 +52,7 @@ class ProductGridItemWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                product.getPrice(),
+                product.minWholesalePrice.toString(),
                 style: Theme.of(context).textTheme.title,
               ),
             ),
@@ -63,7 +63,7 @@ class ProductGridItemWidget extends StatelessWidget {
                   // The title of the product
                   Expanded(
                     child: Text(
-                      'Min. Qty.: ${product.sales}',
+                      'Min. Qty.: ${product.minQty}',
                       style: Theme.of(context).textTheme.body1,
                       overflow: TextOverflow.fade,
                       softWrap: false,
@@ -75,7 +75,7 @@ class ProductGridItemWidget extends StatelessWidget {
                     size: 18,
                   ),
                   Text(
-                    product.rate.toString(),
+                    product.averageRating?.toStringAsFixed(1) ?? '4.0',
                     style: Theme.of(context).textTheme.body2,
                   )
                 ],
