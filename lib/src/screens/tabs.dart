@@ -1,3 +1,5 @@
+import 'package:store_app/services/notification_service.dart';
+
 import '../../config/ui_icons.dart';
 import '../screens/account.dart';
 import '../screens/chat.dart';
@@ -49,7 +51,8 @@ class _TabsWidgetState extends State<TabsWidget> {
       switch (tabItem) {
         case 0:
           widget.currentTitle = 'Notifications';
-          widget.currentPage = NotificationsWidget();
+          widget.currentPage =
+              NotificationsWidget(NotificationService().showNotification);
           break;
         case 1:
           widget.currentTitle = 'Favorites';

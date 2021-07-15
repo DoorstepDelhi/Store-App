@@ -10,6 +10,5 @@ void setupLocator() {
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
   getIt.registerSingleton(HomeViewModel());
-
   // getIt.registerFactory(() => WebsiteViewModel());
 }
