@@ -62,7 +62,7 @@ class ConversationsList {
                     avatar: 'img/chatbot.jpg',
                     userState: UserState.available)),
             new Chat(
-                text: 'Show me Redmi\'s latest phones',
+                text: 'Show me best rated dresses for women',
                 time: 'Just now',
                 user: _currentUser),
             new Chat(

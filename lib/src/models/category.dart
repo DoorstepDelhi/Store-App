@@ -14,7 +14,7 @@ class Category {
   Category.fromJson(Map<String, dynamic> res) {
     this.id = res['id'].toString();
     this.name = res['name'];
-    // this.icon = res['icon'] as IconData;
+    this.icon = UiIcons.iconMapper[res['icon']];
     this.selected = false;
     if (res['sub_categories'] != null) {
       subCategories = [];
