@@ -1,3 +1,5 @@
+import 'package:store_app/src/widgets/GroupFavoriteListItemWidget.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/product.dart';
 import '../widgets/EmptyFavoritesWidget.dart';
@@ -7,12 +9,12 @@ import '../widgets/SearchBarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class FavoritesWidget extends StatefulWidget {
+class GroupFavoritesWidget extends StatefulWidget {
   @override
-  _FavoritesWidgetState createState() => _FavoritesWidgetState();
+  _GroupFavoritesWidgetState createState() => _GroupFavoritesWidgetState();
 }
 
-class _FavoritesWidgetState extends State<FavoritesWidget> {
+class _GroupFavoritesWidgetState extends State<GroupFavoritesWidget> {
   String layout = 'list';
   ProductsList _productsList = new ProductsList();
 
@@ -46,37 +48,37 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                   softWrap: false,
                   style: Theme.of(context).textTheme.display1,
                 ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          this.layout = 'list';
-                        });
-                      },
-                      icon: Icon(
-                        Icons.format_list_bulleted,
-                        color: this.layout == 'list'
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).focusColor,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          this.layout = 'grid';
-                        });
-                      },
-                      icon: Icon(
-                        Icons.apps,
-                        color: this.layout == 'grid'
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).focusColor,
-                      ),
-                    )
-                  ],
-                ),
+                // trailing: Row(
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: <Widget>[
+                //     IconButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           this.layout = 'list';
+                //         });
+                //       },
+                //       icon: Icon(
+                //         Icons.format_list_bulleted,
+                //         color: this.layout == 'list'
+                //             ? Theme.of(context).accentColor
+                //             : Theme.of(context).focusColor,
+                //       ),
+                //     ),
+                //     IconButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           this.layout = 'grid';
+                //         });
+                //       },
+                //       icon: Icon(
+                //         Icons.apps,
+                //         color: this.layout == 'grid'
+                //             ? Theme.of(context).accentColor
+                //             : Theme.of(context).focusColor,
+                //       ),
+                //     )
+                //   ],
+                // ),
               ),
             ),
           ),
@@ -92,7 +94,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                 return SizedBox(height: 10);
               },
               itemBuilder: (context, index) {
-                return FavoriteListItemWidget(
+                return GroupFavoriteListItemWidget(
                   heroTag: 'favorites_list',
                   product: _productsList.favoritesList.elementAt(index),
                   onDismissed: () {

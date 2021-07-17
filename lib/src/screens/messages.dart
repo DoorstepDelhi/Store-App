@@ -103,7 +103,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
                     Expanded(
                       child: FlatButton(
                         padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 6),
                         onPressed: () {
                           setState(() {
                             _conversationList = new model.ConversationsList();
@@ -147,7 +147,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: SearchBarWidget(),
                 ),
-                topNavigator4
+              topNavigator4
                   ? Nearby()
                   : Offstage(
                       offstage: _conversationList.conversations.isEmpty,

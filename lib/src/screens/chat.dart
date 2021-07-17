@@ -7,6 +7,7 @@ import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
+import 'package:store_app/src/widgets/ChatRecommendationWidget.dart';
 import 'package:store_app/src/widgets/RecommendedCarouselItemWidget.dart';
 
 import '../../config/ui_icons.dart';
@@ -42,11 +43,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // titleSpacing: 2,
         backgroundColor: Color.fromRGBO(0, 138, 62, 0.1),
         elevation: 0,
         title: appBarTitle(),
         automaticallyImplyLeading: false,
-        leadingWidth: 25.0,
+        leadingWidth: 20.0,
         leading: IconButton(
           icon:
               new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
@@ -60,42 +62,6 @@ class _ChatWidgetState extends State<ChatWidget> {
         Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            // Container(
-            //   height: 175.0,
-            //   child: Stack(
-            //     children: [
-            //       Positioned(
-            //         top: 20.0,
-            //         left: 0.0,
-            //         bottom: 0.0,
-            //         right: 0.0,
-            //         child: SizedBox(
-            //           height: 170.0,
-            //           child: ListView.separated(
-            //             shrinkWrap: true,
-            //             primary: false,
-            //             itemCount: _productsList.flashSalesList.length,
-            //             scrollDirection: Axis.horizontal,
-            //             itemBuilder: (BuildContext context, int index) {
-            //               Product product =
-            //                   _productsList.flashSalesList.elementAt(index);
-            //               return RecommendedCarouselItemWidget(
-            //                 product: product,
-            //                 heroTag: 'flash_sales',
-            //                 marginLeft: 10.0,
-            //               );
-            //             },
-            //             separatorBuilder: (BuildContext context, int index) {
-            //               return SizedBox(
-            //                 width: 10.0,
-            //               );
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: AnimatedList(
                 key: _myListKey,
@@ -163,102 +129,13 @@ class _ChatWidgetState extends State<ChatWidget> {
         ),
         Positioned(
           right: 5,
+          left: 5,
           top: 10,
           child: Container(
             height: 250,
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Stack(
-              children: [
-                Container(
-                  height: 200,
-                  // margin: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: config.secondColor(0.7),
-                      borderRadius: BorderRadius.only(
-                        // topRight: Radius.circular(50),
-                        bottomRight: Radius.circular(15),
-                        topLeft: Radius.circular(15),
-                        bottomLeft: Radius.circular(15),
-                      )),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Text(
-                          "You might like these!",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 5.0,
-                              left: 5.0,
-                              bottom: 0.0,
-                              right: 0.0,
-                              child: SizedBox(
-                                height: 170.0,
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount:
-                                      _productsList.flashSalesList.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    Product product = _productsList
-                                        .flashSalesList
-                                        .elementAt(index);
-                                    return RecommendedCarouselItemWidget(
-                                      product: product,
-                                      heroTag: 'flash_sales',
-                                      marginLeft: 0.0,
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return SizedBox(
-                                      width: 10.0,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: -10,
-                  right: -5,
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 8,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        'img/ic_launcher.png',
-                        // fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            child: PopupProductsWidget(),
           ),
         ),
       ]),
@@ -266,8 +143,8 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   appBarTitle() {
-    return TextButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
       },
       child: Row(
@@ -285,18 +162,23 @@ class _ChatWidgetState extends State<ChatWidget> {
                   backgroundImage: AssetImage('img/temp/group_icon.jpeg'),
                 ),
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Delhi Wholesalers",
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text(
-                "You, Raghav and 7 others",
-                style: Theme.of(context).textTheme.body1,
-              )
-            ],
+          Container(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delhi Wholesalers",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "You, Raghav and 7 others",
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.body1,
+                )
+              ],
+            ),
           ),
         ],
       ),

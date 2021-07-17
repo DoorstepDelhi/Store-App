@@ -6,6 +6,7 @@ import 'package:store_app/src/screens/chat.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
 import 'package:store_app/src/widgets/GroupPageWidget.dart';
 
+import 'group_info.dart';
 
 class GroupCartPage extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _GroupCartPageState extends State<GroupCartPage> {
         elevation: 0,
         title: appBarTitle(),
         automaticallyImplyLeading: false,
-        leadingWidth: 25.0,
+        leadingWidth: 20.0,
         leading: IconButton(
           icon:
               new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
@@ -43,7 +44,10 @@ class _GroupCartPageState extends State<GroupCartPage> {
   }
 
   appBarTitle() {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
+      },
       child: Row(
         children: [
           Container(
@@ -59,18 +63,23 @@ class _GroupCartPageState extends State<GroupCartPage> {
                   backgroundImage: AssetImage('img/user2.jpg'),
                 ),
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Delhi Wholesalers",
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text(
-                "You, Raghav and 7 others",
-                style: Theme.of(context).textTheme.body1,
-              )
-            ],
+          Container(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delhi Wholesalers",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "You, Raghav and 7 others",
+                  style: Theme.of(context).textTheme.body1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
           ),
         ],
       ),

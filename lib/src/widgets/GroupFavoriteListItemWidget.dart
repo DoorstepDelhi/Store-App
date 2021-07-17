@@ -4,20 +4,22 @@ import '../models/route_argument.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class FavoriteListItemWidget extends StatefulWidget {
+class GroupFavoriteListItemWidget extends StatefulWidget {
   String heroTag;
   Product product;
   VoidCallback onDismissed;
 
-  FavoriteListItemWidget(
+  GroupFavoriteListItemWidget(
       {Key key, this.heroTag, this.product, this.onDismissed})
       : super(key: key);
 
   @override
-  _FavoriteListItemWidgetState createState() => _FavoriteListItemWidgetState();
+  _GroupFavoriteListItemWidgetState createState() =>
+      _GroupFavoriteListItemWidgetState();
 }
 
-class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
+class _GroupFavoriteListItemWidgetState
+    extends State<GroupFavoriteListItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -125,8 +127,23 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                       ),
                     ),
                     SizedBox(width: 8),
-                    Text(widget.product.getPrice(),
-                        style: Theme.of(context).textTheme.display1),
+                    Column(
+                      children: [
+                        Text(widget.product.getPrice(),
+                            style: Theme.of(context).textTheme.display1),
+                        Container(
+                          // height: 10,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  icon: Icon(Icons.arrow_upward_rounded),
+                                  onPressed: () {}),
+                              Text('8 Upvotes')
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               )

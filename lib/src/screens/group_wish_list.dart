@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:store_app/config/ui_icons.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/favorites.dart';
+import 'package:store_app/src/screens/group_info.dart';
+import 'package:store_app/src/screens/groups_favorite.dart';
 
 import 'cart.dart';
 
@@ -20,7 +22,7 @@ class _GroupWishListState extends State<GroupWishList> {
         elevation: 0,
         title: appBarTitle(),
         automaticallyImplyLeading: false,
-        leadingWidth: 25.0,
+        leadingWidth: 20.0,
         leading: IconButton(
           icon:
               new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
@@ -35,14 +37,17 @@ class _GroupWishListState extends State<GroupWishList> {
           SizedBox(
             height: 15.0,
           ),
-          FavoritesWidget(),
+          GroupFavoritesWidget(),
         ],
       ),
     );
   }
 
   appBarTitle() {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
+      },
       child: Row(
         children: [
           Container(
@@ -58,18 +63,23 @@ class _GroupWishListState extends State<GroupWishList> {
                   backgroundImage: AssetImage('img/user2.jpg'),
                 ),
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Delhi Wholesalers",
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text(
-                "You, Raghav and 7 others",
-                style: Theme.of(context).textTheme.body1,
-              )
-            ],
+          Container(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delhi Wholesalers",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "You, Raghav and 7 others",
+                  style: Theme.of(context).textTheme.body1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
           ),
         ],
       ),
