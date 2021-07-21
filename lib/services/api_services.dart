@@ -52,6 +52,15 @@ class ApiService extends BaseApi {
     return response;
   }
 
+  Future<ApiResponse> getWishlist() async {
+    ApiResponse response;
+
+    response = await getRequest(
+      endpoint: wishlist,
+    );
+    print(response.data);
+  }
+
   // Address View Model
   Future<ApiResponse> getAddressMethod({String endpoint}) async {
     ApiResponse response;
@@ -88,6 +97,15 @@ class ApiService extends BaseApi {
       response = ApiResponse(error: true, errorMessage: e.toString());
     }
     return response;
+  }
+
+  Future<ApiResponse> getProducts() async {
+    ApiResponse response;
+
+    response = await getWithoutAuthRequest(
+      endpoint: products,
+    );
+    print(response.data);
   }
 
   Future<ApiResponse> deleteAddressMethod({String endpoint, String id}) async {

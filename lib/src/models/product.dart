@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:store_app/constant/assetImages.dart';
+
+Product productFromJson(String str) => Product.fromJson(json.decode(str));
+
+// String productToJson(Product data) => json.encode(data.toJson());
 
 class Product {
   String id = UniqueKey().toString();
