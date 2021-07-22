@@ -27,6 +27,5 @@ void setupLocator() {
   getIt.registerFactory(() => WishListViewModel());
   getIt.registerFactory(() => ProdutsViewModel());
 
-  getIt.registerSingleton(HomeViewModel());
   // getIt.registerFactory(() => WebsiteViewModel());
 }
