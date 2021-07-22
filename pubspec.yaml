@@ -171,6 +171,11 @@ flutter:
     - img/temp/yuvansh.jpeg
     - img/temp/group_icon.jpeg
     - img/chatbot.jpg
+    - img/redminote8.png
+    - img/redmi9A.png
+    - img/samsungm11.jpg
+    - img/nokia.jpeg
+    - img/redmi9.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
