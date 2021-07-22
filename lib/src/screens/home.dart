@@ -90,7 +90,7 @@ class _HomeWidgetState extends State<HomeWidget>
               trailing: TextButton(onPressed: () {}, child: Text('See more')),
             ),
           ),
-          model.categoriesFetched
+          model.categories.isEmpty
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -131,7 +131,7 @@ class _HomeWidgetState extends State<HomeWidget>
               ),
             ),
           ),
-          model.brandsFetched
+          model.brands.isEmpty
               ? Center(
                   child: CircularProgressIndicator(),
                 )

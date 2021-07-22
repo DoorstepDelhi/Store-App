@@ -32,7 +32,7 @@ dependencies:
   get_it: ^4.0.4
   carousel_slider: ^3.0.0
   shared_preferences: ^0.5.7+1
-  http: ^0.12.2
+  http: ^0.13.0
   provider: ^4.3.2+1
   intl: ^0.17.0
   flutter_svg: ^0.22.0
@@ -41,6 +41,9 @@ dependencies:
   datetime_picker_formfield: ^2.0.0
   web_socket_channel: ^2.1.0
   flutter_local_notifications: ^5.0.0+1
+  flutter_cache_manager: ^3.1.2
+  path_provider: ^2.0.2
+  file: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -171,11 +174,6 @@ flutter:
     - img/temp/yuvansh.jpeg
     - img/temp/group_icon.jpeg
     - img/chatbot.jpg
-    - img/redminote8.png
-    - img/redmi9A.png
-    - img/samsungm11.jpg
-    - img/nokia.jpeg
-    - img/redmi9.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

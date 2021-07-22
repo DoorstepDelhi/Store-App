@@ -1,3 +1,5 @@
+import 'package:store_app/src/screens/nearby.dart';
+
 import '../models/conversation.dart' as model;
 import '../widgets/EmptyMessagesWidget.dart';
 import '../widgets/MessageItemWidget.dart';
@@ -101,7 +103,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
                     Expanded(
                       child: FlatButton(
                         padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 6),
                         onPressed: () {
                           setState(() {
                             _conversationList = new model.ConversationsList();
@@ -145,11 +147,8 @@ class _MessagesWidgetState extends State<MessagesWidget>
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: SearchBarWidget(),
                 ),
-              (topNavigator4)
-                  ? TabBar(
-                      tabs: list,
-                      controller: _tabController,
-                    )
+              topNavigator4
+                  ? Nearby()
                   : Offstage(
                       offstage: _conversationList.conversations.isEmpty,
                       child: ListView.separated(
@@ -173,66 +172,6 @@ class _MessagesWidgetState extends State<MessagesWidget>
                         },
                       ),
                     ),
-              (topNavigator4
-                  ? TabBarView(controller: _tabController, children: [
-                      Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(15.0),
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              "People Nearby",
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Theme.of(context).accentColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Visible(),
-                          ListView.separated(
-                            padding: EdgeInsets.symmetric(vertical: 15),
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: nearbyPeople.length,
-                            separatorBuilder: (context, index) {
-                              return SizedBox(height: 7);
-                            },
-                            itemBuilder: (context, index) {
-                              return nearby(index);
-                            },
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(15.0),
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              "People Nearby",
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Theme.of(context).accentColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Visible(),
-                          ListView.separated(
-                            padding: EdgeInsets.symmetric(vertical: 15),
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: nearbyPeople.length,
-                            separatorBuilder: (context, index) {
-                              return SizedBox(height: 7);
-                            },
-                            itemBuilder: (context, index) {
-                              return nearby(index);
-                            },
-                          ),
-                        ],
-                      ),
-                    ])
-                  : Container()),
               Offstage(
                 offstage: _conversationList.conversations.isNotEmpty,
                 child: EmptyMessagesWidget(),
@@ -279,146 +218,6 @@ class _MessagesWidgetState extends State<MessagesWidget>
           color: color,
         ),
       ],
-    );
-  }
-
-  List<Map<dynamic, dynamic>> nearbyPeople = [
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    },
-    {
-      "name": "Saksham Mittal",
-      "distance": 570,
-      "image":
-          "https://assets.entrepreneur.com/content/3x2/2000/20150820205507-single-man-outdoors-happy-bliss.jpeg"
-    }
-  ];
-
-  Widget nearby(int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage("${nearbyPeople[index]["image"]}"),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(width: 15),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text(
-                  "${nearbyPeople[index]["name"]}",
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
-                  style: Theme.of(context).textTheme.body2,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "${nearbyPeople[index]["distance"]} m away in Delhi NCR",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            .merge(TextStyle(fontWeight: FontWeight.w600)),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget Visible() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircleAvatar(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-                    radius: 7.0,
-                    child: Image.asset(
-                      "img/peopleNearby.png",
-                      fit: BoxFit.fill,
-                      color: Theme.of(context).accentColor,
-                    )),
-              ),
-            ],
-          ),
-          SizedBox(width: 15),
-          Flexible(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text(
-                  "Make Myself Visible",
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
-                  style: Theme.of(context).textTheme.body2,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }

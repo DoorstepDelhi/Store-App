@@ -47,7 +47,7 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
               margin: EdgeInsets.only(top: 90),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               width: 120,
-              height: 63,
+              height: 72,
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(6),

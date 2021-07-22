@@ -17,11 +17,17 @@ class NotificationsWidget extends StatefulWidget {
 
 class _NotificationsWidgetState extends State<NotificationsWidget> {
   model.NotificationList _notificationList;
-  final _channel = WebSocketChannel.connect(
-    Uri.parse('ws://e84b88a151e1.ngrok.io/ws/notifications/'),
-  );
+  WebSocketChannel _channel;
   @override
   void initState() {
+    try {
+      _channel = WebSocketChannel.connect(
+        Uri.parse('ws://949dc8f05a10.ngrok.io/ws/notifications/'),
+      );
+    } catch (e) {
+      print(e);
+    }
+
     this._notificationList = new model.NotificationList();
     super.initState();
   }
@@ -78,7 +84,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shrinkWrap: true,
                       primary: false,
-                      itemCount: _notificationList.notifications.length,
+                      itemCount: item.length,
                       separatorBuilder: (context, index) {
                         return SizedBox(height: 7);
                       },
@@ -98,8 +104,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                         print(_notif);
                         return NotificationItemWidget(
                           notification: model.Notification(
-                            id: _notif['id'],
-                            image: _notif['image'] ?? '',
+                            image: _notif['image'],
                             title: _notif['title'],
                             title_hi: _notif['title_hi'],
                             time: TimeAgo.timeAgoSinceDate(

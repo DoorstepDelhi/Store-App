@@ -40,28 +40,29 @@ class BrandGridWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 100,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).hintColor.withOpacity(0.10),
-                          offset: Offset(0, 4),
-                          blurRadius: 10)
-                    ],
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          brand.color,
-                          brand.color.withOpacity(0.2),
-                        ])),
-                child: Hero(
-                  tag: brand.id,
-                  child: SvgPicture.asset(
-                    brand.logo,
-                    color: Theme.of(context).primaryColor,
-                    width: 80,
-                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).hintColor.withOpacity(0.10),
+                        offset: Offset(0, 4),
+                        blurRadius: 10)
+                  ],
+                  // gradient: LinearGradient(
+                  //     begin: Alignment.bottomLeft,
+                  //     end: Alignment.topRight,
+                  //     colors: [
+                  //       brand.color,
+                  //       brand.color.withOpacity(0.2),
+                  //     ])
                 ),
+                // child: Hero(
+                //   tag: brand.id,
+                //   child: SvgPicture.asset(
+                //     brand.logo,
+                //     color: Theme.of(context).primaryColor,
+                //     width: 80,
+                //   ),
+                // ),
               ),
               Positioned(
                 right: -50,
@@ -116,7 +117,7 @@ class BrandGridWidget extends StatelessWidget {
                         // The title of the product
                         Expanded(
                           child: Text(
-                            '${brand.products.length} Products',
+                            '${brand.productCount} Products',
                             style: Theme.of(context).textTheme.body1,
                             overflow: TextOverflow.fade,
                             softWrap: false,

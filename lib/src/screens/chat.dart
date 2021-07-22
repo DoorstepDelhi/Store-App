@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:store_app/config/app_config.dart' as cfg;
+import 'package:store_app/enum/view_state.dart';
+import 'package:store_app/provider/base_view.dart';
 
 import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
+import 'package:store_app/src/widgets/ChatRecommendationWidget.dart';
 import 'package:store_app/src/widgets/RecommendedCarouselItemWidget.dart';
+import 'package:store_app/view/chatviewmodel.dart';
 
 import '../../config/ui_icons.dart';
 import '../models/chat.dart';
@@ -42,11 +47,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // titleSpacing: 2,
         backgroundColor: Color.fromRGBO(0, 138, 62, 0.1),
         elevation: 0,
         title: appBarTitle(),
         automaticallyImplyLeading: false,
-        leadingWidth: 25.0,
+        leadingWidth: 20.0,
         leading: IconButton(
           icon:
               new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
@@ -56,218 +62,141 @@ class _ChatWidgetState extends State<ChatWidget> {
           appBarActions(),
         ],
       ),
-      body: Stack(children: [
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            // Container(
-            //   height: 175.0,
-            //   child: Stack(
-            //     children: [
-            //       Positioned(
-            //         top: 20.0,
-            //         left: 0.0,
-            //         bottom: 0.0,
-            //         right: 0.0,
-            //         child: SizedBox(
-            //           height: 170.0,
-            //           child: ListView.separated(
-            //             shrinkWrap: true,
-            //             primary: false,
-            //             itemCount: _productsList.flashSalesList.length,
-            //             scrollDirection: Axis.horizontal,
-            //             itemBuilder: (BuildContext context, int index) {
-            //               Product product =
-            //                   _productsList.flashSalesList.elementAt(index);
-            //               return RecommendedCarouselItemWidget(
-            //                 product: product,
-            //                 heroTag: 'flash_sales',
-            //                 marginLeft: 10.0,
-            //               );
-            //             },
-            //             separatorBuilder: (BuildContext context, int index) {
-            //               return SizedBox(
-            //                 width: 10.0,
-            //               );
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            Expanded(
-              child: AnimatedList(
-                key: _myListKey,
-                reverse: true,
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                initialItemCount:
-                    _conversationList.conversations[0].chats.length,
-                itemBuilder: (context, index, Animation<double> animation) {
-                  Chat chat = _conversationList.conversations[0].chats[index];
-                  return ChatMessageListItem(
-                    chat: chat,
-                    animation: animation,
-                  );
-                },
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).hintColor.withOpacity(0.10),
-                      offset: Offset(0, -4),
-                      blurRadius: 10)
-                ],
-              ),
-              child: TextField(
-                controller: myController,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20),
-                  hintText: 'Chat text here',
-                  hintStyle: TextStyle(
-                      color: Theme.of(context).focusColor.withOpacity(0.8)),
-                  suffixIcon: IconButton(
-                    padding: EdgeInsets.only(right: 30),
-                    onPressed: () {
-                      setState(() {
-                        _conversationList.conversations[0].chats.insert(
-                            0,
-                            new Chat(
-                                text: myController.text,
-                                time: '21min ago',
-                                user: _currentUser));
-                        _myListKey.currentState.insertItem(0);
-                      });
-                      Timer(Duration(milliseconds: 100), () {
-                        myController.clear();
-                      });
-                    },
-                    icon: Icon(
-                      UiIcons.cursor,
-                      color: Theme.of(context).accentColor,
-                      size: 30,
-                    ),
-                  ),
-                  border: UnderlineInputBorder(borderSide: BorderSide.none),
-                  enabledBorder:
-                      UnderlineInputBorder(borderSide: BorderSide.none),
-                  focusedBorder:
-                      UnderlineInputBorder(borderSide: BorderSide.none),
-                ),
-              ),
-            )
-          ],
-        ),
-        Positioned(
-          right: 5,
-          top: 10,
-          child: Container(
-            height: 250,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Stack(
-              children: [
-                Container(
-                  height: 200,
-                  // margin: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: config.secondColor(0.7),
-                      borderRadius: BorderRadius.only(
-                        // topRight: Radius.circular(50),
-                        bottomRight: Radius.circular(15),
-                        topLeft: Radius.circular(15),
-                        bottomLeft: Radius.circular(15),
-                      )),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Text(
-                          "You might like these!",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
+      body: BaseView<ChatViewModel>(
+        onModelReady: (model) => model.initData(),
+        builder: (ctx, model, child) {
+          return model.state == ViewState.Busy
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Stack(children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(
+                        child: StreamBuilder(
+                          stream: model.socket.stream,
+                          initialData: {
+                            'message': _conversationList.conversations[0].chats
+                          },
+                          builder: (ctx, snapshot) {
+                            print('welcome to chats:');
+                            print(snapshot.data);
+                            final data = jsonDecode(snapshot.data);
+                            _conversationList.conversations[0].chats.insert(
+                                0,
+                                Chat(
+                                    text: data['message'],
+                                    time: '2 mins ago',
+                                    user: User.basic(
+                                        firstName: 'Raghav',
+                                        lastName: 'Shukla',
+                                        avatar: 'img/temp/Raghav.jpeg',
+                                        userState: UserState.available)));
+                            print(snapshot.connectionState);
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              print('true');
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return AnimatedList(
+                                key: _myListKey,
+                                reverse: true,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
+                                initialItemCount: _conversationList
+                                    .conversations[0].chats.length,
+                                itemBuilder: (context, index,
+                                    Animation<double> animation) {
+                                  Chat chat = _conversationList
+                                      .conversations[0].chats[index];
+                                  return ChatMessageListItem(
+                                    chat: chat,
+                                    animation: animation,
+                                  );
+                                },
+                              );
+                            }
+                          },
                         ),
                       ),
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 5.0,
-                              left: 5.0,
-                              bottom: 0.0,
-                              right: 0.0,
-                              child: SizedBox(
-                                height: 170.0,
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount:
-                                      _productsList.flashSalesList.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    Product product = _productsList
-                                        .flashSalesList
-                                        .elementAt(index);
-                                    return RecommendedCarouselItemWidget(
-                                      product: product,
-                                      heroTag: 'flash_sales',
-                                      marginLeft: 0.0,
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return SizedBox(
-                                      width: 10.0,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Theme.of(context)
+                                    .hintColor
+                                    .withOpacity(0.10),
+                                offset: Offset(0, -4),
+                                blurRadius: 10)
                           ],
                         ),
-                      ),
+                        child: TextField(
+                          controller: myController,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(20),
+                            hintText: 'Chat text here',
+                            hintStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(0.8)),
+                            suffixIcon: IconButton(
+                              padding: EdgeInsets.only(right: 30),
+                              onPressed: () {
+                                setState(() {
+                                  _conversationList.conversations[0].chats
+                                      .insert(
+                                          0,
+                                          new Chat(
+                                              text: myController.text,
+                                              time: '21min ago',
+                                              user: _currentUser));
+                                  _myListKey.currentState.insertItem(0);
+                                });
+                                Timer(Duration(milliseconds: 100), () {
+                                  myController.clear();
+                                });
+                              },
+                              icon: Icon(
+                                UiIcons.cursor,
+                                color: Theme.of(context).accentColor,
+                                size: 30,
+                              ),
+                            ),
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                ),
-                Positioned(
-                  top: -10,
-                  right: -5,
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 8,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        'img/ic_launcher.png',
-                        // fit: BoxFit.fill,
-                      ),
+                  Positioned(
+                    right: 5,
+                    left: 5,
+                    top: 10,
+                    child: Container(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: PopupProductsWidget(),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ]),
+                ]);
+        },
+      ),
     );
   }
 
   appBarTitle() {
-    return TextButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
       },
       child: Row(
@@ -285,18 +214,23 @@ class _ChatWidgetState extends State<ChatWidget> {
                   backgroundImage: AssetImage('img/temp/group_icon.jpeg'),
                 ),
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Delhi Wholesalers",
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text(
-                "You, Raghav and 7 others",
-                style: Theme.of(context).textTheme.body1,
-              )
-            ],
+          Container(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delhi Wholesalers",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "You, Raghav and 7 others",
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.body1,
+                )
+              ],
+            ),
           ),
         ],
       ),

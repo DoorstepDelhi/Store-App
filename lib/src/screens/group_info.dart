@@ -46,19 +46,13 @@ class _GroupInfoState extends State<GroupInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 138, 62, 0.1),
-        elevation: 0,
-        title: appBarTitle(),
-        automaticallyImplyLeading: false,
-        leadingWidth: 25.0,
+        backgroundColor: Colors.transparent,
+        leadingWidth: 20.0,
         leading: IconButton(
           icon:
               new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          appBarActions(),
-        ],
       ),
       body: ListView(
         children: [
@@ -170,7 +164,7 @@ class _GroupInfoState extends State<GroupInfo> {
   }
 
   appBarTitle() {
-    return Container(
+    return GestureDetector(
       child: Row(
         children: [
           Container(
@@ -186,18 +180,23 @@ class _GroupInfoState extends State<GroupInfo> {
                   backgroundImage: AssetImage('img/user2.jpg'),
                 ),
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Group Name",
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text(
-                "me, mem1 and 7 others",
-                style: Theme.of(context).textTheme.body1,
-              )
-            ],
+          Container(
+            width: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Delhi Wholesalers",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  "You, Raghav and 7 others",
+                  style: Theme.of(context).textTheme.body1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
           ),
         ],
       ),

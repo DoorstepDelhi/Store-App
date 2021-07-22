@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
-import 'package:store_app/enum/view_state.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:store_app/provider/base_model.dart';
 import 'package:store_app/services/api_services.dart';
+
 import 'package:store_app/src/models/brand.dart';
 import 'package:store_app/src/models/category.dart';
 import 'package:store_app/src/models/product.dart';
@@ -12,31 +17,39 @@ class HomeViewModel extends BaseModel {
 
   List<Category> categories = [];
   List<Brand> brands = [];
+  List<Product> flashSaleProducts = [];
   CategoriesList categoriesList = CategoriesList();
   BrandsList brandsList = BrandsList();
   List<Product> productsOfCategoryList;
   List<Product> productsOfBrandsList;
 
-  bool categoriesFetched = false;
-  bool brandsFetched = false;
-
   void fetchInitData() async {
-    if (brands.isEmpty && categories.isEmpty)
+    if (brands.isEmpty && categories.isEmpty) {
       fetchBrands().whenComplete(() {
-        brandsFetched = false;
         setState();
       });
-    fetchCategories().whenComplete(() {
-      categoriesFetched = false;
-      setState();
-    });
+
+      fetchCategories().whenComplete(() {
+        setState();
+      });
+    }
+
+    // else {
+    //   final categoryResponse = await _apiService.getCategories();
+    //   final data = categoryResponse.data.toString();
+    //   final path = await getTemporaryDirectory();
+    //   final outputFile =
+    //       await File('${path.path}/category.txt').create(recursive: true);
+    //   List<int> bytes = utf8.encode(data);
+    //   DefaultCacheManager().putFile(outputFile.path, bytes);
+    //   final file = await DefaultCacheManager().getSingleFile(outputFile.path);
+    //   print(utf8.decode(await file.readAsBytes()));
+    // }
   }
 
   Future<List<Category>> fetchCategories() async {
     if (categories.isEmpty) {
-      // setState(ViewState.Busy);
-      categoriesFetched = true;
-      final categoryResponse = await _apiService.getCategories();
+      final categoryResponse = await _apiService.fetchCategories();
       categories = [];
       if (!categoryResponse.error) {
         for (var x in categoryResponse.data) {
@@ -50,16 +63,11 @@ class HomeViewModel extends BaseModel {
       }
     }
     return categories;
-
-    // categoriesFetched = true;
   }
 
   Future<List<Brand>> fetchBrands() async {
     if (brands.isEmpty) {
-      print(brands);
-      // setState(ViewState.Busy);
-      brandsFetched = true;
-      final brandResponse = await _apiService.getBrands();
+      final brandResponse = await _apiService.fetchBrands();
       brands = [];
       if (!brandResponse.error) {
         for (var x in brandResponse.data) {
@@ -72,9 +80,11 @@ class HomeViewModel extends BaseModel {
         print('error in line 60: ' + brandResponse.errorMessage);
       }
     }
-
     return brands;
+  }
 
-    // brandsFetched = true;
+  void fetchFlashSaleProducts() async {
+    final response = await _apiService.getFlashSaleProducts();
+    print(response.data);
   }
 }

@@ -14,7 +14,7 @@ class Category {
   Category.fromJson(Map<String, dynamic> res) {
     this.id = res['id'].toString();
     this.name = res['name'];
-    // this.icon = res['icon'] as IconData;
+    this.icon = UiIcons.iconMapper[res['icon']];
     this.selected = false;
     if (res['sub_categories'] != null) {
       subCategories = [];
@@ -42,8 +42,15 @@ class SubCategory {
 
   SubCategory({this.name, this.selected, this.products});
   void fromJson(Map<String, dynamic> data) {
-    this.id = data['id'];
+    this.id = data['id'].toString();
     this.name = data['name'];
+    if (data['products'] != null) {
+      products = [];
+      for (var x in data['products']) {
+        Product product = Product.fromJson(x);
+        products.add(product);
+      }
+    }
   }
 }
 
