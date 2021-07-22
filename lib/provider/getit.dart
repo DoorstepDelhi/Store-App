@@ -9,6 +9,8 @@ import 'package:store_app/view/categories_viewmodel.dart';
 import 'package:store_app/view/chatviewmodel.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 import 'package:store_app/view/login_viewmodel.dart';
+import 'package:store_app/view/wishlist_viewmodel.dart';
+import 'package:store_app/view/produts_viewmodel.dart';
 
 GetIt getIt = GetIt.instance;
 void setupLocator() {
@@ -21,4 +23,8 @@ void setupLocator() {
   getIt.registerSingleton<ChatViewModel>(ChatViewModel());
   // getIt.registerFactory(() => AddressViewModel());
   getIt.registerSingleton<HomeViewModel>(HomeViewModel());
+  getIt.registerFactory(() => WishListViewModel());
+  getIt.registerFactory(() => ProdutsViewModel());
+
+  // getIt.registerFactory(() => WebsiteViewModel());
 }

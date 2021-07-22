@@ -15,7 +15,7 @@ class Prefs {
   Future<void> setAuthToken(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _authToken = token;
-
+    print(token);
     prefs.setString(_authTokenStorageKey, token);
   }
 

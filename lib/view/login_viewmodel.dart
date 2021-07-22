@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 
 class LogInViewModel extends BaseModel {
   ApiService _apiService = ApiService();
+  // Prefs _prefs = Prefs();
   final _prefs = getIt.get<Prefs>();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -29,8 +30,9 @@ class LogInViewModel extends BaseModel {
     });
     if (!response.error) {
       setState(viewState: ViewState.Idle);
-      await _prefs.setAuthToken(response.data['key']);
-      await _prefs.setUID(response.data['user'].toString());
+
+      _prefs.setAuthToken(response.data['key']);
+      _prefs.setUID(response.data['user'].toString());
 
       print('success');
       navigationService.navigateTo('/Tabs',
@@ -49,8 +51,9 @@ class LogInViewModel extends BaseModel {
     });
     if (!response.error) {
       setState(viewState: ViewState.Idle);
-      await _prefs.setAuthToken(response.data['key']);
-      await _prefs.setUID(response.data['user'].toString());
+      print(response.data);
+      _prefs.setAuthToken(response.data['key']);
+      _prefs.setUID(response.data['user'].toString());
       print('success');
       navigationService.navigateTo('/Tabs',
           arguments: 2, withreplacement: true);

@@ -7,3 +7,5 @@ String get flashSaleProducts => '/products/products/flash_sales/​';
 String get categories => '/products/categories/';
 String get brands => '/products/brands/';
 String get chatsocketurl => 'wss://0e8efa5ed051.ngrok.io/ws/chat/remember/';
+String get wishlist => '/accounts/users/1/wishlist/';
+String get products => 'http://test-api.doorstepdelhi.com/products/prodcuts/';

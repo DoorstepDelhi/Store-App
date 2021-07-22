@@ -24,6 +24,7 @@ abstract class BaseApi {
       final response = await http.post(uri, body: data);
       print(response.statusCode);
       if (response.statusCode >= 200 && response.statusCode <= 207) {
+        print(response.body);
         print('==');
         return ApiResponse(data: jsonDecode(response.body));
       } else {
@@ -78,6 +79,7 @@ abstract class BaseApi {
       {String endpoint, Map<String, String> query}) async {
     final uri = Uri.https(_baseUrl, endpoint, query);
     print(uri);
+    print(_prefs.getToken());
     return processResponse(await http.get(
       uri,
       headers: {
