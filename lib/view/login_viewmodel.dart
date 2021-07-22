@@ -1,13 +1,14 @@
 import 'package:store_app/constant/appconstant.dart';
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_model.dart';
+import 'package:store_app/provider/getit.dart';
 import 'package:store_app/services/api_services.dart';
 import 'package:store_app/services/prefs_services.dart';
 import 'package:flutter/cupertino.dart';
 
 class LogInViewModel extends BaseModel {
   ApiService _apiService = ApiService();
-  Prefs _prefs = Prefs();
+  final _prefs = getIt.get<Prefs>();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
@@ -28,8 +29,8 @@ class LogInViewModel extends BaseModel {
     });
     if (!response.error) {
       setState(viewState: ViewState.Idle);
-      _prefs.setAuthToken(response.data['key']);
-      _prefs.setUID(response.data['user'].toString());
+      await _prefs.setAuthToken(response.data['key']);
+      await _prefs.setUID(response.data['user'].toString());
 
       print('success');
       navigationService.navigateTo('/Tabs',
@@ -48,8 +49,8 @@ class LogInViewModel extends BaseModel {
     });
     if (!response.error) {
       setState(viewState: ViewState.Idle);
-      _prefs.setAuthToken(response.data['key']);
-      _prefs.setUID(response.data['user'].toString());
+      await _prefs.setAuthToken(response.data['key']);
+      await _prefs.setUID(response.data['user'].toString());
       print('success');
       navigationService.navigateTo('/Tabs',
           arguments: 2, withreplacement: true);

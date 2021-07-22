@@ -1,3 +1,6 @@
+import 'package:store_app/provider/base_view.dart';
+import 'package:store_app/view/categories_viewmodel.dart';
+
 import '../models/category.dart';
 import '../models/route_argument.dart';
 import '../widgets/DrawerWidget.dart';
@@ -49,24 +52,35 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               )),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Wrap(
-          runSpacing: 20,
-          children: <Widget>[
-            SearchBarWidget(),
-            Wrap(
-              runSpacing: 30,
-              children: List.generate(_categoriesList.list.length, (index) {
-                Category category = _categoriesList.list.elementAt(index);
-                return index.isEven
-                    ? buildEvenCategory(context, category)
-                    : buildOddCategory(context, category);
-              }),
-            ),
-          ],
-        ),
+      body: BaseView<CategoriesViewModel>(
+        onModelReady: (model) => model.initData(),
+        builder: (ctx, model, child) {
+          return model.categorylist.isEmpty
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Wrap(
+                    runSpacing: 20,
+                    children: <Widget>[
+                      SearchBarWidget(),
+                      Wrap(
+                        runSpacing: 30,
+                        children:
+                            List.generate(model.categorylist.length, (index) {
+                          Category category =
+                              model.categorylist.elementAt(index);
+                          return index.isEven
+                              ? buildEvenCategory(context, category)
+                              : buildOddCategory(context, category);
+                        }),
+                      ),
+                    ],
+                  ),
 //        child: buildOddCategory(context),
+                );
+        },
       ),
     );
   }
@@ -166,9 +180,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               runAlignment: WrapAlignment.center,
               spacing: 10,
               runSpacing: 5,
-              children: List.generate(_subCategoriesList.list.length, (index) {
+              children: List.generate(category.subCategories.length, (index) {
                 SubCategory subCategory =
-                    _subCategoriesList.list.elementAt(index);
+                    category.subCategories.elementAt(index);
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(
@@ -228,9 +242,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               runAlignment: WrapAlignment.center,
               spacing: 10,
               runSpacing: 5,
-              children: List.generate(_subCategoriesList.list.length, (index) {
+              children: List.generate(category.subCategories.length, (index) {
                 SubCategory subCategory =
-                    _subCategoriesList.list.elementAt(index);
+                    category.subCategories.elementAt(index);
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(

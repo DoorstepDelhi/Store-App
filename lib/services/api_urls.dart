@@ -3,3 +3,7 @@ String get eSignUp => '/rest-auth/registration/';
 String get eUser => '/rest-auth/user/';
 String get homecategories => '/products/categories/products/';
 String get homebrands => '/products/homebrands/';
+String get flashSaleProducts => '/products/products/flash_sales/​';
+String get categories => '/products/categories/';
+String get brands => '/products/brands/';
+String get chatsocketurl => 'wss://0e8efa5ed051.ngrok.io/ws/chat/remember/';

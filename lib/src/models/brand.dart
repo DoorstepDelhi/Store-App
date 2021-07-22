@@ -8,6 +8,7 @@ class Brand {
   String image;
   String logo;
   double averageRating;
+  int productCount;
   bool selected;
   double rate;
   List<Product> products;
@@ -21,8 +22,11 @@ class Brand {
       this.rate,
       this.products});
   Brand.fromJson(Map<String, dynamic> json) {
+    this.id = json['id'].toString();
     this.name = json['name'];
     this.selected = false;
+    this.productCount = json['products_count'];
+    this.averageRating = json['average_rating'];
     if (json['products'] != null) {
       this.products = [];
       for (var x in json['products']) {

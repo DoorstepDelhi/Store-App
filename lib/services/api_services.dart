@@ -52,6 +52,18 @@ class ApiService extends BaseApi {
     return response;
   }
 
+  Future<ApiResponse> getFlashSaleProducts() async {
+    ApiResponse response;
+    try {
+      response = await getWithoutAuthRequest(
+        endpoint: flashSaleProducts,
+      );
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
   // Address View Model
   Future<ApiResponse> getAddressMethod({String endpoint}) async {
     ApiResponse response;
@@ -94,6 +106,60 @@ class ApiService extends BaseApi {
     ApiResponse response;
     try {
       response = await deleteRequest(endpoint: endpoint, id: id);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  //categoriesviewmodel
+  Future<ApiResponse> fetchCategories() async {
+    ApiResponse response;
+    try {
+      response = await getWithoutAuthRequest(
+        endpoint: categories,
+      );
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  Future<ApiResponse> fetchCategoryById(String id) async {
+    ApiResponse response;
+    try {
+      response = await getWithoutAuthRequest(
+        endpoint: categories + '$id/',
+      );
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  //brandsviewmodel
+  Future<ApiResponse> fetchBrands() async {
+    ApiResponse response;
+    try {
+      response = await getWithoutAuthRequest(
+        endpoint: brands,
+      );
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  Future<ApiResponse> fetchBrandById(String id) async {
+    ApiResponse response;
+    try {
+      response = await getWithoutAuthRequest(
+        endpoint: brands + '$id/',
+      );
       print('no error');
     } catch (e) {
       response = ApiResponse(error: true, errorMessage: e.toString());
