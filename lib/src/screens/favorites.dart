@@ -39,7 +39,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                   ),
                   SizedBox(height: 10),
                   Offstage(
-                    offstage: _productsList.favoritesList.isEmpty,
+                    offstage: model.wishList.isEmpty,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20, right: 10),
                       child: ListTile(
@@ -89,20 +89,19 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     ),
                   ),
                   Offstage(
-                    offstage: this.layout != 'list' ||
-                        _productsList.favoritesList.isEmpty,
+                    offstage: this.layout != 'list' || model.wishList.isEmpty,
                     child: ListView.separated(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       primary: false,
-                      itemCount: _productsList.favoritesList.length,
+                      itemCount: model.wishList.length,
                       separatorBuilder: (context, index) {
                         return SizedBox(height: 10);
                       },
                       itemBuilder: (context, index) {
                         return FavoriteListItemWidget(
                           heroTag: 'favorites_list',
-                          product: _productsList.favoritesList.elementAt(index),
+                          product: model.wishList.elementAt(index).product,
                           onDismissed: () {
                             setState(() {
                               _productsList.favoritesList.removeAt(index);
@@ -113,18 +112,17 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     ),
                   ),
                   Offstage(
-                    offstage: this.layout != 'grid' ||
-                        _productsList.favoritesList.isEmpty,
+                    offstage: this.layout != 'grid' || model.wishList.isEmpty,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: new StaggeredGridView.countBuilder(
                         primary: false,
                         shrinkWrap: true,
                         crossAxisCount: 4,
-                        itemCount: _productsList.favoritesList.length,
+                        itemCount: model.wishList.length,
                         itemBuilder: (BuildContext context, int index) {
                           Product product =
-                              _productsList.favoritesList.elementAt(index);
+                              model.wishList.elementAt(index).product;
                           return ProductGridItemWidget(
                             product: product,
                             heroTag: 'favorites_grid',
@@ -139,7 +137,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     ),
                   ),
                   Offstage(
-                    offstage: _productsList.favoritesList.isNotEmpty,
+                    offstage: model.wishList.isNotEmpty,
                     child: EmptyFavoritesWidget(),
                   )
                 ],

@@ -7,24 +7,23 @@ import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/models/wishList.dart';
 
 class WishListViewModel extends BaseModel {
-  WishList initData;
-
   ApiService _apiService = ApiService();
+  List<WishlistModel> wishList = [];
   void getWishlist(BuildContext context) async {
-    setState(viewState: ViewState.Busy);
-    final response = await _apiService.getWishlist();
-    if (!response.error) {
-      setState(viewState: ViewState.Idle);
-      print(response.data);
-      initData = WishList.fromJson(response.data);
-
-      // print(checkedWebsite);
-
-    } else {
-      // setState(viewState: ViewState.Idle);
-      print(response.data);
-      print(response.errorMessage);
-      // AppConstant.showFailToast(context, response.errorMessage);
+    if (wishList.isEmpty) {
+      setState(viewState: ViewState.Busy);
+      final response = await _apiService.getWishlist();
+      if (!response.error) {
+        setState(viewState: ViewState.Idle);
+        print(response.data);
+        wishList = [];
+        for (var res in response.data) {
+          WishlistModel model = WishlistModel.fromJson(res);
+          wishList.add(model);
+        }
+      } else {
+        print('error in wishlist view model: ' + response.errorMessage);
+      }
     }
   }
 }

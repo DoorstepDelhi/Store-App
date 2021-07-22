@@ -94,7 +94,7 @@ class _BrandWidgetState extends State<BrandWidget>
                               ),
                             )),
                       ],
-                      // backgroundColor: widget._brand.color,
+                      backgroundColor: widget._brand.color,
                       expandedHeight: 250,
                       elevation: 0,
                       flexibleSpace: FlexibleSpaceBar(
@@ -106,15 +106,15 @@ class _BrandWidgetState extends State<BrandWidget>
                                   horizontal: 5, vertical: 20),
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  // gradient: LinearGradient(
-                                  //     begin: Alignment.bottomLeft,
-                                  //     end: Alignment.topRight,
-                                  //     colors: [
-                                  //   widget._brand.color,
-                                  //   Theme.of(context).primaryColor.withOpacity(0.5),
-                                  // ])
-
-                                  ),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      colors: [
+                                    widget._brand.color,
+                                    Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.5),
+                                  ])),
                               // child: Center(
                               //   child: Hero(
                               //     tag: widget.routeArgument.id,

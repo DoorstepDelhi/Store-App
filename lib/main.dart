@@ -8,8 +8,8 @@ import 'package:store_app/view/home_viewmodel.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  final homeViewModel = getIt.get<HomeViewModel>();
-  homeViewModel.fetchFlashSaleProducts();
+  // final homeViewModel = getIt.get<HomeViewModel>();
+  // homeViewModel.fetchFlashSaleProducts();
   runApp(MyApp());
 }
 

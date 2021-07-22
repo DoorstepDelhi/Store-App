@@ -9,7 +9,7 @@ class CategoriesViewModel extends BaseModel {
   Category selectedCategory;
   List<Category> categorylist = [];
   void initData() async {
-    categorylist = await getIt.get<HomeViewModel>().fetchAllCategories();
+    categorylist = await getIt.get<HomeViewModel>().fetchCategories();
     setState();
   }
 

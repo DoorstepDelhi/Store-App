@@ -16,13 +16,14 @@ GetIt getIt = GetIt.instance;
 void setupLocator() {
   getIt.registerLazySingleton(() => NavigationService());
   getIt.registerSingleton<Prefs>(Prefs());
+  getIt.registerSingleton<ChatViewModel>(ChatViewModel());
+  getIt.registerSingleton<HomeViewModel>(HomeViewModel());
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
   getIt.registerFactory(() => CategoriesViewModel());
   getIt.registerFactory(() => BrandsViewModel());
-  getIt.registerSingleton<ChatViewModel>(ChatViewModel());
+
   // getIt.registerFactory(() => AddressViewModel());
-  getIt.registerSingleton<HomeViewModel>(HomeViewModel());
   getIt.registerFactory(() => WishListViewModel());
   getIt.registerFactory(() => ProdutsViewModel());
 

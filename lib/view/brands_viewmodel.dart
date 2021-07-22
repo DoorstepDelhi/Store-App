@@ -11,7 +11,7 @@ class BrandsViewModel extends BaseModel {
   List<Brand> _brandList = [];
   BrandsList brandsList = BrandsList();
   void initData() async {
-    _brandList = await getIt.get<HomeViewModel>().fetchAllBrands();
+    _brandList = await getIt.get<HomeViewModel>().fetchBrands();
     brandsList.list = _brandList;
     setState();
   }
