@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Prefs {
   final String _userIDStorageKey = 'USER_ID';
   final String _authTokenStorageKey = 'AUTH_TOKEN';
-  // Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   String _authToken;
-  String getToken() => _authToken;
+  getToken() => _authToken;
   Future<String> getAuthToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

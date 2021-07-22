@@ -42,8 +42,15 @@ class SubCategory {
 
   SubCategory({this.name, this.selected, this.products});
   void fromJson(Map<String, dynamic> data) {
-    this.id = data['id'];
+    this.id = data['id'].toString();
     this.name = data['name'];
+    if (data['products'] != null) {
+      products = [];
+      for (var x in data['products']) {
+        Product product = Product.fromJson(x);
+        products.add(product);
+      }
+    }
   }
 }
 

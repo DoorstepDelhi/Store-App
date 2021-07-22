@@ -3,10 +3,13 @@ import 'package:store_app/provider/getit.dart';
 import 'package:store_app/route_generator.dart';
 import 'package:store_app/services/navigation_service.dart';
 import 'package:flutter/material.dart';
+import 'package:store_app/view/home_viewmodel.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  // final homeViewModel = getIt.get<HomeViewModel>();
+  // homeViewModel.fetchFlashSaleProducts();
   runApp(MyApp());
 }
 

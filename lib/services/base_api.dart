@@ -10,11 +10,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class BaseApi {
-  final String _baseUrl =
-      'doorstepdelhi.herokuapp.com'; //'36eb00ef8692.ngrok.io'
-  // final String _authToken = Prefs().getToken();
-  final _prefs = getIt.get<Prefs>();
+  final String _baseUrl = "ea0bb8f8bd16.ngrok.io";
 
+  //'doorstepdelhi.herokuapp.com';
+  //'36eb00ef8692.ngrok.io'
+  final _prefs = getIt.get<Prefs>();
   Future<ApiResponse> signUp(Map data, String endpoint) async {
     var responseBody = json.decode('{"data": "", "status": "NOK"}');
 
@@ -92,6 +92,8 @@ abstract class BaseApi {
   Future<ApiResponse> getWithoutAuthRequest(
       {String endpoint, Map<String, String> query}) async {
     final uri = Uri.https(_baseUrl, endpoint, query);
+    print("authtoken is: ");
+    print({_prefs.getToken()});
     print(uri);
     return processResponse(await http.get(
       uri,

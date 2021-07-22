@@ -14,7 +14,7 @@ class Product {
   String image;
   double averageRating;
   int minQty;
-  double minWholesalePrice;
+  int minWholesalePrice;
   //String description;
   double price;
   int available;
@@ -43,7 +43,7 @@ class Product {
     image =
         json['image']['url'] != null ? json['image']['url'] : Images.noImage;
     minQty = json['min_qty'];
-    minWholesalePrice = json['min_wholesale_price'];
+    minWholesalePrice = json['min_price'];
   }
 
   // Map<String, dynamic> toJson() {
@@ -63,7 +63,7 @@ class Product {
     if (myPrice != null) {
       return '\₹${myPrice.toStringAsFixed(2)}';
     }
-    return '\₹${this.price.toStringAsFixed(2)}';
+    return '\₹${this.minWholesalePrice.toStringAsFixed(2)}';
   }
 }
 

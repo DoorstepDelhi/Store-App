@@ -14,11 +14,17 @@ class NotificationsWidget extends StatefulWidget {
 
 class _NotificationsWidgetState extends State<NotificationsWidget> {
   model.NotificationList _notificationList;
-  final _channel = WebSocketChannel.connect(
-    Uri.parse('ws://949dc8f05a10.ngrok.io/ws/notifications/'),
-  );
+  WebSocketChannel _channel;
   @override
   void initState() {
+    try {
+      _channel = WebSocketChannel.connect(
+        Uri.parse('ws://949dc8f05a10.ngrok.io/ws/notifications/'),
+      );
+    } catch (e) {
+      print(e);
+    }
+
     this._notificationList = new model.NotificationList();
     super.initState();
   }

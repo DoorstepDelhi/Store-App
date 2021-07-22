@@ -1,3 +1,6 @@
+import 'package:store_app/provider/base_view.dart';
+import 'package:store_app/view/brands_viewmodel.dart';
+
 import '../models/brand.dart';
 import '../models/category.dart';
 import '../widgets/BrandGridWidget.dart';
@@ -14,7 +17,7 @@ class BrandsWidget extends StatefulWidget {
 class _BrandsWidgetState extends State<BrandsWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   BrandsList _brandsList = new BrandsList();
-  SubCategoriesList _subCategoriesList = new SubCategoriesList();
+  // SubCategoriesList _subCategoriesList = new SubCategoriesList();
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +55,26 @@ class _BrandsWidgetState extends State<BrandsWidget> {
               )),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: Wrap(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SearchBarWidget(),
+      body: BaseView<BrandsViewModel>(
+        onModelReady: (model) => model.initData(),
+        builder: (ctx, model, child) {
+          return SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SearchBarWidget(),
+                ),
+                model.brandsList == null
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : BrandGridWidget(brandsList: model.brandsList),
+              ],
             ),
-            BrandGridWidget(brandsList: _brandsList),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -27,7 +27,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
   @override
   void initState() {
     _tabController = TabController(
-        length: _subCategoriesList.list.length,
+        length: widget._category.subCategories.length,
         initialIndex: widget.routeArgument.id,
         vsync: this);
     _tabController.addListener(_handleTabSelection);
@@ -165,16 +165,15 @@ class _CategoryWidgetState extends State<CategoryWidget>
             unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w300),
             isScrollable: true,
             indicatorColor: Theme.of(context).primaryColor,
-            tabs: List.generate(_subCategoriesList.list.length, (index) {
-              return Tab(text: _subCategoriesList.list.elementAt(index).name);
+            tabs: List.generate(widget._category.subCategories.length, (index) {
+              return Tab(
+                  text: widget._category.subCategories.elementAt(index).name);
             }),
           ),
         ),
         SliverToBoxAdapter(
           child: ProductsByCategoryWidget(
-            subCategory:
-                _subCategoriesList.list.elementAt(widget.routeArgument.id),
-          ),
+              id: widget._category.id, selectedIndex: widget.routeArgument.id),
         ),
       ]),
     );

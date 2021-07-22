@@ -55,7 +55,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         new TextField(
                           style:
                               TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.number,
+                          // keyboardType: TextInputType.number,
                           controller: model.userNameController,
                           decoration: new InputDecoration(
                             hintText: 'Mobile Number',
