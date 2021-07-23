@@ -34,7 +34,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   final config = cfg.Colors();
 
   var labelCount = 0;
-  ProductsList _productsList = new ProductsList();
+  List<Product> _products = [];
 
   @override
   Widget build(BuildContext context) {
@@ -72,23 +72,35 @@ class _ChatWidgetState extends State<ChatWidget> {
                       Expanded(
                         child: StreamBuilder(
                           stream: model.socket.stream,
-                          // initialData: model.initialData,
+                          initialData: model.initialData,
                           builder: (ctx, snapshot) {
+                            if (!snapshot.hasData) {
+                              print('no data');
+                            }
+
+                            if (snapshot.data is List) {
+                              for (var x in snapshot.data) {
+                                if (x is Map) {
+                                  print('yes');
+                                }
+                                // final data = jsonDecode(x.toString())
+                                //     as Map<String, dynamic>;
+
+                                final chat = Chat.fromJson(x);
+                                _conversationList.conversations[0].chats
+                                    .insert(0, chat);
+                              }
+                            } else {
+                              final data = jsonDecode(snapshot.data.toString())
+                                  as Map<String, dynamic>;
+
+                              final chat = Chat.fromJson(data);
+                              _conversationList.conversations[0].chats
+                                  .insert(0, chat);
+                              _myListKey.currentState.insertItem(0);
+                            }
                             print('welcome to chats:');
                             print(snapshot.data);
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            final data = jsonDecode(snapshot.data.toString())
-                                as Map<String, dynamic>;
-
-                            final chat = Chat.fromJson(data);
-                            _conversationList.conversations[0].chats
-                                .insert(0, chat);
-                            _myListKey.currentState.insertItem(0);
-                            print(_conversationList.conversations[0].chats);
                             return AnimatedList(
                               key: _myListKey,
                               reverse: true,
@@ -182,7 +194,25 @@ class _ChatWidgetState extends State<ChatWidget> {
                       height: 250,
                       // width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: PopupProductsWidget(),
+                      child: StreamBuilder(
+                          stream: model.recommendationSocket.stream,
+                          builder: (ctx, snapshot) {
+                            print('welcome to recommendation');
+                            print(snapshot.data);
+                            if (snapshot.data != null) {
+                              final json = jsonDecode(snapshot.data);
+                              _products = [];
+                              for (var data in json) {
+                                final product = Product.fromJson(data);
+                                _products.add(product);
+                              }
+                            }
+
+                            return Offstage(
+                                offstage: _products.isEmpty,
+                                child:
+                                    PopupProductsWidget(products: _products));
+                          }),
                     ),
                   ),
                 ]);

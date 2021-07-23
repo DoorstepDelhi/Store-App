@@ -185,4 +185,16 @@ class ApiService extends BaseApi {
     }
     return response;
   }
+
+  //chatviewmodel
+  Future<ApiResponse> fetchChats({String id}) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(endpoint: groupChat + '$id/chats/');
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
 }

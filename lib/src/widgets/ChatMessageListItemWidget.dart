@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../models/chat.dart';
 import '../models/user.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +57,9 @@ class ChatMessageListItem extends StatelessWidget {
                 new Container(
                     margin: const EdgeInsets.only(left: 8.0),
                     child: new CircleAvatar(
-                      backgroundImage: AssetImage(this.chat.user.avatar),
+                      child: CachedNetworkImage(
+                        imageUrl: chat.user.avatar,
+                      ),
                     )),
               ],
             ),
@@ -86,7 +90,9 @@ class ChatMessageListItem extends StatelessWidget {
                 new Container(
                     margin: const EdgeInsets.only(right: 8.0),
                     child: new CircleAvatar(
-                      backgroundImage: AssetImage(this.chat.user.avatar),
+                      child: CachedNetworkImage(
+                        imageUrl: chat.user.avatar,
+                      ),
                     )),
               ],
             ),
