@@ -30,21 +30,15 @@ class _ChatWidgetState extends State<ChatWidget> {
   ConversationsList _conversationList = new ConversationsList();
   User _currentUser = new User.init().getCurrentUser();
   final _myListKey = GlobalKey<AnimatedListState>();
-  final myController = TextEditingController();
+  // final myController = TextEditingController();
   final config = cfg.Colors();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
 
   var labelCount = 0;
   ProductsList _productsList = new ProductsList();
 
   @override
   Widget build(BuildContext context) {
+    print('tere naam vs 1');
     return Scaffold(
       appBar: AppBar(
         // titleSpacing: 2,
@@ -63,8 +57,10 @@ class _ChatWidgetState extends State<ChatWidget> {
         ],
       ),
       body: BaseView<ChatViewModel>(
+        // onModelDisposed: (model) => model.myController.dispose(),
         onModelReady: (model) => model.initData(),
         builder: (ctx, model, child) {
+          print('tere naam');
           return model.state == ViewState.Busy
               ? Center(
                   child: CircularProgressIndicator(),
@@ -76,49 +72,40 @@ class _ChatWidgetState extends State<ChatWidget> {
                       Expanded(
                         child: StreamBuilder(
                           stream: model.socket.stream,
-                          initialData: {
-                            'message': _conversationList.conversations[0].chats
-                          },
+                          // initialData: model.initialData,
                           builder: (ctx, snapshot) {
                             print('welcome to chats:');
                             print(snapshot.data);
-                            final data = jsonDecode(snapshot.data);
-                            _conversationList.conversations[0].chats.insert(
-                                0,
-                                Chat(
-                                    text: data['message'],
-                                    time: '2 mins ago',
-                                    user: User.basic(
-                                        firstName: 'Raghav',
-                                        lastName: 'Shukla',
-                                        avatar: 'img/temp/Raghav.jpeg',
-                                        userState: UserState.available)));
-                            print(snapshot.connectionState);
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              print('true');
+                            if (!snapshot.hasData) {
                               return Center(
                                 child: CircularProgressIndicator(),
                               );
-                            } else {
-                              return AnimatedList(
-                                key: _myListKey,
-                                reverse: true,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 20),
-                                initialItemCount: _conversationList
-                                    .conversations[0].chats.length,
-                                itemBuilder: (context, index,
-                                    Animation<double> animation) {
-                                  Chat chat = _conversationList
-                                      .conversations[0].chats[index];
-                                  return ChatMessageListItem(
-                                    chat: chat,
-                                    animation: animation,
-                                  );
-                                },
-                              );
                             }
+                            final data = jsonDecode(snapshot.data.toString())
+                                as Map<String, dynamic>;
+
+                            final chat = Chat.fromJson(data);
+                            _conversationList.conversations[0].chats
+                                .insert(0, chat);
+                            _myListKey.currentState.insertItem(0);
+                            print(_conversationList.conversations[0].chats);
+                            return AnimatedList(
+                              key: _myListKey,
+                              reverse: true,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 20),
+                              initialItemCount: _conversationList
+                                  .conversations[0].chats.length,
+                              itemBuilder: (context, index,
+                                  Animation<double> animation) {
+                                Chat chat = _conversationList
+                                    .conversations[0].chats[index];
+                                return ChatMessageListItem(
+                                  chat: chat,
+                                  animation: animation,
+                                );
+                              },
+                            );
                           },
                         ),
                       ),
@@ -135,30 +122,40 @@ class _ChatWidgetState extends State<ChatWidget> {
                           ],
                         ),
                         child: TextField(
-                          controller: myController,
+                          controller: model.myController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(20),
                             hintText: 'Chat text here',
                             hintStyle: TextStyle(
                                 color: Theme.of(context)
-                                    .focusColor
+                                    .primaryColor
                                     .withOpacity(0.8)),
                             suffixIcon: IconButton(
                               padding: EdgeInsets.only(right: 30),
-                              onPressed: () {
-                                setState(() {
-                                  _conversationList.conversations[0].chats
-                                      .insert(
-                                          0,
-                                          new Chat(
-                                              text: myController.text,
-                                              time: '21min ago',
-                                              user: _currentUser));
-                                  _myListKey.currentState.insertItem(0);
+                              onPressed: () async {
+                                // setState(() {
+                                final data = jsonEncode({
+                                  "room": 10,
+                                  "user": 1,
+                                  "message_text": model.myController.text
                                 });
-                                Timer(Duration(milliseconds: 100), () {
-                                  myController.clear();
-                                });
+                                model.socket.sink.add(data);
+                                model.myController.clear();
+                                // });
+
+                                // setState(() {
+                                //   _conversationList.conversations[0].chats
+                                //       .insert(
+                                //           0,
+                                //           new Chat(
+                                //               text: myController.text,
+                                //               time: '21min ago',
+                                //               user: _currentUser));
+                                //   _myListKey.currentState.insertItem(0);
+                                // });
+                                // Timer(Duration(milliseconds: 100), () {
+                                //   model.myController.clear();
+                                // });
                               },
                               icon: Icon(
                                 UiIcons.cursor,
@@ -183,7 +180,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     top: 10,
                     child: Container(
                       height: 250,
-                      width: MediaQuery.of(context).size.width,
+                      // width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: PopupProductsWidget(),
                     ),

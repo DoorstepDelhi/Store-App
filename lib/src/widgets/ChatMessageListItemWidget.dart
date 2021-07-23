@@ -44,7 +44,7 @@ class ChatMessageListItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.body2),
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
-                    child: new Text(chat.text),
+                    child: new Text(chat.text ?? ''),
                   ),
                 ],
               ),
@@ -101,7 +101,7 @@ class ChatMessageListItem extends StatelessWidget {
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
                     child: new Text(
-                      chat.text,
+                      chat.text ?? '##',
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
                   ),

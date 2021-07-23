@@ -71,7 +71,9 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
                     children: <Widget>[
                       // The title of the product
                       Text(
-                        product.getPrice(),
+                        '89.00',
+                        // product.getPrice(),
+
                         style: Theme.of(context).textTheme.body2,
                       ),
 
