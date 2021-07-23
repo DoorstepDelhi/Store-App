@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:store_app/constant/assetImages.dart';
+import 'dart:math';
 
 Product productFromJson(String str) => Product.fromJson(json.decode(str));
 
@@ -40,8 +41,9 @@ class Product {
     id = json['id'].toString();
     name = json['name'];
     averageRating = json['average_rating'];
-    image =
-        json['image']['url'] != null ? json['image']['url'] : Images.noImage;
+    image = json['image']['image'] != null
+        ? json['image']['image']
+        : Images.noImage;
     minQty = json['min_qty'];
     minWholesalePrice = json['min_price'];
   }
@@ -63,7 +65,11 @@ class Product {
     if (myPrice != null) {
       return '\₹${myPrice.toStringAsFixed(2)}';
     }
-    return '\₹${this.minWholesalePrice.toStringAsFixed(2)}';
+    Random rnd = new Random();
+    int min = 1;
+    int max = 100;
+    var random = min + rnd.nextInt(max - min);
+    return '\₹${random.toStringAsFixed(2)}';
   }
 }
 

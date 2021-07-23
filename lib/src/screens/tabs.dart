@@ -1,4 +1,5 @@
 import 'package:store_app/services/notification_service.dart';
+import 'package:store_app/src/screens/chatbotscreen.dart';
 
 import '../../config/ui_icons.dart';
 import '../screens/account.dart';
@@ -32,6 +33,14 @@ class TabsWidget extends StatefulWidget {
 
 class _TabsWidgetState extends State<TabsWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  NotificationsWidget _notificationsWidget =
+      NotificationsWidget(NotificationService().showNotification);
+  FavoritesWidget _favoritesWidget = FavoritesWidget();
+  HomeWidget _homeWidget = HomeWidget();
+  MessagesWidget _messagesWidget = MessagesWidget();
+  AccountWidget _accountWidget = AccountWidget();
+  ChatWidget _chatWidget = ChatWidget();
+
   @override
   initState() {
     _selectTab(widget.currentTab);
@@ -51,29 +60,28 @@ class _TabsWidgetState extends State<TabsWidget> {
       switch (tabItem) {
         case 0:
           widget.currentTitle = 'Notifications';
-          widget.currentPage =
-              NotificationsWidget(NotificationService().showNotification);
+          widget.currentPage = _notificationsWidget;
           break;
         case 1:
           widget.currentTitle = 'Favorites';
-          widget.currentPage = FavoritesWidget();
+          widget.currentPage = _favoritesWidget;
           break;
         case 2:
           widget.currentTitle = 'Home';
-          widget.currentPage = HomeWidget();
+          widget.currentPage = _homeWidget;
           break;
         case 3:
           widget.currentTitle = 'Messages';
-          widget.currentPage = MessagesWidget();
+          widget.currentPage = _messagesWidget;
           break;
         case 4:
           widget.currentTitle = 'Account';
-          widget.currentPage = AccountWidget();
+          widget.currentPage = _accountWidget;
           break;
         case 5:
           widget.selectedTab = 3;
           widget.currentTitle = 'Chat';
-          widget.currentPage = ChatWidget();
+          widget.currentPage = _chatWidget;
           break;
       }
     });
@@ -216,6 +224,15 @@ class _TabsWidgetState extends State<TabsWidget> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset('img/chatbot.jpg')),
+        onPressed: () {
+          Navigator.of(context).pushNamed(ChatBot.routeName);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }

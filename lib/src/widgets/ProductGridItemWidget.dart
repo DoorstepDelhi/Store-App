@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../models/product.dart';
 import '../models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,7 @@ class ProductGridItemWidget extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: this.heroTag + product.id,
-              child: Image.network(product.image),
+              child: CachedNetworkImage(imageUrl: product.image),
             ),
             SizedBox(height: 12),
             Padding(

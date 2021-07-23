@@ -6,7 +6,9 @@ import 'package:store_app/services/prefs_services.dart';
 import 'package:store_app/view/address_viewmodel.dart';
 import 'package:store_app/view/brands_viewmodel.dart';
 import 'package:store_app/view/categories_viewmodel.dart';
+import 'package:store_app/view/chatbot_viewmodel.dart';
 import 'package:store_app/view/chatviewmodel.dart';
+import 'package:store_app/view/group_wishlist_viewmodel.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 import 'package:store_app/view/login_viewmodel.dart';
 import 'package:store_app/view/wishlist_viewmodel.dart';
@@ -18,13 +20,16 @@ void setupLocator() {
   getIt.registerSingleton<Prefs>(Prefs());
   getIt.registerSingleton<ChatViewModel>(ChatViewModel());
   getIt.registerSingleton<HomeViewModel>(HomeViewModel());
+  getIt.registerSingleton<WishListViewModel>(WishListViewModel());
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
   getIt.registerFactory(() => CategoriesViewModel());
   getIt.registerFactory(() => BrandsViewModel());
+  getIt.registerFactory(() => GroupWishlistViewmodel());
+  getIt.registerFactory(() => ChatBotViewmodel());
 
   // getIt.registerFactory(() => AddressViewModel());
-  getIt.registerFactory(() => WishListViewModel());
+
   getIt.registerFactory(() => ProdutsViewModel());
 
   // getIt.registerFactory(() => WebsiteViewModel());

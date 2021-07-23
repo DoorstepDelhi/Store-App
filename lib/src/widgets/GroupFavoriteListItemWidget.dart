@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../../config/ui_icons.dart';
 import '../models/product.dart';
 import '../models/route_argument.dart';
@@ -20,6 +22,7 @@ class GroupFavoriteListItemWidget extends StatefulWidget {
 
 class _GroupFavoriteListItemWidgetState
     extends State<GroupFavoriteListItemWidget> {
+  var random = 1 + Random().nextInt(9);
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -138,7 +141,7 @@ class _GroupFavoriteListItemWidgetState
                               IconButton(
                                   icon: Icon(Icons.arrow_upward_rounded),
                                   onPressed: () {}),
-                              Text('8 Upvotes')
+                              Text('$random Upvotes')
                             ],
                           ),
                         )

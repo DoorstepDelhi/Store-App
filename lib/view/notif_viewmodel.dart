@@ -26,19 +26,18 @@ class NotificationViewModel extends BaseModel {
   Future<List<Notification>> fetchNotifications() async {
     if (notifications.isEmpty) {
       // setState(ViewState.Busy);
-      notificationsFetched = true;
-      final notificationResponse = await _apiService.getCategories();
-      notifications = [];
-      if (!notificationResponse.error) {
-        for (var x in notificationResponse.data) {
-          Notification notification = Notification.fromMap(x);
-          notifications.add(notification);
-        }
-        notificationList.notifications = notifications;
-      } else {
-        print(notificationResponse.errorMessage);
-      }
+      // notificationsFetched = true;
+      // final notificationResponse = await _apiService.getCategories();
+      // notifications = [];
+      // if (!notificationResponse.error) {
+      //   for (var x in notificationResponse.data) {
+      //     Notification notification = Notification.fromMap(x);
+      //     notifications.add(notification);
+      //   }
+      //   notificationList.notifications = notifications;
+    } else {
+      // print(notificationResponse.errorMessage);
     }
-    return notifications;
   }
+  // return notifications;
 }
