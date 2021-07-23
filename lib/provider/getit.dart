@@ -8,6 +8,7 @@ import 'package:store_app/view/brands_viewmodel.dart';
 import 'package:store_app/view/categories_viewmodel.dart';
 import 'package:store_app/view/chatbot_viewmodel.dart';
 import 'package:store_app/view/chatviewmodel.dart';
+import 'package:store_app/view/groupChatViewModel.dart';
 import 'package:store_app/view/group_wishlist_viewmodel.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 import 'package:store_app/view/login_viewmodel.dart';
@@ -27,7 +28,7 @@ void setupLocator() {
   getIt.registerFactory(() => BrandsViewModel());
   getIt.registerFactory(() => GroupWishlistViewmodel());
   getIt.registerFactory(() => ChatBotViewmodel());
-
+  getIt.registerFactory(() => GroupChatViewModel());
   // getIt.registerFactory(() => AddressViewModel());
 
   getIt.registerFactory(() => ProdutsViewModel());

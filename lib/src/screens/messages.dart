@@ -1,8 +1,11 @@
+import 'package:store_app/enum/view_state.dart';
+import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/src/screens/nearby.dart';
+import 'package:store_app/src/widgets/groupMessageItem.dart';
+import 'package:store_app/view/groupChatViewModel.dart';
 
 import '../models/conversation.dart' as model;
 import '../widgets/EmptyMessagesWidget.dart';
-import '../widgets/MessageItemWidget.dart';
 import '../widgets/SearchBarWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -149,28 +152,44 @@ class _MessagesWidgetState extends State<MessagesWidget>
                 ),
               topNavigator4
                   ? Nearby()
-                  : Offstage(
-                      offstage: _conversationList.conversations.isEmpty,
-                      child: ListView.separated(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: _conversationList.conversations.length,
-                        separatorBuilder: (context, index) {
-                          return SizedBox(height: 7);
-                        },
-                        itemBuilder: (context, index) {
-                          return MessageItemWidget(
-                            message: _conversationList.conversations
-                                .elementAt(index),
-                            onDismissed: (conversation) {
-                              setState(() {
-                                _conversationList.conversations.removeAt(index);
-                              });
-                            },
-                          );
-                        },
-                      ),
+                  : BaseView<GroupChatViewModel>(
+                      onModelReady: (model) => model.getGroupChat(context),
+                      builder: (ctx, model, child) =>
+                          model.state == ViewState.Busy
+                              ? Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 150.0,
+                                  ),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                )
+                              : Offstage(
+                                  offstage: model.groupConversations.isEmpty,
+                                  child: ListView.separated(
+                                    padding: EdgeInsets.symmetric(vertical: 15),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemCount: model.groupConversations.length,
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(height: 7);
+                                    },
+                                    itemBuilder: (context, index) {
+                                      var conversation =
+                                          model.groupConversations[index];
+
+                                      return GroupMessageItemWidget(
+                                        message: conversation,
+                                        onDismissed: (conversation) {
+                                          setState(() {
+                                            model.groupConversations
+                                                .removeAt(index);
+                                          });
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
                     ),
               Offstage(
                 offstage: _conversationList.conversations.isNotEmpty,

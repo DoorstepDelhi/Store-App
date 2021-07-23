@@ -80,6 +80,20 @@ class ApiService extends BaseApi {
     return response;
   }
 
+  //groupchatviewmodel
+  Future<ApiResponse> getGroupChat() async {
+    ApiResponse response;
+    try {
+      response = await getRequest(
+        endpoint: groupChats,
+      );
+      print(response.data);
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
   Future<ApiResponse> getProducts() async {
     ApiResponse response;
     try {
