@@ -8,3 +8,4 @@ String get chatsocketurl => 'wss://f8c690dab876.ngrok.io/ws/chat/teach/';
 String get wishlist => '/wishlist/wishlists/';
 String get products => '/products/prodcuts/';
 String get groupChats => '/rooms/rooms-view/last_message/';
+String get nearbyPeople => '/accounts/users/nearby/';
