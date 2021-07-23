@@ -15,7 +15,7 @@ class PopupProductsWidget extends StatefulWidget {
 class _PopupProductsWidgetState extends State<PopupProductsWidget> {
   final config = cfg.Colors();
   bool _initial = true;
-  bool _close = false;
+  bool _close = true;
   double _height = 200;
   double _width;
   double orignalwidth;
@@ -78,6 +78,7 @@ class _PopupProductsWidgetState extends State<PopupProductsWidget> {
   @override
   Widget build(BuildContext context) {
     print("bool value of close: " + _close.toString());
+    print(widget.products);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.topRight,

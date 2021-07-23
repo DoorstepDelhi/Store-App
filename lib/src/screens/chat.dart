@@ -76,48 +76,50 @@ class _ChatWidgetState extends State<ChatWidget> {
                           builder: (ctx, snapshot) {
                             if (!snapshot.hasData) {
                               print('no data');
-                            }
+                              return Container();
+                            } else {
+                              if (snapshot.data is List) {
+                                for (var x in snapshot.data) {
+                                  if (x is Map) {
+                                    print('yes');
+                                  }
+                                  // final data = jsonDecode(x.toString())
+                                  //     as Map<String, dynamic>;
 
-                            if (snapshot.data is List) {
-                              for (var x in snapshot.data) {
-                                if (x is Map) {
-                                  print('yes');
+                                  final chat = Chat.fromJson(x);
+                                  _conversationList.conversations[0].chats
+                                      .insert(0, chat);
                                 }
-                                // final data = jsonDecode(x.toString())
-                                //     as Map<String, dynamic>;
+                              } else {
+                                final data =
+                                    jsonDecode(snapshot.data.toString())
+                                        as Map<String, dynamic>;
 
-                                final chat = Chat.fromJson(x);
+                                final chat = Chat.fromJson(data);
                                 _conversationList.conversations[0].chats
                                     .insert(0, chat);
+                                _myListKey.currentState.insertItem(0);
                               }
-                            } else {
-                              final data = jsonDecode(snapshot.data.toString())
-                                  as Map<String, dynamic>;
-
-                              final chat = Chat.fromJson(data);
-                              _conversationList.conversations[0].chats
-                                  .insert(0, chat);
-                              _myListKey.currentState.insertItem(0);
+                              print('welcome to chats:');
+                              print(snapshot.data);
+                              return AnimatedList(
+                                key: _myListKey,
+                                reverse: true,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
+                                initialItemCount: _conversationList
+                                    .conversations[0].chats.length,
+                                itemBuilder: (context, index,
+                                    Animation<double> animation) {
+                                  Chat chat = _conversationList
+                                      .conversations[0].chats[index];
+                                  return ChatMessageListItem(
+                                    chat: chat,
+                                    animation: animation,
+                                  );
+                                },
+                              );
                             }
-                            print('welcome to chats:');
-                            print(snapshot.data);
-                            return AnimatedList(
-                              key: _myListKey,
-                              reverse: true,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 20),
-                              initialItemCount: _conversationList
-                                  .conversations[0].chats.length,
-                              itemBuilder: (context, index,
-                                  Animation<double> animation) {
-                                Chat chat = _conversationList
-                                    .conversations[0].chats[index];
-                                return ChatMessageListItem(
-                                  chat: chat,
-                                  animation: animation,
-                                );
-                              },
-                            );
                           },
                         ),
                       ),
@@ -208,10 +210,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                               }
                             }
 
-                            return Offstage(
-                                offstage: _products.isEmpty,
-                                child:
-                                    PopupProductsWidget(products: _products));
+                            return _products.isEmpty
+                                ? Container()
+                                : PopupProductsWidget(products: _products);
                           }),
                     ),
                   ),
