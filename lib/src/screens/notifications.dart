@@ -8,6 +8,9 @@ import '../widgets/NotificationItemWidget.dart';
 import '../widgets/SearchBarWidget.dart';
 
 class NotificationsWidget extends StatefulWidget {
+  final Future<void> Function(int, String, String) showNotification;
+  NotificationsWidget(this.showNotification);
+
   @override
   _NotificationsWidgetState createState() => _NotificationsWidgetState();
 }
@@ -75,6 +78,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     _notificationList.notifications.add(item.forEach(
                       (value) => model.Notification.fromMap(value),
                     ));
+                    // _notificationList.notifications.contains()
                     print(_notificationList);
                     return ListView.separated(
                       padding: EdgeInsets.symmetric(vertical: 15),
@@ -86,10 +90,23 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                       },
                       itemBuilder: (context, index) {
                         final _notif = item[index];
+                        widget.showNotification(
+                          _notif['id'] as int,
+                          _notif['title'],
+                          _notif['description'] + _notif['description_hi'],
+                        );
+
+                        // widget.showNotification(
+                        //   _notif['id'] as int,
+                        //   _notif['title_hi'],
+                        //   _notif['description_hi'],
+                        // );
+                        print(_notif);
                         return NotificationItemWidget(
                           notification: model.Notification(
                             image: _notif['image'],
                             title: _notif['title'],
+                            title_hi: _notif['title_hi'],
                             time: TimeAgo.timeAgoSinceDate(
                                 formatTime(_notif['datetime'])),
                             read: false,
