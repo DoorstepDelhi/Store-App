@@ -4,6 +4,8 @@ class Notification {
   String title;
   String time;
   String title_hi;
+  String description;
+  String description_hi;
   bool read;
 
   Notification({
@@ -13,6 +15,8 @@ class Notification {
     this.time,
     this.read,
     this.title_hi,
+    this.description,
+    this.description_hi,
   });
 
   factory Notification.fromMap(Map<String, dynamic> map) => Notification(
@@ -21,6 +25,8 @@ class Notification {
         title: map['title'],
         time: map['datetime'],
         title_hi: map['title_hi'],
+        description: map['description'],
+        description_hi: map['description_hi'],
         read: false,
       );
 }

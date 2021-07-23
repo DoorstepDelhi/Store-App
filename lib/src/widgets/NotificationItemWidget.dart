@@ -3,8 +3,11 @@ import '../models/notification.dart' as model;
 import 'package:flutter/material.dart';
 
 class NotificationItemWidget extends StatefulWidget {
-  NotificationItemWidget({Key key, this.notification, this.onDismissed})
-      : super(key: key);
+  NotificationItemWidget({
+    Key key,
+    this.notification,
+    this.onDismissed,
+  }) : super(key: key);
   model.Notification notification;
   ValueChanged<model.Notification> onDismissed;
 
@@ -54,7 +57,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 image: DecorationImage(
-                    image: AssetImage(this.widget.notification.image),
+                    image: NetworkImage(this.widget.notification.image),
                     fit: BoxFit.cover),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store_app/services/prefs_services.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
 import '../../config/timeAgo.dart';
@@ -18,16 +19,20 @@ class NotificationsWidget extends StatefulWidget {
 class _NotificationsWidgetState extends State<NotificationsWidget> {
   model.NotificationList _notificationList;
   WebSocketChannel _channel;
+  bool voice;
+  String selectedLang;
+
   @override
   void initState() {
     try {
       _channel = WebSocketChannel.connect(
-        Uri.parse('ws://949dc8f05a10.ngrok.io/ws/notifications/'),
+        Uri.parse('ws://f8c690dab876.ngrok.io/ws/notifications/'),
       );
     } catch (e) {
       print(e);
     }
-
+    Prefs().getLanguage().then((value) => selectedLang = value);
+    Prefs().getVoiceNotification().then((value) => voice = value);
     this._notificationList = new model.NotificationList();
     super.initState();
   }
@@ -72,51 +77,81 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                 stream: _channel.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    final item = jsonDecode(snapshot.data);
+                    final response = jsonDecode(snapshot.data);
                     // print(item);
 
-                    _notificationList.notifications.add(item.forEach(
-                      (value) => model.Notification.fromMap(value),
-                    ));
+                    for (var item in response) {
+                      var notification = model.Notification.fromMap(item);
+                      var contain = _notificationList.notifications
+                          .where((element) => element.id == notification.id);
+                      if (contain.isNotEmpty)
+                        continue;
+                      else {
+                        _notificationList.notifications.add(notification);
+                        print(selectedLang);
+                        if (selectedLang == 'English') {
+                          widget.showNotification(
+                            notification.id,
+                            notification.title,
+                            notification.description,
+                          );
+                        } else if (selectedLang == 'Hindi') {
+                          widget.showNotification(
+                            notification.id,
+                            notification.title_hi,
+                            notification.description_hi,
+                          );
+                        }
+                      }
+                    }
                     // _notificationList.notifications.contains()
                     print(_notificationList);
                     return ListView.separated(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shrinkWrap: true,
                       primary: false,
-                      itemCount: item.length,
+                      itemCount: _notificationList.notifications.length,
                       separatorBuilder: (context, index) {
                         return SizedBox(height: 7);
                       },
                       itemBuilder: (context, index) {
-                        final _notif = item[index];
-                        widget.showNotification(
-                          _notif['id'] as int,
-                          _notif['title'],
-                          _notif['description'] + _notif['description_hi'],
-                        );
+                        final notification =
+                            _notificationList.notifications[index];
 
-                        // widget.showNotification(
-                        //   _notif['id'] as int,
-                        //   _notif['title_hi'],
-                        //   _notif['description_hi'],
-                        // );
-                        print(_notif);
-                        return NotificationItemWidget(
-                          notification: model.Notification(
-                            image: _notif['image'],
-                            title: _notif['title'],
-                            title_hi: _notif['title_hi'],
-                            time: TimeAgo.timeAgoSinceDate(
-                                formatTime(_notif['datetime'])),
-                            read: false,
-                          ),
-                          onDismissed: (notification) {
-                            setState(() {
-                              _notificationList.notifications.removeAt(index);
-                            });
-                          },
-                        );
+                        print(notification);
+                        if (selectedLang == 'English') {
+                          return NotificationItemWidget(
+                            notification: model.Notification(
+                              image: notification.image,
+                              title: notification.title,
+                              time: TimeAgo.timeAgoSinceDate(
+                                  formatTime(notification.time)),
+                              read: false,
+                              description: notification.description,
+                            ),
+                            onDismissed: (notification) {
+                              setState(() {
+                                _notificationList.notifications.removeAt(index);
+                              });
+                            },
+                          );
+                        } else {
+                          return NotificationItemWidget(
+                            notification: model.Notification(
+                              image: notification.image,
+                              title: notification.title_hi,
+                              time: TimeAgo.timeAgoSinceDate(
+                                  formatTime(notification.time)),
+                              read: false,
+                              description: notification.description_hi,
+                            ),
+                            onDismissed: (notification) {
+                              setState(() {
+                                _notificationList.notifications.removeAt(index);
+                              });
+                            },
+                          );
+                        }
                       },
                     );
                   }

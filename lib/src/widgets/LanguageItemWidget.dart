@@ -1,9 +1,10 @@
+import 'package:store_app/services/prefs_services.dart';
+
 import '../models/language.dart';
 import 'package:flutter/material.dart';
 
 class LanguageItemWidget extends StatefulWidget {
   final Language language;
-
   const LanguageItemWidget({
     Key key,
     this.language,
@@ -21,7 +22,7 @@ class _LanguageItemWidgetState extends State<LanguageItemWidget>
   Animation<double> rotateCheckAnimation;
   Animation<double> opacityAnimation;
   Animation opacityCheckAnimation;
-  bool checked = false;
+  bool checked;
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _LanguageItemWidgetState extends State<LanguageItemWidget>
       ..addListener(() {
         setState(() {});
       });
+    checked = widget.language.checked;
   }
 
   @override
@@ -64,11 +66,16 @@ class _LanguageItemWidgetState extends State<LanguageItemWidget>
     return InkWell(
       onTap: () {
         if (checked) {
+          Prefs().setLanguage(widget.language.englishName);
+          Prefs().getLanguage().then((value) => print(value));
           animationController.reverse();
         } else {
           animationController.forward();
         }
         checked = !checked;
+        setState(() {
+          widget.language.checked = checked;
+        });
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),

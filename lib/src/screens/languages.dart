@@ -1,3 +1,5 @@
+import 'package:store_app/services/prefs_services.dart';
+
 import '../models/language.dart';
 import '../widgets/DrawerWidget.dart';
 import '../widgets/LanguageItemWidget.dart';
@@ -14,9 +16,14 @@ class LanguagesWidget extends StatefulWidget {
 class _LanguagesWidgetState extends State<LanguagesWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LanguagesList languagesList;
+  final prefs = Prefs();
+  bool voice;
+  String lang;
   @override
   void initState() {
     languagesList = new LanguagesList();
+    prefs.getVoiceNotification().then((value) => voice = value);
+    prefs.getLanguage().then((value) => lang = value);
     super.initState();
   }
 
@@ -112,7 +119,14 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.display1,
                   ),
-                  trailing: Switch(value: true, onChanged: (val) {}),
+                  trailing: Switch(
+                      value: voice,
+                      onChanged: (val) async {
+                        setState(() {
+                          voice = !voice;
+                          prefs.setVoiceNotification(val);
+                        });
+                      }),
                 ),
               ),
               SizedBox(height: 10),

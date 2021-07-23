@@ -9,7 +9,7 @@ import 'package:store_app/view/home_viewmodel.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  // await NotificationService().init();
+  await NotificationService().init();
   // final homeViewModel = getIt.get<HomeViewModel>();
   // homeViewModel.fetchFlashSaleProducts();
   runApp(MyApp());
