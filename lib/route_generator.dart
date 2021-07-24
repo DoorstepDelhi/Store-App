@@ -1,4 +1,5 @@
 import 'package:store_app/src/screens/chatbotscreen.dart';
+import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/messages.dart';
 import 'package:store_app/src/screens/shippingaddressmain.dart';
 import 'package:store_app/src/screens/chat.dart';
@@ -84,7 +85,15 @@ class RouteGenerator {
       case '/Order':
         return MaterialPageRoute(builder: (_) => OrderSummaryWidget());
       case '/Chat':
-        return MaterialPageRoute(builder: (_) => ChatWidget());
+        return MaterialPageRoute(
+            builder: (_) => ChatWidget(
+                  routeArgument: args,
+                ));
+      case '/groupInfo':
+        return MaterialPageRoute(
+            builder: (_) => GroupInfo(
+                  routeArgument: args,
+                ));
       case '/Chatbot':
         return MaterialPageRoute(builder: (_) => ChatBot());
       case '/Messages':

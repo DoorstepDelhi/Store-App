@@ -197,4 +197,28 @@ class ApiService extends BaseApi {
     }
     return response;
   }
+
+  //Groupinfoviewmodel
+  Future<ApiResponse> fetchGroupInfo({String id}) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(endpoint: groupInfo + '$id/');
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  //productDetails
+  Future<ApiResponse> fetchProdyuct({String id}) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(endpoint: products + '$id/');
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
 }

@@ -10,18 +10,18 @@ import 'package:store_app/services/api_services.dart';
 
 import 'package:store_app/src/models/brand.dart';
 import 'package:store_app/src/models/category.dart';
-import 'package:store_app/src/models/product.dart';
+import 'package:store_app/src/models/product.dart' as prod;
 
 class HomeViewModel extends BaseModel {
   ApiService _apiService = ApiService();
 
   List<Category> categories = [];
   List<Brand> brands = [];
-  List<Product> flashSaleProducts = [];
+  List<prod.Product> flashSaleProducts = [];
   CategoriesList categoriesList = CategoriesList();
   BrandsList brandsList = BrandsList();
-  List<Product> productsOfCategoryList;
-  List<Product> productsOfBrandsList;
+  List<prod.Product> productsOfCategoryList;
+  List<prod.Product> productsOfBrandsList;
 
   void fetchInitData() async {
     if (brands.isEmpty && categories.isEmpty) {

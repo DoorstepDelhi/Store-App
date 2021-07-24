@@ -1,3 +1,5 @@
+import 'package:store_app/src/models/route_argument.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/groupConversation.dart' as model;
 import 'package:flutter/material.dart';
@@ -43,7 +45,9 @@ class _GroupMessageItemWidgetState extends State<GroupMessageItemWidget> {
       },
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/Chat');
+          Navigator.of(context).pushNamed('/Chat',
+              arguments: RouteArgument(
+                  id: widget.message.id, argumentsList: [widget.message]));
         },
         child: Container(
           color: this.widget.message.unseenMessages > 0

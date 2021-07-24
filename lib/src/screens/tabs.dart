@@ -224,15 +224,15 @@ class _TabsWidgetState extends State<TabsWidget> {
 //           ),
 //         ],
 //       ),
-      floatingActionButton: FloatingActionButton(
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset('img/chatbot.jpg')),
-        onPressed: () {
-          Navigator.of(context).pushNamed(ChatBot.routeName);
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   child: ClipRRect(
+      //       borderRadius: BorderRadius.circular(50),
+      //       child: Image.asset('img/chatbot.jpg')),
+      //   onPressed: () {
+      //     Navigator.of(context).pushNamed(ChatBot.routeName);
+      //   },
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }

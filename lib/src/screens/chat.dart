@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2beta1/session.pb.dart';
+// import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/cx/v3beta1/session.pb.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:store_app/config/app_config.dart' as cfg;
@@ -7,6 +10,7 @@ import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 
 import 'package:store_app/src/models/product.dart';
+import 'package:store_app/src/models/route_argument.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/group_wish_list.dart';
@@ -22,6 +26,9 @@ import '../widgets/ChatMessageListItemWidget.dart';
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatefulWidget {
+  RouteArgument routeArgument;
+  ChatWidget({this.routeArgument});
+
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
 }
@@ -148,11 +155,21 @@ class _ChatWidgetState extends State<ChatWidget> {
                               padding: EdgeInsets.only(right: 30),
                               onPressed: () async {
                                 // setState(() {
+                                try {
+                                  DetectIntentResponse data2 =
+                                      await model.dialogflow.detectIntent(
+                                          model.myController.text, 'en-US');
+                                  print(data2.queryResult.fulfillmentText);
+                                } catch (e) {
+                                  print('error: ' + e.toString());
+                                }
+
                                 final data = jsonEncode({
                                   "room": 10,
                                   "user": 1,
                                   "message_text": model.myController.text
                                 });
+
                                 model.socket.sink.add(data);
                                 model.myController.clear();
                                 // });
@@ -225,7 +242,10 @@ class _ChatWidgetState extends State<ChatWidget> {
   appBarTitle() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GroupInfo()));
+        Navigator.pushNamed(context, GroupInfo.routeName,
+            arguments: RouteArgument(
+              id: widget.routeArgument.argumentsList[0].id,
+            ));
       },
       child: Row(
         children: [
@@ -233,13 +253,18 @@ class _ChatWidgetState extends State<ChatWidget> {
               width: 35,
               height: 35,
               margin: EdgeInsets.only(top: 7, bottom: 7, right: 10),
+              decoration: BoxDecoration(shape: BoxShape.circle),
               child: InkWell(
                 borderRadius: BorderRadius.circular(300),
-                onTap: () {
-                  Navigator.of(context).pushNamed('/Tabs', arguments: 1);
-                },
+                // onTap: () {
+                //   Navigator.of(context).pushNamed('/Tabs', arguments: 1);
+                // },
                 child: CircleAvatar(
-                  backgroundImage: AssetImage('img/temp/group_icon.jpeg'),
+                  radius: 20,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.routeArgument.argumentsList[0].image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )),
           Container(
@@ -248,7 +273,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Delhi Wholesalers",
+                  widget.routeArgument.argumentsList[0].title,
                   style: Theme.of(context).textTheme.body2,
                   overflow: TextOverflow.ellipsis,
                 ),
