@@ -13,6 +13,7 @@ import 'package:store_app/view/group_info_viewmodel.dart';
 import 'package:store_app/view/group_wishlist_viewmodel.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 import 'package:store_app/view/login_viewmodel.dart';
+import 'package:store_app/view/nearbyGroupsModel.dart';
 import 'package:store_app/view/productdetailsviewmodel.dart';
 import 'package:store_app/view/nearbyViewModel.dart';
 import 'package:store_app/view/wishlist_viewmodel.dart';
@@ -35,7 +36,7 @@ void setupLocator() {
   getIt.registerFactory(() => GroupInfoViewModel());
   getIt.registerFactory(() => ProductDetailsViewmodel());
   getIt.registerFactory(() => NearbyViewModel());
-
+  getIt.registerFactory(() => NearbyGroupsViewModel());
   // getIt.registerFactory(() => AddressViewModel());
 
   getIt.registerFactory(() => ProdutsViewModel());
