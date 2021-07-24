@@ -37,6 +37,7 @@ class _ChatBotState extends State<ChatBot> {
     final config = conf.App(context);
     return Scaffold(
       body: BaseView<ChatBotViewmodel>(
+        onModelReady: (model) => model.initData(),
         builder: (ctx, model, child) {
           return Container(
             height: config.appHeight(100),

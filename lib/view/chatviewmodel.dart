@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -16,6 +15,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 // import 'package:dialogflow_grpc/v2beta1.dart';
 // import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2beta1/session.pb.dart';
 import 'package:dialogflow_grpc/dialogflow_auth.dart';
+import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 
 class ChatViewModel extends BaseModel {
   ApiService _apiService = ApiService();

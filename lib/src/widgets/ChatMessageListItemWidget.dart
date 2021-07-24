@@ -51,18 +51,18 @@ class ChatMessageListItem extends StatelessWidget {
                 ],
               ),
             ),
-            new Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                new Container(
-                    margin: const EdgeInsets.only(left: 8.0),
-                    child: new CircleAvatar(
-                      child: CachedNetworkImage(
-                        imageUrl: chat.user.avatar,
-                      ),
-                    )),
-              ],
-            ),
+            // new Column(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: <Widget>[
+            //     new Container(
+            //         margin: const EdgeInsets.only(left: 8.0),
+            //         child: new CircleAvatar(
+            //           child: CachedNetworkImage(
+            //             imageUrl: chat.user.avatar,
+            //           ),
+            //         )),
+            //   ],
+            // ),
           ],
         ),
       ),
