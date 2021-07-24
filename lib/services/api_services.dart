@@ -94,6 +94,20 @@ class ApiService extends BaseApi {
     return response;
   }
 
+  //nearbyviewmodel
+  Future<ApiResponse> getNearbyPeople() async {
+    ApiResponse response;
+    try {
+      response = await getRequest(
+        endpoint: nearbyPeople,
+      );
+      print(response.data);
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
   Future<ApiResponse> getProducts() async {
     ApiResponse response;
     try {

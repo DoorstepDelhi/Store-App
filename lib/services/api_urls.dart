@@ -12,3 +12,4 @@ String get products => '/products/prodcuts/';
 String get groupChats => '/rooms/rooms-view/last_message/';
 String get groupChat => 'rooms/rooms-view/';
 String get groupInfo => '/room/rooms-view/';
+String get nearbyPeople => '/accounts/users/nearby/';

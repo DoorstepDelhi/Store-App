@@ -48,6 +48,7 @@ dependencies:
   cached_network_image: ^3.1.0
   speech_to_text: ^4.2.2
   dialogflow_grpc: ^0.2.9
+  contacts_service: ^0.6.1
 
 dev_dependencies:
   flutter_test:
