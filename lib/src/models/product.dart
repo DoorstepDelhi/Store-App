@@ -29,7 +29,7 @@ class Product {
   String description;
   String updatedAt;
   bool chargeTaxes;
-  int productQty;
+  double productQty;
   bool visibleInListings;
   List<Variants> variants;
   List<Prices> prices;
@@ -104,15 +104,12 @@ class Product {
   //   return data;
   // }
 
-  String getPrice({double myPrice}) {
+  String getPrice({int myPrice}) {
     if (myPrice != null) {
-      return '\₹${myPrice.toStringAsFixed(2)}';
+      return '\₹$myPrice';
     }
-    Random rnd = new Random();
-    int min = 1;
-    int max = 100;
-    var random = min + rnd.nextInt(max - min);
-    return '\₹${random.toStringAsFixed(2)}';
+
+    return '\₹$minWholesalePrice';
   }
 }
 
@@ -189,9 +186,9 @@ class Variants {
   Variant variant;
   List<Images> images;
   bool trackInventory;
-  int productQty;
-  int price;
-  int discountedPrice;
+  double productQty;
+  double price;
+  double discountedPrice;
 
   Variants(
       {this.id,

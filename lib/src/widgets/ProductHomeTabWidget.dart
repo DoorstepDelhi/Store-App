@@ -39,7 +39,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                 label: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(widget.product.rate.toString(),
+                    Text(widget.product.averageRating.toString(),
                         style: Theme.of(context).textTheme.body2.merge(
                             TextStyle(color: Theme.of(context).primaryColor))),
                     Icon(
@@ -60,11 +60,14 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(widget.product.getPrice(),
+              Text(
+                  widget.product.getPrice(
+                      myPrice: widget.product.prices[0].discountedPrice),
                   style: Theme.of(context).textTheme.display3),
               SizedBox(width: 10),
               Text(
-                widget.product.getPrice(myPrice: widget.product.price + 10.0),
+                widget.product
+                    .getPrice(myPrice: widget.product.prices[0].price),
                 style: Theme.of(context).textTheme.headline.merge(TextStyle(
                     color: Theme.of(context).focusColor,
                     decoration: TextDecoration.lineThrough)),
@@ -72,7 +75,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  '${widget.product.sales.toString()} Sales',
+                  'Min Qty. ${widget.product.prices[0].minQty}',
                   textAlign: TextAlign.right,
                 ),
               )
@@ -134,48 +137,48 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Select Size',
-                      style: Theme.of(context).textTheme.body2,
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {},
-                    padding: EdgeInsets.all(0),
-                    minWidth: 0,
-                    child: Text(
-                      'Clear All',
-                      style: Theme.of(context).textTheme.body1,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10),
-              SelectSizeWidget()
+              // Row(
+              //   children: <Widget>[
+              //     Expanded(
+              //       child: Text(
+              //         'Select Ram',
+              //         style: Theme.of(context).textTheme.body2,
+              //       ),
+              //     ),
+              //     MaterialButton(
+              //       onPressed: () {},
+              //       padding: EdgeInsets.all(0),
+              //       minWidth: 0,
+              //       child: Text(
+              //         'Clear All',
+              //         style: Theme.of(context).textTheme.body1,
+              //       ),
+              //     )
+              //   ],
+              // ),
+              // SizedBox(height: 10),
+              // SelectSizeWidget()
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          child: ListTile(
-            dense: true,
-            contentPadding: EdgeInsets.symmetric(vertical: 0),
-            leading: Icon(
-              UiIcons.box,
-              color: Theme.of(context).hintColor,
-            ),
-            title: Text(
-              'Related Poducts',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ),
-        ),
-        FlashSalesCarouselWidget(
-            heroTag: 'product_related_products',
-            productsList: widget._productsList.flashSalesList),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        //   child: ListTile(
+        //     dense: true,
+        //     contentPadding: EdgeInsets.symmetric(vertical: 0),
+        //     leading: Icon(
+        //       UiIcons.box,
+        //       color: Theme.of(context).hintColor,
+        //     ),
+        //     title: Text(
+        //       'Related Poducts',
+        //       style: Theme.of(context).textTheme.display1,
+        //     ),
+        //   ),
+        // ),
+        // FlashSalesCarouselWidget(
+        //     heroTag: 'product_related_products',
+        //     productsList: widget.product.),
       ],
     );
   }
