@@ -41,7 +41,6 @@ class _ChatWidgetState extends State<ChatWidget> {
   final config = cfg.Colors();
 
   var labelCount = 0;
-  List<Product> _products = [];
 
   @override
   Widget build(BuildContext context) {
@@ -216,6 +215,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                       child: StreamBuilder(
                           stream: model.recommendationSocket.stream,
                           builder: (ctx, snapshot) {
+                            List<Product> _products = [];
                             print('welcome to recommendation');
                             print(snapshot.data);
                             if (snapshot.data != null) {

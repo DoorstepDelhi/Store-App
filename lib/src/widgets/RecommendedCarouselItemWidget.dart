@@ -84,7 +84,9 @@ class RecommendedCarouselItemWidget extends StatelessWidget {
                         size: 18,
                       ),
                       Text(
-                        product.averageRating.toStringAsFixed(1),
+                        product.averageRating == null
+                            ? '3.5'
+                            : product.averageRating.toStringAsFixed(1),
                         style: Theme.of(context).textTheme.body2,
                       )
                     ],
