@@ -97,6 +97,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       .insert(0, chat);
                                 }
                               } else {
+                                print(snapshot.data.toString() + 'line 100');
                                 final data =
                                     jsonDecode(snapshot.data.toString())
                                         as Map<String, dynamic>;
@@ -165,7 +166,7 @@ class _ChatWidgetState extends State<ChatWidget> {
 
                                 final data = jsonEncode({
                                   "room": 10,
-                                  "user": 1,
+                                  "user": 57,
                                   "message_text": model.myController.text
                                 });
 

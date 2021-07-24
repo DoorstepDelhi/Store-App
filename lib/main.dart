@@ -4,14 +4,16 @@ import 'package:store_app/route_generator.dart';
 import 'package:store_app/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/services/notification_service.dart';
+import 'package:store_app/services/prefs_services.dart';
 import 'package:store_app/view/home_viewmodel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  // await NotificationService().init();
+  await NotificationService().init();
   // final homeViewModel = getIt.get<HomeViewModel>();
   // homeViewModel.fetchFlashSaleProducts();
+
   runApp(MyApp());
 }
 

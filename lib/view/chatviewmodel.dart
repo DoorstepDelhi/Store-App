@@ -25,6 +25,8 @@ class ChatViewModel extends BaseModel {
   WebSocketChannel socket;
   WebSocketChannel recommendationSocket;
   DialogflowGrpcV2Beta1 dialogflow;
+  String uid;
+  final prefs = getIt.get<Prefs>();
 
   void initData() async {
     setState(viewState: ViewState.Busy);
@@ -32,6 +34,7 @@ class ChatViewModel extends BaseModel {
     final data = await _apiService.fetchChats(id: '10');
     initialData = data.data;
     try {
+      uid = await prefs.getUID();
       print(state);
       socket = IOWebSocketChannel.connect(
         Uri.parse(chatsocketurl),

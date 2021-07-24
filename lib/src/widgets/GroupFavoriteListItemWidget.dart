@@ -132,7 +132,9 @@ class _GroupFavoriteListItemWidgetState
                     SizedBox(width: 8),
                     Column(
                       children: [
-                        Text(widget.product.getPrice(),
+                        Text(
+                            widget.product
+                                .getPrice(myPrice: Random().nextInt(500)),
                             style: Theme.of(context).textTheme.display1),
                         Container(
                           // height: 10,

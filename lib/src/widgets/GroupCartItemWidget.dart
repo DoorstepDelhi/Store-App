@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../models/product.dart';
 import '../models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -70,11 +72,12 @@ class _GroupCartItemWidgetState extends State<GroupCartItemWidget> {
                           style: Theme.of(context).textTheme.subhead,
                         ),
                         Text(
-                          widget.product.getPrice(),
+                          widget.product
+                              .getPrice(myPrice: Random().nextInt(500)),
                           style: Theme.of(context).textTheme.display1,
                         ),
                         Text(
-                          "Group/ Min. Qty.  6/10",
+                          "Group/ Min. Qty.  ${Random().nextInt(8)}/10",
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ],

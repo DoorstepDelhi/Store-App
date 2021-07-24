@@ -28,6 +28,11 @@ class Prefs {
     prefs.setString(_userIDStorageKey, uID);
   }
 
+  Future<String> getUID() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userIDStorageKey) ?? '';
+  }
+
   Future<String> getLanguage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_languageStorageKey) ?? 'English';

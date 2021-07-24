@@ -101,7 +101,7 @@ class _CartPageUIState extends State<CartPageUI> {
                           style: Theme.of(context).textTheme.body2,
                         ),
                       ),
-                      Text('\₹50.23',
+                      Text('\₹5023',
                           style: Theme.of(context).textTheme.subhead),
                     ],
                   ),
@@ -114,7 +114,7 @@ class _CartPageUIState extends State<CartPageUI> {
                           style: Theme.of(context).textTheme.body2,
                         ),
                       ),
-                      Text('\₹13.23',
+                      Text('\₹1323',
                           style: Theme.of(context).textTheme.subhead),
                     ],
                   ),
@@ -143,7 +143,7 @@ class _CartPageUIState extends State<CartPageUI> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          '\₹55.36',
+                          '\₹5536',
                           style: Theme.of(context).textTheme.display1.merge(
                               TextStyle(color: Theme.of(context).primaryColor)),
                         ),
