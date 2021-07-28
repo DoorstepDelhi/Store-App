@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:dialogflow_grpc/generated/google/cloud/dialogflow/v2beta1/session.pb.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/config/app_config.dart' as conf;
 import 'package:store_app/config/ui_icons.dart';
@@ -23,7 +25,6 @@ class _ChatBotState extends State<ChatBot> {
   User _currentUser = new User.init().getCurrentUser();
   final _listKey = GlobalKey<AnimatedListState>();
   final myController = TextEditingController();
-  ProductsList _productsList = new ProductsList();
 
   @override
   void dispose() {
@@ -45,177 +46,251 @@ class _ChatBotState extends State<ChatBot> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 50,
-                ),
-                Text.rich(
-                  TextSpan(text: 'What can I do for you?'),
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                SizedBox(
                   height: 20,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Delivery related query',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Where\'s my order?',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Cancel order',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Best Deals for me',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Delivery related query',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                width: 1, color: Theme.of(context).hintColor)),
-                        child: Text(
-                          'Delivery related query',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                    ],
+                Dismissible(
+                  key: UniqueKey(),
+                  child: querySuggestions(context),
+                  dismissThresholds: {DismissDirection.endToStart: 0.6},
+                  background: Container(
+                    height: config.appHeight(18),
+                    color: Theme.of(context).accentColor,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: config.appHeight(30),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 20.0,
-                        left: 0.0,
-                        bottom: 0.0,
-                        right: 0.0,
-                        child: SizedBox(
-                          height: 170.0,
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: _productsList.flashSalesList.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              Product product =
-                                  _productsList.flashSalesList.elementAt(index);
-                              return RecommendedCarouselItemWidget(
-                                product: product,
-                                heroTag: 'flash_sales',
-                                marginLeft: 10.0,
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                width: 10.0,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                RecommendProducts(),
                 Expanded(
-                  child: AnimatedList(
-                    key: _listKey,
-                    reverse: true,
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    initialItemCount:
-                        _conversationList.conversations[1].chats.length,
-                    itemBuilder: (context, index, Animation<double> animation) {
-                      Chat chat =
-                          _conversationList.conversations[1].chats[index];
-                      return ChatMessageListItem(
-                        chat: chat,
-                        animation: animation,
+                  child: StreamBuilder(
+                    builder: (ctx, snapshot) {
+                      return AnimatedList(
+                        key: _listKey,
+                        reverse: true,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        initialItemCount:
+                            _conversationList.conversations[1].chats.length,
+                        itemBuilder:
+                            (context, index, Animation<double> animation) {
+                          Chat chat =
+                              _conversationList.conversations[1].chats[index];
+                          return ChatMessageListItem(
+                            chat: chat,
+                            animation: animation,
+                          );
+                        },
                       );
                     },
                   ),
                 ),
                 SendMessage(
                     controller: myController,
-                    callback: () {
-                      setState(() {
+                    callback: (bool voiceMode) async {
+                      if (voiceMode) {
+                        print('yes it\'s ture');
                         _conversationList.conversations[1].chats.insert(
                             0,
                             new Chat(
                                 text: myController.text,
                                 time: '21min ago',
                                 user: _currentUser));
+                        DetectIntentResponse data2 = await model.dialogflow
+                            .detectIntent(myController.text, 'en-US');
+                        print(data2.queryResult.fulfillmentText);
                         _listKey.currentState.insertItem(0);
-                      });
+                        model.speak(data2.queryResult.fulfillmentText);
+                      } else {
+                        _conversationList.conversations[1].chats.insert(
+                            0,
+                            new Chat(
+                                text: myController.text,
+                                time: '21min ago',
+                                user: _currentUser));
+                        // DetectIntentResponse data2 = await model.dialogflow
+                        //     .detectIntent(myController.text, 'en-US');
+                        // print(data2.queryResult.fulfillmentText);
+                        _listKey.currentState.insertItem(0);
+                        final data = await model.listen();
+                        print(data);
+                      }
                     })
               ],
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+Widget querySuggestions(BuildContext context) {
+  final config = conf.App(context);
+  return Container(
+    height: config.appHeight(18),
+    child: Column(
+      children: [
+        SizedBox(
+          height: 50,
+        ),
+        Text.rich(
+          TextSpan(text: 'What can I do for you?'),
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Delivery related query',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Where\'s my order?',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Cancel order',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Best Deals for me',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Delivery related query',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        width: 1, color: Theme.of(context).hintColor)),
+                child: Text(
+                  'Delivery related query',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+class RecommendProducts extends StatefulWidget {
+  @override
+  _RecommendProductsState createState() => _RecommendProductsState();
+}
+
+class _RecommendProductsState extends State<RecommendProducts> {
+  ProductsList _productsList = new ProductsList();
+  bool show = false;
+  @override
+  Widget build(BuildContext context) {
+    final config = conf.App(context);
+    return Offstage(
+      offstage: show,
+      child: Container(
+        height: config.appHeight(30),
+        // color: Colors.red,
+        child: Stack(
+          children: [
+            SizedBox(
+              height: config.appHeight(30),
+              child: ListView.separated(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: _productsList.flashSalesList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  Product product =
+                      _productsList.flashSalesList.elementAt(index);
+                  return RecommendedCarouselItemWidget(
+                    product: product,
+                    heroTag: 'flash_sales',
+                    marginLeft: 10.0,
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                    width: 10.0,
+                  );
+                },
+              ),
+            ),
+            Positioned(
+                child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: Colors.black)),
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    show = !show;
+                  });
+                },
+              ),
+            ))
+          ],
+        ),
       ),
     );
   }
@@ -269,7 +344,7 @@ class _SendMessageState extends State<SendMessage> {
               ? IconButton(
                   padding: EdgeInsets.only(right: 30),
                   onPressed: () {
-                    widget.callback();
+                    widget.callback(_voicemode);
 
                     Timer(Duration(milliseconds: 100), () {
                       widget.controller.clear();
@@ -281,19 +356,18 @@ class _SendMessageState extends State<SendMessage> {
                     size: 30,
                   ),
                 )
-              : IconButton(
-                  padding: EdgeInsets.only(right: 30),
-                  onPressed: () {
-                    widget.callback();
-
-                    Timer(Duration(milliseconds: 100), () {
-                      widget.controller.clear();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.mic,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
+              : AvatarGlow(
+                  endRadius: 40,
+                  child: IconButton(
+                    padding: EdgeInsets.only(right: 30),
+                    onPressed: () {
+                      widget.callback(_voicemode);
+                    },
+                    icon: Icon(
+                      Icons.mic,
+                      color: Theme.of(context).accentColor,
+                      size: 30,
+                    ),
                   ),
                 ),
           border: UnderlineInputBorder(borderSide: BorderSide.none),
