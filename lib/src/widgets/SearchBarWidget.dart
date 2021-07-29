@@ -2,12 +2,14 @@ import '../../config/ui_icons.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  SearchBarWidget({
-    Key key,
-  }) : super(key: key);
+  final bool filter;
+  final Function(String val, FocusScopeNode hasFocus) callback;
+  SearchBarWidget({Key key, this.filter, this.callback}) : super(key: key);
+  FocusNode node = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+    print(filter);
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -23,6 +25,8 @@ class SearchBarWidget extends StatelessWidget {
         alignment: Alignment.centerRight,
         children: <Widget>[
           TextField(
+            focusNode: node,
+            onChanged: (val) => callback(val, FocusScope.of(context)),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(12),
               hintText: 'Search',
@@ -35,12 +39,16 @@ class SearchBarWidget extends StatelessWidget {
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
-            icon: Icon(UiIcons.settings_2,
-                size: 20, color: Theme.of(context).hintColor.withOpacity(0.5)),
+          Offstage(
+            offstage: filter != null ? !filter : true,
+            child: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+              icon: Icon(UiIcons.settings_2,
+                  size: 20,
+                  color: Theme.of(context).hintColor.withOpacity(0.5)),
+            ),
           ),
         ],
       ),

@@ -256,18 +256,29 @@ class _ChatWidgetState extends State<ChatWidget> {
               margin: EdgeInsets.only(top: 7, bottom: 7, right: 10),
               decoration: BoxDecoration(shape: BoxShape.circle),
               child: InkWell(
-                borderRadius: BorderRadius.circular(300),
-                // onTap: () {
-                //   Navigator.of(context).pushNamed('/Tabs', arguments: 1);
-                // },
-                child: CircleAvatar(
-                  radius: 20,
-                  child: CachedNetworkImage(
-                    imageUrl: widget.routeArgument.argumentsList[0].image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )),
+                  borderRadius: BorderRadius.circular(300),
+                  // onTap: () {
+                  //   Navigator.of(context).pushNamed('/Tabs', arguments: 1);
+                  // },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                              widget.routeArgument.argumentsList[0].image),
+                          fit: BoxFit.cover),
+                    ),
+                  )
+                  // CircleAvatar(
+                  //   radius: 20,
+                  //   child: CachedNetworkImage(
+                  //     imageUrl: widget.routeArgument.argumentsList[0].image,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
+                  )),
           Container(
             width: 130,
             child: Column(

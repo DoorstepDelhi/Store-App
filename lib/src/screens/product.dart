@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
+import 'package:store_app/src/widgets/Add_to_wishlist.dart';
 import 'package:store_app/view/productdetailsviewmodel.dart';
 
 import '../../config/ui_icons.dart';
@@ -79,9 +80,14 @@ class _ProductWidgetState extends State<ProductWidget>
                 Expanded(
                   child: FlatButton(
                       onPressed: () {
-                        setState(() {
-//                      this.cartCount += this.quantity;
-                        });
+                        showModalBottomSheet(
+                            clipBehavior: Clip.antiAlias,
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return AddToWishlist(model: model);
+                            });
                       },
                       padding: EdgeInsets.symmetric(vertical: 14),
                       color: Theme.of(context).accentColor,

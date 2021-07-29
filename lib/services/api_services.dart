@@ -248,4 +248,16 @@ class ApiService extends BaseApi {
     }
     return response;
   }
+
+  Future<ApiResponse> addToWishlist(
+      {String id, Map<String, dynamic> data}) async {
+    ApiResponse response;
+    try {
+      response = await postRequest(addWishlist + '$id/add_to_wishlist/', data);
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
 }

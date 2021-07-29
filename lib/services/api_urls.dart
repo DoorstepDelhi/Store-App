@@ -14,3 +14,4 @@ String get groupChat => 'rooms/rooms-view/';
 String get groupInfo => '/room/rooms-view/';
 String get nearbyPeople => '/accounts/users/nearby/';
 String get nearbyGroup => '/accounts/users/groups_nearby/';
+String get addWishlist => '/products/products/';

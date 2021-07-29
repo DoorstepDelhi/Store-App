@@ -26,13 +26,13 @@ void setupLocator() {
   getIt.registerSingleton<ChatViewModel>(ChatViewModel());
   getIt.registerSingleton<HomeViewModel>(HomeViewModel());
   getIt.registerSingleton<WishListViewModel>(WishListViewModel());
+  getIt.registerSingleton<GroupChatViewModel>(GroupChatViewModel());
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
   getIt.registerFactory(() => CategoriesViewModel());
   getIt.registerFactory(() => BrandsViewModel());
   getIt.registerFactory(() => GroupWishlistViewmodel());
   getIt.registerFactory(() => ChatBotViewmodel());
-  getIt.registerFactory(() => GroupChatViewModel());
   getIt.registerFactory(() => GroupInfoViewModel());
   getIt.registerFactory(() => ProductDetailsViewmodel());
   getIt.registerFactory(() => NearbyViewModel());
