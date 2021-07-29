@@ -67,10 +67,6 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
         padding: EdgeInsets.symmetric(vertical: 7),
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SearchBarWidget(),
-            ),
             Offstage(
               offstage: _notificationList.notifications.isEmpty,
               child: StreamBuilder(

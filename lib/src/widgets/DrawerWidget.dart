@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/user.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,8 @@ class DrawerWidget extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/Tabs', arguments: 1);
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed('/Account');
             },
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
@@ -35,7 +38,8 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Tabs', arguments: 2);
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/Messages');
             },
             leading: Icon(
               UiIcons.home,
@@ -48,6 +52,22 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/Tabs', arguments: 2);
+            },
+            leading: SvgPicture.asset(
+              'img/shop.svg',
+              height: 22,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Store",
+              style: Theme.of(context).textTheme.subhead,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Tabs', arguments: 0);
             },
             leading: Icon(
@@ -61,6 +81,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Orders', arguments: 0);
             },
             leading: Icon(
@@ -84,7 +105,8 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Orders', arguments: 0);
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed('/GroupOrders', arguments: 0);
             },
             leading: Icon(
               UiIcons.inbox,
@@ -107,6 +129,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Tabs', arguments: 1);
             },
             leading: Icon(
@@ -120,6 +143,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
@@ -133,6 +157,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
@@ -157,6 +182,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Categories');
             },
             leading: Icon(
@@ -170,6 +196,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Brands');
             },
             leading: Icon(
@@ -194,6 +221,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Help');
             },
             leading: Icon(
@@ -207,6 +235,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Tabs', arguments: 4);
             },
             leading: Icon(
@@ -220,6 +249,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/Languages');
             },
             leading: Icon(
@@ -233,7 +263,8 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed('/Login');
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/Login');
             },
             leading: Icon(
               UiIcons.upload,

@@ -1,6 +1,8 @@
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/src/screens/nearby.dart';
+import 'package:store_app/src/widgets/DrawerWidget.dart';
+import 'package:store_app/src/widgets/ShoppingCartButtonWidget.dart';
 import 'package:store_app/src/widgets/groupMessageItem.dart';
 import 'package:store_app/view/groupChatViewModel.dart';
 
@@ -16,6 +18,7 @@ class MessagesWidget extends StatefulWidget {
 
 class _MessagesWidgetState extends State<MessagesWidget>
     with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var topNavigator1 = true,
       topNavigator2 = false,
       topNavigator3 = false,
@@ -79,213 +82,248 @@ class _MessagesWidgetState extends State<MessagesWidget>
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 7),
-          child: Column(
-            children: <Widget>[
-              Container(
-                color: Theme.of(context).primaryColor,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: FlatButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                        onPressed: () {
-                          setState(() {
-                            _conversationList =
-                                new model.GroupConversationsList();
-                            topNavigator1 = true;
-                            topNavigator2 = false;
-                            topNavigator3 = false;
-                            topNavigator4 = false;
-                          });
-                        },
-                        child: topNavigator1
-                            ? topNavigator("Group", Theme.of(context).hintColor)
-                            : topNavigator("Group", null),
-                      ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                        onPressed: () {
-                          setState(() {
-                            _conversationList = new model.ConversationsList();
-                            topNavigator1 = false;
-                            topNavigator2 = true;
-                            topNavigator3 = false;
-                            topNavigator4 = false;
-                          });
-                        },
-                        child: topNavigator2
-                            ? topNavigator("Chats", Theme.of(context).hintColor)
-                            : topNavigator("Chats", null),
-                      ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                        onPressed: () {
-                          setState(() {
-                            _conversationList = new model.ConversationsList();
-                            topNavigator1 = false;
-                            topNavigator2 = false;
-                            topNavigator3 = true;
-                            topNavigator4 = false;
-                          });
-                        },
-                        child: topNavigator3
-                            ? topNavigator(
-                                "Contacts", Theme.of(context).hintColor)
-                            : topNavigator("Contacts", null),
-                      ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                        onPressed: () {
-                          setState(() {
-                            _conversationList =
-                                new model.PeopleNearbyConversationsList();
-                            topNavigator1 = false;
-                            topNavigator2 = false;
-                            topNavigator3 = false;
-                            topNavigator4 = true;
-                          });
-                        },
-                        child: topNavigator4
-                            ? topNavigator(
-                                "Nearby", Theme.of(context).hintColor)
-                            : topNavigator("Nearby", null),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (!topNavigator4)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SearchBarWidget(),
-                ),
-              topNavigator4
-                  ? Nearby()
-                  : topNavigator3
-                      ? ListView.separated(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: contactList.length,
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: 7);
-                          },
-                          itemBuilder: (context, index) {
-                            var person = contactList[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 25.0, vertical: 10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Stack(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: 60,
-                                        height: 60,
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              contactList[index]["image"]),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 35),
-                                  Text(
-                                    contactList[index]["name"],
-                                    overflow: TextOverflow.fade,
-                                    softWrap: false,
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        )
-                      : BaseView<GroupChatViewModel>(
-                          onModelReady: (model) => model.getGroupChat(context),
-                          builder: (ctx, model, child) => model.state ==
-                                  ViewState.Busy
-                              ? Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 150.0,
-                                  ),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                )
-                              : Offstage(
-                                  offstage: model.groupConversations.isEmpty,
-                                  child: ListView.separated(
-                                    padding: EdgeInsets.symmetric(vertical: 15),
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemCount: model.groupConversations.length,
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(height: 7);
-                                    },
-                                    itemBuilder: (context, index) {
-                                      var conversation =
-                                          model.groupConversations[index];
-
-                                      return GroupMessageItemWidget(
-                                        message: conversation,
-                                        onDismissed: (conversation) {
-                                          setState(() {
-                                            model.groupConversations
-                                                .removeAt(index);
-                                          });
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                        ),
-              Offstage(
-                offstage: _conversationList.conversations.isNotEmpty,
-                child: EmptyMessagesWidget(),
-              ),
-            ],
-          ),
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerWidget(),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: new IconButton(
+          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
+          onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
-        (topNavigator1 || topNavigator2 || topNavigator3)
-            ? Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.bottomRight,
-                padding: EdgeInsets.all(25.0),
-                child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      padding: EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
-                        borderRadius: BorderRadius.circular(35.0),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          "Home",
+          style: Theme.of(context).textTheme.display1,
+        ),
+        actions: <Widget>[
+          new ShoppingCartButtonWidget(
+              iconColor: Theme.of(context).hintColor,
+              labelColor: Theme.of(context).accentColor),
+          Container(
+              width: 30,
+              height: 30,
+              margin: EdgeInsets.only(top: 12.5, bottom: 12.5, right: 20),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(300),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/Tabs', arguments: 4);
+                },
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('img/user2.jpg'),
+                ),
+              )),
+        ],
+      ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 7),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Theme.of(context).primaryColor,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10),
+                          onPressed: () {
+                            setState(() {
+                              _conversationList =
+                                  new model.GroupConversationsList();
+                              topNavigator1 = true;
+                              topNavigator2 = false;
+                              topNavigator3 = false;
+                              topNavigator4 = false;
+                            });
+                          },
+                          child: topNavigator1
+                              ? topNavigator(
+                                  "Group", Theme.of(context).hintColor)
+                              : topNavigator("Group", null),
+                        ),
                       ),
-                      child: topNavigator1
-                          ? newGroup
-                          : (topNavigator2 ? invite : invite),
-                    )),
-              )
-            : Container(),
-      ],
+                      Expanded(
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10),
+                          onPressed: () {
+                            setState(() {
+                              _conversationList = new model.ConversationsList();
+                              topNavigator1 = false;
+                              topNavigator2 = true;
+                              topNavigator3 = false;
+                              topNavigator4 = false;
+                            });
+                          },
+                          child: topNavigator2
+                              ? topNavigator(
+                                  "Chats", Theme.of(context).hintColor)
+                              : topNavigator("Chats", null),
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                          onPressed: () {
+                            setState(() {
+                              _conversationList = new model.ConversationsList();
+                              topNavigator1 = false;
+                              topNavigator2 = false;
+                              topNavigator3 = true;
+                              topNavigator4 = false;
+                            });
+                          },
+                          child: topNavigator3
+                              ? topNavigator(
+                                  "Contacts", Theme.of(context).hintColor)
+                              : topNavigator("Contacts", null),
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10),
+                          onPressed: () {
+                            setState(() {
+                              _conversationList =
+                                  new model.PeopleNearbyConversationsList();
+                              topNavigator1 = false;
+                              topNavigator2 = false;
+                              topNavigator3 = false;
+                              topNavigator4 = true;
+                            });
+                          },
+                          child: topNavigator4
+                              ? topNavigator(
+                                  "Nearby", Theme.of(context).hintColor)
+                              : topNavigator("Nearby", null),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                topNavigator4
+                    ? Nearby()
+                    : topNavigator3
+                        ? ListView.separated(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: contactList.length,
+                            separatorBuilder: (context, index) {
+                              return SizedBox(height: 7);
+                            },
+                            itemBuilder: (context, index) {
+                              var person = contactList[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25.0, vertical: 10.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Stack(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 60,
+                                          height: 60,
+                                          child: CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                contactList[index]["image"]),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(width: 35),
+                                    Text(
+                                      contactList[index]["name"],
+                                      overflow: TextOverflow.fade,
+                                      softWrap: false,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )
+                        : BaseView<GroupChatViewModel>(
+                            onModelReady: (model) =>
+                                model.getGroupChat(context),
+                            builder: (ctx, model, child) => model.state ==
+                                    ViewState.Busy
+                                ? Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 150.0,
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                                : Offstage(
+                                    offstage: model.groupConversations.isEmpty,
+                                    child: ListView.separated(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 15),
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      itemCount:
+                                          model.groupConversations.length,
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(height: 7);
+                                      },
+                                      itemBuilder: (context, index) {
+                                        var conversation =
+                                            model.groupConversations[index];
+
+                                        return GroupMessageItemWidget(
+                                          message: conversation,
+                                          onDismissed: (conversation) {
+                                            setState(() {
+                                              model.groupConversations
+                                                  .removeAt(index);
+                                            });
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                          ),
+                Offstage(
+                  offstage: _conversationList.conversations.isNotEmpty,
+                  child: EmptyMessagesWidget(),
+                ),
+              ],
+            ),
+          ),
+          (topNavigator1 || topNavigator2 || topNavigator3)
+              ? Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.bottomRight,
+                  padding: EdgeInsets.all(25.0),
+                  child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: 55.0,
+                        width: 55.0,
+                        padding: EdgeInsets.all(13.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.circular(35.0),
+                        ),
+                        child: topNavigator1
+                            ? newGroup
+                            : (topNavigator2 ? invite : invite),
+                      )),
+                )
+              : Container(),
+        ],
+      ),
     );
   }
 

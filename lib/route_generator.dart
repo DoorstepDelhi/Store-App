@@ -1,4 +1,6 @@
+import 'package:store_app/src/screens/account.dart';
 import 'package:store_app/src/screens/chatbotscreen.dart';
+import 'package:store_app/src/screens/favorites.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/messages.dart';
 import 'package:store_app/src/screens/shippingaddressmain.dart';
@@ -43,6 +45,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BrandsWidget());
       case '/GroupOrders':
         return MaterialPageRoute(builder: (_) => GroupOrdersWidget());
+      case '/Account':
+        return MaterialPageRoute(builder: (_) => AccountWidget());
 //      case '/MobileVerification':
 //        return MaterialPageRoute(builder: (_) => MobileVerification());
 //      case '/MobileVerification2':
@@ -98,6 +102,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ChatBot());
       case '/Messages':
         return MaterialPageRoute(builder: (_) => MessagesWidget());
+      case '/Wishlist':
+        return MaterialPageRoute(builder: (_) => FavoritesWidget());
+
 //      case '/second':
 //      // Validation of correct data type
 //        if (args is String) {

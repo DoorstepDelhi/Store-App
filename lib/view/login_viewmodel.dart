@@ -35,7 +35,7 @@ class LogInViewModel extends BaseModel {
       _prefs.setUID(response.data['user'].toString());
 
       print('success');
-      navigationService.navigateTo('/Tabs',
+      navigationService.navigateTo('/Messages',
           arguments: 2, withreplacement: true);
     } else {
       setState(viewState: ViewState.Idle);
@@ -55,7 +55,7 @@ class LogInViewModel extends BaseModel {
       _prefs.setAuthToken(response.data['key']);
       _prefs.setUID(response.data['user'].toString());
       print('success');
-      navigationService.navigateTo('/Tabs',
+      navigationService.navigateTo('/Messages',
           arguments: 2, withreplacement: true);
     } else {
       setState(viewState: ViewState.Idle);

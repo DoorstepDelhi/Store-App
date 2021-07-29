@@ -33,10 +33,10 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SearchBarWidget(),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //   child: SearchBarWidget(),
+                  // ),
                   SizedBox(height: 10),
                   Offstage(
                     offstage: model.wishList.isEmpty,

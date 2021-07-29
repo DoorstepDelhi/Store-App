@@ -57,10 +57,6 @@ class Product {
     minWholesalePrice = json['min_price'];
   }
   Product.fromJsonDetail(Map<String, dynamic> json) {
-    // averageRating = json['average_rating']!=null?json['average_rating'];
-    // image = json['image']['image'] != null ? json['image']['image'] : null;
-    // minQty = json['min_qty'];
-    // minWholesalePrice = json['min_price'];
     id = json['id'].toString();
     productType = json['product_type'];
     category = json['category'] != null

@@ -19,10 +19,6 @@ class _AccountWidgetState extends State<AccountWidget> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SearchBarWidget(),
-          ),
-          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Row(
               children: <Widget>[
