@@ -1,18 +1,20 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-5.0.0+4" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+3" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.0.0" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.2" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.1" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_tts-3.2.1" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/speech_to_text-4.2.2" />
-      <root url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/contacts_service-0.6.1" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+3" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-5.0.0+4" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/dialogflow_grpc-0.2.9" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/speech_to_text-4.2.2" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.3" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_tts-3.2.2" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/contacts_service-0.6.1" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.2" />
+      <root url="file://$PROJECT_DIR$/../../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.0.2" />
     </CLASSES>
     <JAVADOC />
+    <LIBRARY_FILE />
     <SOURCES />
   </library>
 </component>

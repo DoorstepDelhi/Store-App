@@ -2,11 +2,11 @@
 contacts_service=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\contacts_service-0.6.1\\
 dialogflow_grpc=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\dialogflow_grpc-0.2.9\\
 flutter_local_notifications=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_local_notifications-5.0.0+4\\
-flutter_tts=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_tts-3.2.1\\
+flutter_tts=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_tts-3.2.2\\
 path_provider=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider-2.0.2\\
-path_provider_linux=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_linux-2.0.0\\
-path_provider_macos=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_macos-2.0.0\\
-path_provider_windows=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_windows-2.0.1\\
+path_provider_linux=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_linux-2.0.2\\
+path_provider_macos=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_macos-2.0.2\\
+path_provider_windows=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_windows-2.0.3\\
 shared_preferences=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences-0.5.7+3\\
 shared_preferences_macos=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences_macos-0.0.1+11\\
 shared_preferences_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences_web-0.1.2+7\\

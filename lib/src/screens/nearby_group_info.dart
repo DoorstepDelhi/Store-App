@@ -3,21 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:store_app/config/ui_icons.dart';
 import 'package:store_app/provider/base_view.dart';
-import 'package:store_app/src/models/route_argument.dart';
 import 'package:store_app/src/screens/group_cart_page.dart';
 import 'package:store_app/view/group_info_viewmodel.dart';
 
 import 'group_wish_list.dart';
 
-class GroupInfo extends StatefulWidget {
-  static const routeName = '/groupInfo';
-  final RouteArgument routeArgument;
-  GroupInfo({this.routeArgument});
+class NearbyGroupInfo extends StatefulWidget {
+  // static const routeName = '/groupInfo';
   @override
-  _GroupInfoState createState() => _GroupInfoState();
+  _NearbyGroupInfoState createState() => _NearbyGroupInfoState();
 }
 
-class _GroupInfoState extends State<GroupInfo> {
+class _NearbyGroupInfoState extends State<NearbyGroupInfo> {
   var groupName = "Delhi Wholesalers", labelCount = 0;
   Image groupIcon = Image.network(
       "https://www.seoclerk.com/pics/want55776-16Dnv61508955325.png");
@@ -206,7 +203,7 @@ class _GroupInfoState extends State<GroupInfo> {
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
                         child: Text(
-                          "Add Participants",
+                          "Join this group",
                           style: Theme.of(context).textTheme.body2,
                         ),
                       ),

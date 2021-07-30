@@ -1,5 +1,6 @@
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
+import 'package:store_app/src/screens/contact_people.dart';
 import 'package:store_app/src/screens/nearby.dart';
 import 'package:store_app/src/widgets/DrawerWidget.dart';
 import 'package:store_app/src/widgets/ShoppingCartButtonWidget.dart';
@@ -46,29 +47,6 @@ class _MessagesWidgetState extends State<MessagesWidget>
     });
     super.initState();
   }
-
-  List<Map<dynamic, dynamic>> contactList = [
-    {
-      "name": "Saksham Mittal",
-      "image": "img/temp/Rahul.jpeg",
-    },
-    {
-      "name": "Raghav Shukla",
-      "image": "img/temp/Raghav.jpeg",
-    },
-    {
-      "name": "Ayush Mahajan",
-      "image": "img/temp/Vinay.jpeg",
-    },
-    {
-      "name": "Shivam Joshi",
-      "image": "img/temp/yuvansh.jpeg",
-    },
-    {
-      "name": "Rahul Dev",
-      "image": "img/temp/Rahul.jpeg",
-    },
-  ];
 
   Icon newGroup = Icon(Icons.add, size: 23.0, color: Colors.white);
   Container invite = Container(
@@ -180,8 +158,8 @@ class _MessagesWidgetState extends State<MessagesWidget>
                           },
                           child: topNavigator3
                               ? topNavigator(
-                                  "Contacts", Theme.of(context).hintColor)
-                              : topNavigator("Contacts", null),
+                                  "Explore", Theme.of(context).hintColor)
+                              : topNavigator("Explore", null),
                         ),
                       ),
                       Expanded(
@@ -210,47 +188,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
                 topNavigator4
                     ? Nearby()
                     : topNavigator3
-                        ? ListView.separated(
-                            padding: EdgeInsets.symmetric(vertical: 15),
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: contactList.length,
-                            separatorBuilder: (context, index) {
-                              return SizedBox(height: 7);
-                            },
-                            itemBuilder: (context, index) {
-                              var person = contactList[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 10.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Stack(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: 60,
-                                          height: 60,
-                                          child: CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                                contactList[index]["image"]),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: 35),
-                                    Text(
-                                      contactList[index]["name"],
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          )
+                        ? Container()
                         : BaseView<GroupChatViewModel>(
                             onModelReady: (model) =>
                                 model.getGroupChat(context),
@@ -307,7 +245,14 @@ class _MessagesWidgetState extends State<MessagesWidget>
                   alignment: Alignment.bottomRight,
                   padding: EdgeInsets.all(25.0),
                   child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (topNavigator2) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ContactPeople()));
+                        }
+                      },
                       child: Container(
                         height: 55.0,
                         width: 55.0,

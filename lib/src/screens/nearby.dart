@@ -6,6 +6,8 @@ import 'package:store_app/src/models/nearbyPeople.dart';
 import 'package:store_app/view/nearbyGroupsModel.dart';
 import 'package:store_app/view/nearbyViewModel.dart';
 
+import 'nearby_group_info.dart';
+
 class Nearby extends StatefulWidget {
   const Nearby({key}) : super(key: key);
 
@@ -203,38 +205,44 @@ class _NearbyState extends State<Nearby> {
   }
 
   Widget nearbyG(NearbyGroups group) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage("${group.image}"),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(width: 15),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => NearbyGroupInfo()));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Stack(
               children: <Widget>[
-                Text(
-                  group.title,
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
-                  style: Theme.of(context).textTheme.body2,
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage("${group.image}"),
+                  ),
                 ),
               ],
             ),
-          )
-        ],
+            SizedBox(width: 15),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    group.title,
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
