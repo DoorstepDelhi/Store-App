@@ -5,21 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47a34354-18f9-4b3b-a679-8872f2d0d8e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/src/models/nearbyPeople.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/view/nearbyViewModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_21,_2_13_pm_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_21__2_13_pm__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/getit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/provider/getit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/api_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_services.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/api_urls.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_urls.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/base_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/base_api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screens/messages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screens/messages.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screens/nearby.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screens/nearby.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +48,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
@@ -60,7 +57,7 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -69,7 +66,10 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="47a34354-18f9-4b3b-a679-8872f2d0d8e0" name="Default Changelist" comment="" />
@@ -158,9 +158,10 @@
       <screen x="0" y="23" width="1440" height="780" />
     </state>
     <state x="303" y="275" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.780@0.23.1440.780" timestamp="1627057232076" />
-    <state x="16" y="123" width="739" height="559" key="AVDManager" timestamp="1626983146244">
-      <screen x="0" y="23" width="1440" height="788" />
+    <state x="17" y="105" width="789" height="585" key="AVDManager" timestamp="1627664038484">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="17" y="105" width="789" height="585" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1627664038484" />
     <state x="16" y="123" width="739" height="559" key="AVDManager/0.23.1440.788@0.23.1440.788" timestamp="1626983146244" />
     <state x="297" y="23" key="CommitChangelistDialog2" timestamp="1627061911607">
       <screen x="0" y="23" width="1440" height="783" />
@@ -174,6 +175,10 @@
     </state>
     <state x="122" y="43" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1626354557993" />
     <state x="122" y="61" key="DiffContextDialog/0.23.1440.788@0.23.1440.788" timestamp="1626981340079" />
+    <state x="359" y="167" key="FileChooserDialogImpl" timestamp="1627664034145">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="359" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1627664034145" />
     <state width="987" height="260" key="GridCell.Tab.0.bottom" timestamp="1627071596924">
       <screen x="0" y="23" width="1440" height="783" />
     </state>
@@ -227,9 +232,10 @@
     <state x="487" y="160" key="RollbackChangesDialog/0.0.1440.900@0.0.1440.900" timestamp="1625068142524" />
     <state x="487" y="162" key="RollbackChangesDialog/0.23.1440.783@0.23.1440.783" timestamp="1627028713131" />
     <state x="487" y="163" key="RollbackChangesDialog/0.23.1440.788@0.23.1440.788" timestamp="1626981320883" />
-    <state x="51" y="23" key="SettingsEditor" timestamp="1626981646398">
-      <screen x="0" y="23" width="1440" height="780" />
+    <state x="54" y="0" key="SettingsEditor" timestamp="1627664011666">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="54" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1627664011666" />
     <state x="51" y="23" key="SettingsEditor/0.23.1440.780@0.23.1440.780" timestamp="1626981646398" />
     <state x="320" y="188" key="Vcs.Push.Dialog.v2" timestamp="1627061941303">
       <screen x="0" y="23" width="1440" height="783" />
