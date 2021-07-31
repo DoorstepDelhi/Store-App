@@ -1,3 +1,5 @@
+import 'package:store_app/config/app_config.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/product.dart';
 import '../models/product_color.dart';
@@ -18,8 +20,8 @@ class ProductHomeTabWidget extends StatefulWidget {
 class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
   @override
   Widget build(BuildContext context) {
+    final config = App(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -121,61 +123,71 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
             ],
           ),
         ),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          margin: EdgeInsets.symmetric(vertical: 20),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.9),
-            boxShadow: [
-              BoxShadow(
-                  color: Theme.of(context).focusColor.withOpacity(0.15),
-                  blurRadius: 5,
-                  offset: Offset(0, 2)),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              // Row(
-              //   children: <Widget>[
-              //     Expanded(
-              //       child: Text(
-              //         'Select Ram',
-              //         style: Theme.of(context).textTheme.body2,
-              //       ),
-              //     ),
-              //     MaterialButton(
-              //       onPressed: () {},
-              //       padding: EdgeInsets.all(0),
-              //       minWidth: 0,
-              //       child: Text(
-              //         'Clear All',
-              //         style: Theme.of(context).textTheme.body1,
-              //       ),
-              //     )
-              //   ],
-              // ),
-              // SizedBox(height: 10),
-              // SelectSizeWidget()
-            ],
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.product.variants.length,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemBuilder: (ctx, i) {
+            return widget.product.variants.map((e) {
+              return Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                margin: EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.9),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).focusColor.withOpacity(0.15),
+                        blurRadius: 5,
+                        offset: Offset(0, 2)),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            e.variation,
+                            style: Theme.of(context).textTheme.body2,
+                          ),
+                        ),
+                        MaterialButton(
+                          onPressed: () {},
+                          padding: EdgeInsets.all(0),
+                          minWidth: 0,
+                          child: Text(
+                            'Clear All',
+                            style: Theme.of(context).textTheme.body1,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    SelectSizeWidget()
+                  ],
+                ),
+              );
+            }).toList()[i];
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: ListTile(
+            dense: true,
+            contentPadding: EdgeInsets.symmetric(vertical: 0),
+            leading: Icon(
+              UiIcons.box,
+              color: Theme.of(context).hintColor,
+            ),
+            title: Text(
+              'Related Poducts',
+              style: Theme.of(context).textTheme.display1,
+            ),
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        //   child: ListTile(
-        //     dense: true,
-        //     contentPadding: EdgeInsets.symmetric(vertical: 0),
-        //     leading: Icon(
-        //       UiIcons.box,
-        //       color: Theme.of(context).hintColor,
-        //     ),
-        //     title: Text(
-        //       'Related Poducts',
-        //       style: Theme.of(context).textTheme.display1,
-        //     ),
-        //   ),
-        // ),
         // FlashSalesCarouselWidget(
         //     heroTag: 'product_related_products',
         //     productsList: widget.product.),

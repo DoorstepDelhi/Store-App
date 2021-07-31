@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:store_app/provider/getit.dart';
 import 'package:store_app/services/api_services.dart';
 import 'package:store_app/services/api_urls.dart';
 import 'package:store_app/services/prefs_services.dart';
+import 'package:store_app/src/models/chat.dart';
+import 'package:store_app/src/models/conversation.dart';
 // import 'package:store_app/src/models/conversation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -20,7 +23,9 @@ import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 class ChatViewModel extends BaseModel {
   ApiService _apiService = ApiService();
   final myController = TextEditingController();
-  var initialData;
+  Conversation conversation = Conversation();
+  final myListKey = GlobalKey<AnimatedListState>();
+  List initialData = [];
   final _prefs = getIt.get<Prefs>();
   WebSocketChannel socket;
   WebSocketChannel recommendationSocket;
@@ -60,6 +65,22 @@ class ChatViewModel extends BaseModel {
     }
     if (socket == null) {
       print('socket hi khrab hai');
+    }
+  }
+
+  void updateChat(dynamic data) {
+    if (data is List) {
+      print('object');
+      for (var x in data) {
+        final chat = Chat.fromJson(x);
+        conversation.chats.insert(0, chat);
+      }
+    } else {
+      print(data.toString() + 'line 100');
+      final newdata = jsonDecode(data.toString()) as Map<String, dynamic>;
+      final chat = Chat.fromJson(newdata);
+      conversation.chats.insert(0, chat);
+      myListKey.currentState.insertItem(0);
     }
   }
 }

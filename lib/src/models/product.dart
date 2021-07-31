@@ -24,7 +24,7 @@ class Product {
   double discount;
   int productType;
   Category category;
-  Variations variations;
+  List variations;
   Brand brand;
   String description;
   String updatedAt;
@@ -34,6 +34,7 @@ class Product {
   List<Variants> variants;
   List<Prices> prices;
   int views;
+  List<Images> images;
 
   Product(
       {this.name,
@@ -62,9 +63,12 @@ class Product {
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
         : null;
-    variations = json['variations'] != null
-        ? new Variations.fromJson(json['variations'])
-        : null;
+    // if (json['variations'] != null) {
+    //   variations = new List<Null>();
+    //   json['variations'].forEach((v) {
+    //     variations.add(new Null.fromJson(v));
+    //   });
+    // }
     brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
     name = json['name'];
     description = json['description'];
@@ -85,20 +89,13 @@ class Product {
       });
     }
     views = json['views'];
+    if (json['images'] != null) {
+      images = new List<Images>();
+      json['images'].forEach((v) {
+        images.add(new Images.fromJson(v));
+      });
+    }
   }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['id'] = this.id;
-  //   data['name'] = this.name;
-  //   data['average_rating'] = this.averageRating;
-  //   if (this.image != null) {
-  //     data['image'] = this.image.toJson();
-  //   }
-  //   data['min_qty'] = this.minQty;
-  //   data['min_wholesale_price'] = this.minWholesalePrice;
-  //   return data;
-  // }
 
   String getPrice({int myPrice}) {
     if (myPrice != null) {
@@ -176,6 +173,51 @@ class Brand {
 }
 
 class Variants {
+  String variation;
+  List<Items> items;
+
+  Variants({this.variation, this.items});
+
+  Variants.fromJson(Map<String, dynamic> json) {
+    variation = json['variation'];
+    if (json['items'] != null) {
+      items = new List<Items>();
+      json['items'].forEach((v) {
+        items.add(new Items.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['variation'] = this.variation;
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Variant {
+  int id;
+  String name;
+
+  Variant({this.id, this.name});
+
+  Variant.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class Items {
   int id;
   String name;
   int product;
@@ -186,7 +228,7 @@ class Variants {
   double price;
   double discountedPrice;
 
-  Variants(
+  Items(
       {this.id,
       this.name,
       this.product,
@@ -197,7 +239,7 @@ class Variants {
       this.price,
       this.discountedPrice});
 
-  Variants.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     product = json['product'];
@@ -230,25 +272,6 @@ class Variants {
     data['product_qty'] = this.productQty;
     data['price'] = this.price;
     data['discounted_price'] = this.discountedPrice;
-    return data;
-  }
-}
-
-class Variant {
-  int id;
-  String name;
-
-  Variant({this.id, this.name});
-
-  Variant.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
     return data;
   }
 }

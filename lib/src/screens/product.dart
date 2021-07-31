@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/src/widgets/Add_to_wishlist.dart';
@@ -78,25 +80,40 @@ class _ProductWidgetState extends State<ProductWidget>
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: FlatButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                            clipBehavior: Clip.antiAlias,
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) {
-                              return AddToWishlist(model: model);
-                            });
-                      },
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      color: Theme.of(context).accentColor,
-                      shape: StadiumBorder(),
-                      child: Icon(
-                        UiIcons.heart,
-                        color: Theme.of(context).primaryColor,
-                      )),
-                ),
+                    child: FlatButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              clipBehavior: Clip.antiAlias,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return AddToWishlist(model: model);
+                              });
+                        },
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        color: Theme.of(context).accentColor,
+                        shape: StadiumBorder(),
+                        minWidth: 70,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Icon(
+                              UiIcons.heart,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Add to Wishlist',
+                              // textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ],
+                        ))),
                 SizedBox(width: 10),
                 FlatButton(
                   onPressed: () {
@@ -107,47 +124,25 @@ class _ProductWidgetState extends State<ProductWidget>
                   color: Theme.of(context).accentColor,
                   shape: StadiumBorder(),
                   child: Container(
-                    width: 240,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    width: 140,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Add to Cart',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-//                          this.quantity = this.decrementQuantity(this.quantity);
-                            });
-                          },
-                          iconSize: 30,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                          icon: Icon(Icons.remove_circle_outline),
+                        Icon(
+                          UiIcons.shopping_cart,
                           color: Theme.of(context).primaryColor,
                         ),
-                        Text('2',
-                            style: Theme.of(context).textTheme.subhead.merge(
-                                TextStyle(
-                                    color: Theme.of(context).primaryColor))),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-//                          this.quantity = this.incrementQuantity(this.quantity);
-                            });
-                          },
-                          iconSize: 30,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                          icon: Icon(Icons.add_circle_outline),
-                          color: Theme.of(context).primaryColor,
-                        )
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Add to Cart',
+                          textAlign: TextAlign.start,
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        ),
                       ],
                     ),
                   ),
@@ -200,16 +195,24 @@ class _ProductWidgetState extends State<ProductWidget>
                         child: Stack(
                           fit: StackFit.expand,
                           children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 20),
-                              width: double.infinity,
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    model.product.variants[0].images[0].image,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            CarouselSlider(
+                                items: model.product.images
+                                    .map((e) => Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 20),
+                                          width: double.infinity,
+                                          child: CachedNetworkImage(
+                                            imageUrl: e.image,
+                                            fit: BoxFit.cover,
+                                            errorWidget: (ctx, str, child) {
+                                              return Center(
+                                                child: Text(str),
+                                              );
+                                            },
+                                          ),
+                                        ))
+                                    .toList(),
+                                options: CarouselOptions()),
                             Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -297,11 +300,7 @@ class _ProductWidgetState extends State<ProductWidget>
                     delegate: SliverChildListDelegate([
                       Offstage(
                         offstage: 0 != _tabIndex,
-                        child: Column(
-                          children: <Widget>[
-                            ProductHomeTabWidget(product: model.product),
-                          ],
-                        ),
+                        child: ProductHomeTabWidget(product: model.product),
                       ),
                       Offstage(
                         offstage: 1 != _tabIndex,

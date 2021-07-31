@@ -34,12 +34,7 @@ class ChatWidget extends StatefulWidget {
 }
 
 class _ChatWidgetState extends State<ChatWidget> {
-  ConversationsList _conversationList = new ConversationsList();
-  User _currentUser = new User.init().getCurrentUser();
-  final _myListKey = GlobalKey<AnimatedListState>();
-  // final myController = TextEditingController();
   final config = cfg.Colors();
-
   var labelCount = 0;
 
   @override
@@ -80,53 +75,27 @@ class _ChatWidgetState extends State<ChatWidget> {
                           stream: model.socket.stream,
                           initialData: model.initialData,
                           builder: (ctx, snapshot) {
-                            if (!snapshot.hasData) {
-                              print('no data');
-                              return Container();
-                            } else {
-                              if (snapshot.data is List) {
-                                for (var x in snapshot.data) {
-                                  if (x is Map) {
-                                    print('yes');
-                                  }
-                                  // final data = jsonDecode(x.toString())
-                                  //     as Map<String, dynamic>;
-
-                                  final chat = Chat.fromJson(x);
-                                  _conversationList.conversations[0].chats
-                                      .insert(0, chat);
-                                }
-                              } else {
-                                print(snapshot.data.toString() + 'line 100');
-                                final data =
-                                    jsonDecode(snapshot.data.toString())
-                                        as Map<String, dynamic>;
-
-                                final chat = Chat.fromJson(data);
-                                _conversationList.conversations[0].chats
-                                    .insert(0, chat);
-                                _myListKey.currentState.insertItem(0);
-                              }
-                              print('welcome to chats:');
-                              print(snapshot.data);
-                              return AnimatedList(
-                                key: _myListKey,
-                                reverse: true,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 20),
-                                initialItemCount: _conversationList
-                                    .conversations[0].chats.length,
-                                itemBuilder: (context, index,
-                                    Animation<double> animation) {
-                                  Chat chat = _conversationList
-                                      .conversations[0].chats[index];
-                                  return ChatMessageListItem(
-                                    chat: chat,
-                                    animation: animation,
-                                  );
-                                },
-                              );
+                            if (snapshot.data != null) {
+                              model.updateChat(snapshot.data);
                             }
+
+                            print('welcome to chats:');
+                            print(snapshot.data);
+                            return AnimatedList(
+                              key: model.myListKey,
+                              reverse: true,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 20),
+                              initialItemCount: model.conversation.chats.length,
+                              itemBuilder: (context, index,
+                                  Animation<double> animation) {
+                                Chat chat = model.conversation.chats[index];
+                                return ChatMessageListItem(
+                                  chat: chat,
+                                  animation: animation,
+                                );
+                              },
+                            );
                           },
                         ),
                       ),

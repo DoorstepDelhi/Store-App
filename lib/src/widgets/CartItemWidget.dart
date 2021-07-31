@@ -73,10 +73,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           widget.product.getPrice(),
                           style: Theme.of(context).textTheme.display1,
                         ),
-                        Text(
-                          "Group-Qty.  6/10",
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
+                        // Text(
+                        //   "Group-Qty.  6/10",
+                        //   style: Theme.of(context).textTheme.subtitle1,
+                        // ),
                       ],
                     ),
                   ),

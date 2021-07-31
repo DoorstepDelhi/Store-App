@@ -12,6 +12,7 @@ class ProductDetailsViewmodel extends BaseModel {
   ApiService _apiService = ApiService();
   Product product;
   var groups = getIt.get<GroupChatViewModel>().groupConversations;
+  List<GroupConversation> get() => groups;
   void initData(String id) async {
     print(groups);
     setState(viewState: ViewState.Busy);
@@ -39,7 +40,11 @@ class ProductDetailsViewmodel extends BaseModel {
     }
     return groups;
   }
+  // List<GroupConversation> searchGroups(){
+  //   groups=[];
 
+  //   return
+  // }
   void addToWishList(bool mywishlist, List<String> selectedGroups) async {
     String string = '';
     for (String str in selectedGroups) {
@@ -47,10 +52,14 @@ class ProductDetailsViewmodel extends BaseModel {
     }
     print(string);
     if (mywishlist) {
+      print(' in 61');
       final response = await _apiService.addToWishlist(
-          id: product.id, data: {"user": mywishlist, "groups": string});
+          id: product.id,
+          data: {"user": mywishlist.toString(), "groups": string});
       if (!response.error) {
         print(response.data);
+      } else {
+        print(response.errorMessage);
       }
     } else {
       final response = await _apiService
