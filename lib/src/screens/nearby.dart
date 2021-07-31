@@ -18,8 +18,9 @@ class Nearby extends StatefulWidget {
 class _NearbyState extends State<Nearby> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
+        SizedBox(height: 20.0,),
         Container(
           width: MediaQuery.of(context).size.width,
           child: Row(

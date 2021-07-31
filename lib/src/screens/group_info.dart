@@ -96,42 +96,33 @@ class _GroupInfoState extends State<GroupInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leadingWidth: 20.0,
-        leading: IconButton(
-          icon:
-              new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: BaseView<GroupInfoViewModel>(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              leading: IconButton(
+                icon:
+                    new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text("${groupName}",
+                      style: Theme.of(context).textTheme.title,),
+                  background: groupIcon),
+            ),
+          ];
+        },
+        body: BaseView<GroupInfoViewModel>(
         // onModelReady: ,
         builder: (ctx, model, child) {
           return ListView(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    child: groupIcon,
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    alignment: Alignment.bottomLeft,
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "${groupName}",
-                      maxLines: 2,
-                      style: Theme.of(context).textTheme.headline,
-                    ),
-                  )
-                ],
-              ),
               Container(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,78 +139,59 @@ class _GroupInfoState extends State<GroupInfo> {
                   ],
                 ),
               ),
-              DefaultTabController(
-                length: 2,
-                initialIndex: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      child: TabBar(
-                        tabs: [
-                          Tab(icon: Text("Group Members")),
-                          Tab(icon: Text("Group Orders")),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height:
-                          80.0 * max((members.length) + 1, orderItems.length),
-                      child:
-                          TabBarView(children: [groupMembers(), groupOrders()]),
-                    )
-                  ],
-                ),
-              )
+              groupMembers(),
             ],
           );
         },
+      ),
       ),
     );
   }
 
   groupMembers() {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(15.0),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Group Members",
-                  style: Theme.of(context).textTheme.body2,
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15.0),
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Group Members",
+                    style: Theme.of(context).textTheme.body2,
+                  ),
                 ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: CircleAvatar(
-                          child: Image.network(
-                              "https://www.divinesolitaires.com/upload/images/slug-master/jklmn07083png.png")),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        child: Text(
-                          "Add Participants",
-                          style: Theme.of(context).textTheme.body2,
-                        ),
+                Container(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CircleAvatar(
+                            child: Image.network(
+                                "https://www.divinesolitaires.com/upload/images/slug-master/jklmn07083png.png")),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          child: Text(
+                            "Add Participants",
+                            style: Theme.of(context).textTheme.body2,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              for (int i = 0; i < members.length; i++) memberContainer(i),
-            ],
+                for (int i = 0; i < members.length; i++) memberContainer(i),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
