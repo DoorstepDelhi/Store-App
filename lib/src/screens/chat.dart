@@ -39,7 +39,6 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('tere naam vs 1');
     return Scaffold(
       appBar: AppBar(
         // titleSpacing: 2,
@@ -59,9 +58,9 @@ class _ChatWidgetState extends State<ChatWidget> {
       ),
       body: BaseView<ChatViewModel>(
         // onModelDisposed: (model) => model.myController.dispose(),
-        onModelReady: (model) => model.initData(),
+        onModelReady: (model) =>
+            model.initData(widget.routeArgument.argumentsList[0]),
         builder: (ctx, model, child) {
-          print('tere naam');
           return model.state == ViewState.Busy
               ? Center(
                   child: CircularProgressIndicator(),
@@ -78,9 +77,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                             if (snapshot.data != null) {
                               model.updateChat(snapshot.data);
                             }
-
-                            print('welcome to chats:');
-                            print(snapshot.data);
                             return AnimatedList(
                               key: model.myListKey,
                               reverse: true,
@@ -134,7 +130,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 }
 
                                 final data = jsonEncode({
-                                  "room": 10,
+                                  "room":
+                                      widget.routeArgument.argumentsList[0].id,
                                   "user": 57,
                                   "message_text": model.myController.text
                                 });

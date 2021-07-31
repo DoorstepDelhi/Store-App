@@ -12,6 +12,7 @@ import 'package:store_app/services/api_urls.dart';
 import 'package:store_app/services/prefs_services.dart';
 import 'package:store_app/src/models/chat.dart';
 import 'package:store_app/src/models/conversation.dart';
+import 'package:store_app/src/models/groupConversation.dart';
 // import 'package:store_app/src/models/conversation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -23,7 +24,7 @@ import 'package:dialogflow_grpc/dialogflow_grpc.dart';
 class ChatViewModel extends BaseModel {
   ApiService _apiService = ApiService();
   final myController = TextEditingController();
-  Conversation conversation = Conversation();
+  GroupConversation conversation;
   final myListKey = GlobalKey<AnimatedListState>();
   List initialData = [];
   final _prefs = getIt.get<Prefs>();
@@ -33,11 +34,16 @@ class ChatViewModel extends BaseModel {
   String uid;
   final prefs = getIt.get<Prefs>();
 
-  void initData() async {
+  void initData(GroupConversation gConversation) async {
+    conversation = gConversation;
     setState(viewState: ViewState.Busy);
-    print('object ka nam');
-    final data = await _apiService.fetchChats(id: '10');
-    initialData = data.data;
+    if (conversation.chats.isEmpty) {
+      final data = await _apiService.fetchChats(id: '10');
+      if (!data.error) {
+        print('it already');
+        initialData = data.data;
+      }
+    }
     try {
       uid = await prefs.getUID();
       print(state);
@@ -57,23 +63,23 @@ class ChatViewModel extends BaseModel {
           '${(await rootBundle.loadString('img/credentials.json'))}');
 
       dialogflow = DialogflowGrpcV2Beta1.viaServiceAccount(serviceAccount);
-
-      setState(viewState: ViewState.Idle);
-      print(state);
     } on SocketException catch (e) {
       print('error: ' + e.toString());
     }
-    if (socket == null) {
-      print('socket hi khrab hai');
-    }
+    setState(viewState: ViewState.Idle);
+
+    print('object ka nam');
   }
 
   void updateChat(dynamic data) {
     if (data is List) {
       print('object');
-      for (var x in data) {
-        final chat = Chat.fromJson(x);
-        conversation.chats.insert(0, chat);
+      if (conversation.chats.isEmpty) {
+        for (var x in data) {
+          final chat = Chat.fromJson(x);
+
+          conversation.chats.insert(0, chat);
+        }
       }
     } else {
       print(data.toString() + 'line 100');

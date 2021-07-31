@@ -48,6 +48,7 @@ class ProductGridItemWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Text(
                 product.name,
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.body2,
               ),
             ),

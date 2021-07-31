@@ -91,10 +91,11 @@ class _ProductWidgetState extends State<ProductWidget>
                                 return AddToWishlist(model: model);
                               });
                         },
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         color: Theme.of(context).accentColor,
                         shape: StadiumBorder(),
-                        minWidth: 70,
+                        // minWidth: 70,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,9 +125,9 @@ class _ProductWidgetState extends State<ProductWidget>
                   color: Theme.of(context).accentColor,
                   shape: StadiumBorder(),
                   child: Container(
-                    width: 140,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                    width: 120,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -335,7 +336,9 @@ class _ProductWidgetState extends State<ProductWidget>
                                 ),
                               ),
                             ),
-                            ReviewsListWidget()
+                            ReviewsListWidget(
+                              reviews: model.getReviews(id: widget._product.id),
+                            )
                           ],
                         ),
                       )

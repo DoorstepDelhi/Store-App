@@ -260,4 +260,15 @@ class ApiService extends BaseApi {
     }
     return response;
   }
+
+  Future<ApiResponse> fetchUserReviews({String id}) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(endpoint: userReviews + '$id/reviews/');
+      print('no error');
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
 }

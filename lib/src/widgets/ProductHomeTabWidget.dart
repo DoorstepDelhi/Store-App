@@ -1,3 +1,4 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:store_app/config/app_config.dart';
 
 import '../../config/ui_icons.dart';
@@ -124,7 +125,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
           ),
         ),
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: ClampingScrollPhysics(),
           itemCount: widget.product.variants.length,
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -154,19 +155,19 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                             style: Theme.of(context).textTheme.body2,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          padding: EdgeInsets.all(0),
-                          minWidth: 0,
-                          child: Text(
-                            'Clear All',
-                            style: Theme.of(context).textTheme.body1,
-                          ),
-                        )
+                        // MaterialButton(
+                        //   onPressed: () {},
+                        //   padding: EdgeInsets.all(0),
+                        //   minWidth: 0,
+                        //   child: Text(
+                        //     'Clear All',
+                        //     style: Theme.of(context).textTheme.body1,
+                        //   ),
+                        // )
                       ],
                     ),
                     SizedBox(height: 10),
-                    SelectSizeWidget()
+                    SelectSizeWidget(items: e.items, selectedItem: 0)
                   ],
                 ),
               );
@@ -243,34 +244,51 @@ class _SelectColorWidgetState extends State<SelectColorWidget> {
 }
 
 class SelectSizeWidget extends StatefulWidget {
-  SelectSizeWidget({
-    Key key,
-  }) : super(key: key);
+  final List<Items> items;
+  int selectedItem;
+  SelectSizeWidget({Key key, this.items, this.selectedItem}) : super(key: key);
 
   @override
   _SelectSizeWidgetState createState() => _SelectSizeWidgetState();
 }
 
 class _SelectSizeWidgetState extends State<SelectSizeWidget> {
-  ProductSizesList _productSizesList = new ProductSizesList();
-
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: List.generate(_productSizesList.list.length, (index) {
-        var _size = _productSizesList.list.elementAt(index);
-        return buildSize(_size);
-      }),
-    );
+    return ChipsChoice<int>.single(
+        value: widget.selectedItem,
+        onChanged: (val) {
+          setState(() {
+            widget.selectedItem = val;
+          });
+        },
+        choiceItems: List.generate(widget.items.length, (index) {
+          var _size = widget.items.elementAt(index);
+          return C2Choice(
+            value: index,
+            label: _size.name,
+            activeStyle: C2ChoiceStyle(
+                borderColor: Theme.of(context).accentColor,
+                elevation: 1,
+                color: Theme.of(context).hintColor),
+          );
+        }));
+
+    //  Wrap(
+    //   spacing: 8,
+    //   runSpacing: 8,
+    //   children: List.generate(widget.items.length, (index) {
+    //     var _size = widget.items.elementAt(index);
+    //     return buildSize(_size);
+    //   }),
+    // );
   }
 
-  SizedBox buildSize(ProductSize size) {
+  SizedBox buildSize(Items size) {
     return SizedBox(
       height: 38,
-      child: RawChip(
-        label: Text(size.code),
+      child: ChoiceChip(
+        label: Text(size.name),
         labelStyle: TextStyle(color: Theme.of(context).hintColor),
         padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
         backgroundColor: Theme.of(context).focusColor.withOpacity(0.05),

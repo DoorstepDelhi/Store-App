@@ -60,6 +60,7 @@ class Product {
   Product.fromJsonDetail(Map<String, dynamic> json) {
     id = json['id'].toString();
     productType = json['product_type'];
+    averageRating = json['avg_rating'];
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
         : null;
@@ -227,6 +228,7 @@ class Items {
   double productQty;
   double price;
   double discountedPrice;
+  bool selected;
 
   Items(
       {this.id,
@@ -237,7 +239,8 @@ class Items {
       this.trackInventory,
       this.productQty,
       this.price,
-      this.discountedPrice});
+      this.discountedPrice,
+      this.selected});
 
   Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -255,6 +258,7 @@ class Items {
     productQty = json['product_qty'];
     price = json['price'];
     discountedPrice = json['discounted_price'];
+    selected = false;
   }
 
   Map<String, dynamic> toJson() {

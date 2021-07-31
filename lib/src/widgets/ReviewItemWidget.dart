@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:store_app/services/api_urls.dart';
+import 'package:store_app/src/models/userReviews.dart';
+
 import '../../config/ui_icons.dart';
 import '../models/review.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ReviewItemWidget extends StatelessWidget {
-  Review review;
+  UserReviews review;
 
   ReviewItemWidget({Key key, this.review}) : super(key: key);
 
@@ -23,7 +27,9 @@ class ReviewItemWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 image: DecorationImage(
-                    image: AssetImage(this.review.user.avatar),
+                    image: CachedNetworkImageProvider(
+                        'https://30e99cf29431.ngrok.io' +
+                            review.userDetail.profilePic),
                     fit: BoxFit.cover),
               ),
             ),
@@ -40,9 +46,9 @@ class ReviewItemWidget extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Text(
-                              review.user.firstName +
+                              review.userDetail.firstName +
                                   " " +
-                                  review.user.lastName,
+                                  review.userDetail.lastName,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                               maxLines: 2,
@@ -59,7 +65,9 @@ class ReviewItemWidget extends StatelessWidget {
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  review.getDateTime(),
+                                  review.createdAt.substring(0, 10) +
+                                      " " +
+                                      review.createdAt.substring(11, 16),
                                   style: Theme.of(context).textTheme.caption,
                                   overflow: TextOverflow.fade,
                                   softWrap: false,
@@ -75,7 +83,7 @@ class ReviewItemWidget extends StatelessWidget {
                         label: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(review.rate.toString(),
+                            Text(review.rating.toString(),
                                 style: Theme.of(context).textTheme.body2.merge(
                                     TextStyle(
                                         color:

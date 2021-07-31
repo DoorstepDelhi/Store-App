@@ -6,16 +6,19 @@ import 'package:store_app/services/api_services.dart';
 import 'package:store_app/src/models/groupConversation.dart';
 import 'package:store_app/src/models/product.dart';
 import 'package:store_app/src/models/productDetails.dart';
+import 'package:store_app/src/models/userReviews.dart';
 import 'package:store_app/view/groupChatViewModel.dart';
 
 class ProductDetailsViewmodel extends BaseModel {
   ApiService _apiService = ApiService();
   Product product;
+  List<UserReviews> reviews = [];
   var groups = getIt.get<GroupChatViewModel>().groupConversations;
   List<GroupConversation> get() => groups;
   void initData(String id) async {
     print(groups);
     setState(viewState: ViewState.Busy);
+    getReviews(id: id);
     final respone = await _apiService.fetchProdyuct(id: id);
     print(respone.data);
     product = Product.fromJsonDetail(respone.data);
@@ -71,5 +74,23 @@ class ProductDetailsViewmodel extends BaseModel {
     // if (!response.error) {
     //   print(response.data);
     // }
+  }
+
+  Future<List<UserReviews>> getReviews({String id}) async {
+    if (reviews.isEmpty) {
+      final response =
+          await _apiService.fetchUserReviews(id: id != null ? id : product.id);
+      if (!response.error) {
+        reviews = [];
+
+        for (var x in response.data) {
+          final review = UserReviews.fromJson(x);
+          reviews.add(review);
+        }
+      } else {
+        print('error in fetching review:' + response.errorMessage);
+      }
+    }
+    return reviews;
   }
 }

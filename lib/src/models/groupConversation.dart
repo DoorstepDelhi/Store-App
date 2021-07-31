@@ -1,3 +1,4 @@
+import 'package:store_app/src/models/chat.dart';
 import 'package:store_app/src/models/lastMessage.dart';
 
 class GroupConversation {
@@ -7,7 +8,7 @@ class GroupConversation {
   String image;
   LastMessage lastMessage;
   int unseenMessages;
-
+  List<Chat> chats;
   GroupConversation(
       {this.id, this.name, this.title, this.image, this.lastMessage});
 
@@ -18,5 +19,6 @@ class GroupConversation {
     image = m['image'];
     lastMessage = LastMessage.fromJson(m['last_message'][0]);
     unseenMessages = m['unseen_messages'] as int;
+    chats = [];
   }
 }

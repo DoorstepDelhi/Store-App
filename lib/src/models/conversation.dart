@@ -4,16 +4,7 @@ import 'package:flutter/material.dart';
 
 class Conversation {
   String id = UniqueKey().toString();
-  List<Chat> chats = [
-    Chat(
-        text: 'Yeah that\'d be a nice idea',
-        time: '63min ago',
-        user: new User.basic(
-            firstName: 'Raghav',
-            lastName: 'Shukla',
-            avatar: 'img/temp/Raghav.jpeg',
-            userState: UserState.available))
-  ];
+  List<Chat> chats = [];
   bool read;
   User user;
 

@@ -50,6 +50,8 @@ dependencies:
   dialogflow_grpc: ^0.2.9
   contacts_service: ^0.6.1
   avatar_glow: ^2.0.1
+  expandable: ^5.0.1
+  chips_choice: ^2.0.1
 
 dev_dependencies:
   flutter_test:

@@ -163,9 +163,10 @@ class _GroupInfoState extends State<GroupInfo> {
                       ),
                     ),
                     Container(
-                      height: 80.0 * max((members.length) + 1, orderItems.length),
-                      child: TabBarView(
-                          children: [groupMembers(), groupOrders()]),
+                      height:
+                          80.0 * max((members.length) + 1, orderItems.length),
+                      child:
+                          TabBarView(children: [groupMembers(), groupOrders()]),
                     )
                   ],
                 ),
@@ -251,25 +252,24 @@ class _GroupInfoState extends State<GroupInfo> {
       margin: EdgeInsets.all(10.0),
       padding: EdgeInsets.all(10.0),
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-                      color: Colors.greenAccent[200],
-                      offset: const Offset(
-                        2.0,
-                        2.0,
-                      ),
-                      blurRadius: 5.0,
-                      spreadRadius: 1.0,
-                    ), //BoxShadow
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.0,
-                      spreadRadius: 0.0,
-                    ),] 
-      ),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(10.0), boxShadow: [
+        BoxShadow(
+          color: Colors.greenAccent[200],
+          offset: const Offset(
+            2.0,
+            2.0,
+          ),
+          blurRadius: 5.0,
+          spreadRadius: 1.0,
+        ), //BoxShadow
+        BoxShadow(
+          color: Colors.white,
+          offset: const Offset(0.0, 0.0),
+          blurRadius: 0.0,
+          spreadRadius: 0.0,
+        ),
+      ]),
       child: Row(
         children: [
           Expanded(
