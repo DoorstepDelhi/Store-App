@@ -76,6 +76,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                           builder: (ctx, snapshot) {
                             if (snapshot.data != null) {
                               model.updateChat(snapshot.data);
+                            } else {
+                              print('badahi ho');
                             }
                             return AnimatedList(
                               key: model.myListKey,
@@ -128,7 +130,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 //   print('error: ' + e.toString());
                                 // }
 
-                                final data = jsonEncode({
+                                var data = jsonEncode({
                                   "room":
                                       widget.routeArgument.argumentsList[0].id,
                                   "user": int.parse(model.user.id),
@@ -137,6 +139,7 @@ class _ChatWidgetState extends State<ChatWidget> {
 
                                 model.socket.sink.add(data);
                                 model.myController.clear();
+                                data = null;
                               },
                               icon: Icon(
                                 UiIcons.cursor,

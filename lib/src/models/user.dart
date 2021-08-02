@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:store_app/provider/getit.dart';
 //import 'package:intl/intl.dart' show DateFormat;
 
 enum UserState { available, away, busy }
@@ -39,10 +40,11 @@ class User {
       this.token});
 
   User getCurrentUser() {
+    final _user = getIt.get<User>();
     return User.advanced(
-        firstName: 'Rahul',
-        lastName: 'Dev',
-        email: 'rahuldev30@gmail.com',
+        firstName: _user.firstName,
+        lastName: _user.lastName,
+        email: _user.firstName + _user.lastName + '30@gmail.com',
         avatar: 'img/temp/Rahul.jpeg',
         address: 'B1 34, sector 69 Dwarka, Delhi',
         userState: UserState.available,
