@@ -3,6 +3,7 @@ import 'package:store_app/services/api_services.dart';
 import 'package:store_app/services/navigation_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:store_app/services/prefs_services.dart';
+import 'package:store_app/src/models/user.dart';
 import 'package:store_app/view/address_viewmodel.dart';
 import 'package:store_app/view/brands_viewmodel.dart';
 import 'package:store_app/view/categories_viewmodel.dart';
@@ -23,10 +24,12 @@ GetIt getIt = GetIt.instance;
 void setupLocator() {
   getIt.registerLazySingleton(() => NavigationService());
   getIt.registerSingleton<Prefs>(Prefs());
+  getIt.registerSingleton<User>(User.basic());
   getIt.registerSingleton<ChatViewModel>(ChatViewModel());
   getIt.registerSingleton<HomeViewModel>(HomeViewModel());
   getIt.registerSingleton<WishListViewModel>(WishListViewModel());
   getIt.registerSingleton<GroupChatViewModel>(GroupChatViewModel());
+
   getIt.registerFactory(() => ApiService());
   getIt.registerFactory(() => LogInViewModel());
   getIt.registerFactory(() => CategoriesViewModel());

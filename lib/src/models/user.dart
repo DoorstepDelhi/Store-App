@@ -6,8 +6,10 @@ enum UserState { available, away, busy }
 
 class User {
   String id = UniqueKey().toString();
+  String username;
   String firstName;
   String lastName;
+  String token;
   String email;
   String avatar;
   String address;
@@ -17,7 +19,13 @@ class User {
   User.init();
 
   User.basic(
-      {this.firstName, this.lastName, this.avatar, this.userState, this.id});
+      {this.firstName,
+      this.lastName,
+      this.avatar,
+      this.userState,
+      this.id,
+      this.token,
+      this.username});
 
   User.advanced(
       {this.firstName,
@@ -26,7 +34,9 @@ class User {
       this.avatar,
       this.address,
       this.userState,
-      this.phoneNumber});
+      this.phoneNumber,
+      this.username,
+      this.token});
 
   User getCurrentUser() {
     return User.advanced(

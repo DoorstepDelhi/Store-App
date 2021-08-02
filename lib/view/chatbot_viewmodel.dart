@@ -29,10 +29,10 @@ class ChatBotViewmodel extends BaseModel {
         '${(await rootBundle.loadString('img/credentials.json'))}');
 
     dialogflow = DialogflowGrpcV2Beta1.viaServiceAccount(serviceAccount);
-    socket = IOWebSocketChannel.connect(
-      Uri.parse(chatsocketurl),
-      headers: {HttpHeaders.authorizationHeader: 'Token ${prefs.getToken()}'},
-    );
+    // socket = IOWebSocketChannel.connect(
+    //   Uri.parse(chatsocketurl),
+    //   headers: {HttpHeaders.authorizationHeader: 'Token ${prefs.getToken()}'},
+    // );
 
     flutterTts.awaitSpeakCompletion(true);
     flutterTts.awaitSynthCompletion(true);

@@ -3,6 +3,7 @@ import 'package:store_app/provider/getit.dart';
 import 'package:store_app/services/prefs_services.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:store_app/src/models/user.dart';
 
 import 'api-response.dart';
 import 'http_exception.dart';
@@ -14,7 +15,7 @@ abstract class BaseApi {
 
   //'doorstepdelhi.herokuapp.com';
   //'36eb00ef8692.ngrok.io'
-  final _prefs = getIt.get<Prefs>();
+  final _user = getIt.get<User>();
   Future<ApiResponse> signUp(Map data, String endpoint) async {
     var responseBody = json.decode('{"data": "", "status": "NOK"}');
 
@@ -79,11 +80,11 @@ abstract class BaseApi {
       {String endpoint, Map<String, String> query}) async {
     final uri = Uri.https(_baseUrl, endpoint, query);
     print(uri);
-    print(_prefs.getToken());
+    print(_user.token);
     return processResponse(await http.get(
       uri,
       headers: {
-        HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}',
+        HttpHeaders.authorizationHeader: 'Token ${_user.token}',
       },
     ));
   }
@@ -93,7 +94,7 @@ abstract class BaseApi {
       {String endpoint, Map<String, String> query}) async {
     final uri = Uri.https(_baseUrl, endpoint, query);
     print("authtoken is: ");
-    print({_prefs.getToken()});
+    print({_user.token});
     print(uri);
     return processResponse(await http.get(
       uri,
@@ -106,7 +107,7 @@ abstract class BaseApi {
     final uri = Uri.https(_baseUrl, endpoint);
     return processResponse(await http.post(uri,
         headers: {
-          HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}',
+          HttpHeaders.authorizationHeader: 'Token ${_user.token}',
         },
         body: data));
   }
@@ -118,7 +119,7 @@ abstract class BaseApi {
     print(uri);
     return processResponse(await http.patch(uri,
         headers: {
-          HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}',
+          HttpHeaders.authorizationHeader: 'Token ${_user.token}',
         },
         body: data));
   }
@@ -132,7 +133,7 @@ abstract class BaseApi {
     return processResponse(await http.delete(
       uri,
       headers: {
-        HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}',
+        HttpHeaders.authorizationHeader: 'Token ${_user.token}',
       },
     ));
   }

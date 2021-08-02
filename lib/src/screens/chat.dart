@@ -119,40 +119,24 @@ class _ChatWidgetState extends State<ChatWidget> {
                             suffixIcon: IconButton(
                               padding: EdgeInsets.only(right: 30),
                               onPressed: () async {
-                                // setState(() {
-                                try {
-                                  DetectIntentResponse data2 =
-                                      await model.dialogflow.detectIntent(
-                                          model.myController.text, 'en-US');
-                                  print(data2.queryResult.fulfillmentText);
-                                } catch (e) {
-                                  print('error: ' + e.toString());
-                                }
+                                // try {
+                                //   DetectIntentResponse data2 =
+                                //       await model.dialogflow.detectIntent(
+                                //           model.myController.text, 'en-US');
+                                //   print(data2.queryResult.fulfillmentText);
+                                // } catch (e) {
+                                //   print('error: ' + e.toString());
+                                // }
 
                                 final data = jsonEncode({
                                   "room":
                                       widget.routeArgument.argumentsList[0].id,
-                                  "user": 57,
+                                  "user": int.parse(model.user.id),
                                   "message_text": model.myController.text
                                 });
 
                                 model.socket.sink.add(data);
                                 model.myController.clear();
-                                // });
-
-                                // setState(() {
-                                //   _conversationList.conversations[0].chats
-                                //       .insert(
-                                //           0,
-                                //           new Chat(
-                                //               text: myController.text,
-                                //               time: '21min ago',
-                                //               user: _currentUser));
-                                //   _myListKey.currentState.insertItem(0);
-                                // });
-                                // Timer(Duration(milliseconds: 100), () {
-                                //   model.myController.clear();
-                                // });
                               },
                               icon: Icon(
                                 UiIcons.cursor,
@@ -171,35 +155,35 @@ class _ChatWidgetState extends State<ChatWidget> {
                       )
                     ],
                   ),
-                  Positioned(
-                    right: 5,
-                    left: 5,
-                    top: 10,
-                    child: Container(
-                      height: 250,
-                      // width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: StreamBuilder(
-                          stream: model.recommendationSocket.stream,
-                          builder: (ctx, snapshot) {
-                            List<Product> _products = [];
-                            print('welcome to recommendation');
-                            print(snapshot.data);
-                            if (snapshot.data != null) {
-                              final json = jsonDecode(snapshot.data);
-                              _products = [];
-                              for (var data in json) {
-                                final product = Product.fromJson(data);
-                                _products.add(product);
-                              }
-                            }
+                  // Positioned(
+                  //   right: 5,
+                  //   left: 5,
+                  //   top: 10,
+                  //   child: Container(
+                  //     height: 250,
+                  //     // width: MediaQuery.of(context).size.width,
+                  //     padding: EdgeInsets.symmetric(horizontal: 10),
+                  //     child: StreamBuilder(
+                  //         stream: model.recommendationSocket.stream,
+                  //         builder: (ctx, snapshot) {
+                  //           List<Product> _products = [];
+                  //           print('welcome to recommendation');
+                  //           print(snapshot.data);
+                  //           if (snapshot.data != null) {
+                  //             final json = jsonDecode(snapshot.data);
+                  //             _products = [];
+                  //             for (var data in json) {
+                  //               final product = Product.fromJson(data);
+                  //               _products.add(product);
+                  //             }
+                  //           }
 
-                            return _products.isEmpty
-                                ? Container()
-                                : PopupProductsWidget(products: _products);
-                          }),
-                    ),
-                  ),
+                  //           return _products.isEmpty
+                  //               ? Container()
+                  //               : PopupProductsWidget(products: _products);
+                  //         }),
+                  //   ),
+                  // ),
                 ]);
         },
       ),

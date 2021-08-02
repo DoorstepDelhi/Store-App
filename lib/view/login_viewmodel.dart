@@ -30,9 +30,13 @@ class LogInViewModel extends BaseModel {
     });
     if (!response.error) {
       setState(viewState: ViewState.Idle);
-
-      _prefs.setAuthToken(response.data['key']);
-      _prefs.setUID(response.data['user'].toString());
+      _prefs.setUser(
+          uid: response.data['user'].toString(),
+          token: response.data['key'],
+          username: response.data['username'],
+          firstName: response.data['first_name'],
+          lastName: response.data['last_name'],
+          profilePic: response.data['profile_pic']);
 
       print('success');
       navigationService.navigateTo('/Messages',
@@ -52,8 +56,13 @@ class LogInViewModel extends BaseModel {
     if (!response.error) {
       setState(viewState: ViewState.Idle);
       print(response.data);
-      _prefs.setAuthToken(response.data['key']);
-      _prefs.setUID(response.data['user'].toString());
+      _prefs.setUser(
+          uid: response.data['user'].toString(),
+          token: response.data['key'],
+          username: response.data['username'],
+          firstName: response.data['first_name'],
+          lastName: response.data['last_name'],
+          profilePic: response.data['profile_pic']);
       print('success');
       navigationService.navigateTo('/Messages',
           arguments: 2, withreplacement: true);

@@ -11,10 +11,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await NotificationService().init();
-  // final homeViewModel = getIt.get<HomeViewModel>();
-  // homeViewModel.fetchFlashSaleProducts();
-
-  runApp(MyApp());
+  final prefs = getIt.get<Prefs>();
+  prefs.getUser().whenComplete(() => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

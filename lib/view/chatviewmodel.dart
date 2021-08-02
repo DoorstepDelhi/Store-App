@@ -13,6 +13,7 @@ import 'package:store_app/services/prefs_services.dart';
 import 'package:store_app/src/models/chat.dart';
 import 'package:store_app/src/models/conversation.dart';
 import 'package:store_app/src/models/groupConversation.dart';
+import 'package:store_app/src/models/user.dart';
 // import 'package:store_app/src/models/conversation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -27,37 +28,32 @@ class ChatViewModel extends BaseModel {
   GroupConversation conversation;
   final myListKey = GlobalKey<AnimatedListState>();
   List initialData = [];
-  final _prefs = getIt.get<Prefs>();
+  final user = getIt.get<User>();
   WebSocketChannel socket;
   WebSocketChannel recommendationSocket;
   DialogflowGrpcV2Beta1 dialogflow;
-  String uid;
-  final prefs = getIt.get<Prefs>();
 
   void initData(GroupConversation gConversation) async {
     conversation = gConversation;
     setState(viewState: ViewState.Busy);
     if (conversation.chats.isEmpty) {
-      final data = await _apiService.fetchChats(id: '10');
+      final data =
+          await _apiService.fetchChats(id: gConversation.id.toString());
       if (!data.error) {
         print('it already');
         initialData = data.data;
       }
     }
     try {
-      uid = await prefs.getUID();
       print(state);
       socket = IOWebSocketChannel.connect(
-        Uri.parse(chatsocketurl),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}'
-        },
+        Uri.parse('wss://30e99cf29431.ngrok.io/ws/chat/${conversation.name}/'),
+        headers: {HttpHeaders.authorizationHeader: 'Token ${user.token}'},
       );
       recommendationSocket = IOWebSocketChannel.connect(
-        Uri.parse(recommendationsocketurl),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Token ${_prefs.getToken()}'
-        },
+        Uri.parse(
+            'wss://30e99cf29431.ngrok.io/ws/recommendation/${conversation.name}/'),
+        headers: {HttpHeaders.authorizationHeader: 'Token ${user.token}'},
       );
       final serviceAccount = ServiceAccount.fromString(
           '${(await rootBundle.loadString('img/credentials.json'))}');
@@ -72,6 +68,7 @@ class ChatViewModel extends BaseModel {
   }
 
   void updateChat(dynamic data) {
+    print('inside updatechat');
     if (data is List) {
       print('object');
       if (conversation.chats.isEmpty) {
