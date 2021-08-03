@@ -1,6 +1,7 @@
 import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/src/screens/contact_people.dart';
+import 'package:store_app/src/screens/explore.dart';
 import 'package:store_app/src/screens/nearby.dart';
 import 'package:store_app/src/widgets/DrawerWidget.dart';
 import 'package:store_app/src/widgets/ShoppingCartButtonWidget.dart';
@@ -22,7 +23,6 @@ class _MessagesWidgetState extends State<MessagesWidget>
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   model.ConversationsList _conversationList;
 
-
   @override
   void initState() {
     this._conversationList = new model.GroupConversationsList();
@@ -43,7 +43,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
     return DefaultTabController(
       length: 4,
       initialIndex: 0,
-          child: Scaffold(
+      child: Scaffold(
         key: _scaffoldKey,
         drawer: DrawerWidget(),
         appBar: AppBar(
@@ -102,12 +102,7 @@ class _MessagesWidgetState extends State<MessagesWidget>
           ],
         ),
         body: TabBarView(
-          children: [
-            groups(),
-            chats(),
-            Container(),
-            Nearby()
-          ],
+          children: [groups(), chats(), Explore(), Nearby()],
         ),
       ),
     );
@@ -118,12 +113,11 @@ class _MessagesWidgetState extends State<MessagesWidget>
       children: [
         SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 7),
-          child:  Column(
+          child: Column(
             children: <Widget>[
-            BaseView<GroupChatViewModel>(
+              BaseView<GroupChatViewModel>(
                 onModelReady: (model) => model.getGroupChat(context),
-                builder: (ctx, model, child) => model.state ==
-                        ViewState.Busy
+                builder: (ctx, model, child) => model.state == ViewState.Busy
                     ? Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 150.0,
@@ -143,15 +137,13 @@ class _MessagesWidgetState extends State<MessagesWidget>
                             return SizedBox(height: 7);
                           },
                           itemBuilder: (context, index) {
-                            var conversation =
-                                model.groupConversations[index];
+                            var conversation = model.groupConversations[index];
 
                             return GroupMessageItemWidget(
                               message: conversation,
                               onDismissed: (conversation) {
                                 setState(() {
-                                  model.groupConversations
-                                      .removeAt(index);
+                                  model.groupConversations.removeAt(index);
                                 });
                               },
                             );
@@ -167,73 +159,69 @@ class _MessagesWidgetState extends State<MessagesWidget>
           ),
         ),
         Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.bottomRight,
-                padding: EdgeInsets.all(25.0),
-                child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      padding: EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
-                        borderRadius: BorderRadius.circular(35.0),
-                      ),
-                      child: newGroup
-                    )),
-              )
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          alignment: Alignment.bottomRight,
+          padding: EdgeInsets.all(25.0),
+          child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                  height: 55.0,
+                  width: 55.0,
+                  padding: EdgeInsets.all(13.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(35.0),
+                  ),
+                  child: newGroup)),
+        )
       ],
     );
   }
 
-  chats(){
+  chats() {
     return Stack(
       children: [
         SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 7),
-          child:  Column(
+          child: Column(
             children: <Widget>[
-                      BaseView<GroupChatViewModel>(
-                          onModelReady: (model) => model.getGroupChat(context),
-                          builder: (ctx, model, child) => model.state ==
-                                  ViewState.Busy
-                              ? Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 150.0,
-                                  ),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                )
-                              : Offstage(
-                                  offstage: model.groupConversations.isEmpty,
-                                  child: ListView.separated(
-                                    padding: EdgeInsets.symmetric(vertical: 15),
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemCount: model.groupConversations.length,
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(height: 7);
-                                    },
-                                    itemBuilder: (context, index) {
-                                      var conversation =
-                                          model.groupConversations[index];
-
-                                      return GroupMessageItemWidget(
-                                        message: conversation,
-                                        onDismissed: (conversation) {
-                                          setState(() {
-                                            model.groupConversations
-                                                .removeAt(index);
-                                          });
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
+              BaseView<GroupChatViewModel>(
+                onModelReady: (model) => model.getGroupChat(context),
+                builder: (ctx, model, child) => model.state == ViewState.Busy
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 150.0,
                         ),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : Offstage(
+                        offstage: model.groupConversations.isEmpty,
+                        child: ListView.separated(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: model.groupConversations.length,
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 7);
+                          },
+                          itemBuilder: (context, index) {
+                            var conversation = model.groupConversations[index];
+
+                            return GroupMessageItemWidget(
+                              message: conversation,
+                              onDismissed: (conversation) {
+                                setState(() {
+                                  model.groupConversations.removeAt(index);
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
+              ),
               Offstage(
                 offstage: _conversationList.conversations.isNotEmpty,
                 child: EmptyMessagesWidget(),
@@ -242,26 +230,25 @@ class _MessagesWidgetState extends State<MessagesWidget>
           ),
         ),
         Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.bottomRight,
-                padding: EdgeInsets.all(25.0),
-                child: GestureDetector(
-                    onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => ContactPeople()));
-                      
-                    },
-                    child: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      padding: EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
-                        borderRadius: BorderRadius.circular(35.0),
-                      ),
-                      child: invite),
-                    )),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.all(25.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => ContactPeople()));
+              },
+              child: Container(
+                  height: 55.0,
+                  width: 55.0,
+                  padding: EdgeInsets.all(13.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(35.0),
+                  ),
+                  child: invite),
+            )),
       ],
     );
   }

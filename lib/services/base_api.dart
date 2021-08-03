@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class BaseApi {
-  final String _baseUrl = "30e99cf29431.ngrok.io";
+  final String _baseUrl = "3ca8b825774f.ngrok.io";
 
   //'doorstepdelhi.herokuapp.com';
   //'36eb00ef8692.ngrok.io'

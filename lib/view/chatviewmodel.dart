@@ -47,12 +47,12 @@ class ChatViewModel extends BaseModel {
     try {
       print(state);
       socket = IOWebSocketChannel.connect(
-        Uri.parse('wss://30e99cf29431.ngrok.io/ws/chat/${conversation.name}/'),
+        Uri.parse('wss://3ca8b825774f.ngrok.io/ws/chat/${conversation.name}/'),
         headers: {HttpHeaders.authorizationHeader: 'Token ${user.token}'},
       );
       recommendationSocket = IOWebSocketChannel.connect(
         Uri.parse(
-            'wss://30e99cf29431.ngrok.io/ws/recommendation/${conversation.name}/'),
+            'wss://3ca8b825774f.ngrok.io/ws/recommendation/${conversation.name}/'),
         headers: {HttpHeaders.authorizationHeader: 'Token ${user.token}'},
       );
       final serviceAccount = ServiceAccount.fromString(
