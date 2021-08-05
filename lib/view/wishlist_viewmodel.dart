@@ -26,4 +26,18 @@ class WishListViewModel extends BaseModel {
       }
     }
   }
+
+  void deleteWishlist(String id) async {
+    setState(viewState: ViewState.Busy);
+    final response = await _apiService.delectWishlist(id);
+    if (!response.error) {
+      setState(viewState: ViewState.Idle);
+      print(response.data);
+    } else {
+      print(response.data);
+      print(response.errorMessage);
+      // navigationService.navigateTo('/Tabs',
+      //     arguments: 1, withreplacement: true);
+    }
+  }
 }

@@ -104,7 +104,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                           product: model.wishList.elementAt(index).product,
                           onDismissed: () {
                             setState(() {
-                              _productsList.favoritesList.removeAt(index);
+                              model.wishList.removeAt(index);
                             });
                           },
                         );

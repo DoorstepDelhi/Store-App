@@ -1,4 +1,5 @@
 import 'package:store_app/src/screens/account.dart';
+import 'package:store_app/src/screens/all_products.dart';
 import 'package:store_app/src/screens/chatbotscreen.dart';
 import 'package:store_app/src/screens/favorites.dart';
 import 'package:store_app/src/screens/group_info.dart';
@@ -104,6 +105,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MessagesWidget());
       case '/Wishlist':
         return MaterialPageRoute(builder: (_) => FavoritesWidget());
+      case '/Products':
+        return MaterialPageRoute(builder: (_) => Products());
 
 //      case '/second':
 //      // Validation of correct data type

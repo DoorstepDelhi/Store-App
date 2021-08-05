@@ -87,7 +87,11 @@ class _HomeWidgetState extends State<HomeWidget>
                 'Recommended For You',
                 style: Theme.of(context).textTheme.display1,
               ),
-              trailing: TextButton(onPressed: () {}, child: Text('See more')),
+              trailing: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/Products');
+                  },
+                  child: Text('See more')),
             ),
           ),
           model.categories.isEmpty

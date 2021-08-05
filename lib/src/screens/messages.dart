@@ -61,24 +61,28 @@ class _MessagesWidgetState extends State<MessagesWidget>
           bottom: TabBar(
             tabs: [
               Tab(
-                  icon: Text(
-                "Groups",
-                style: Theme.of(context).textTheme.title,
-              )),
+                // text: 'Groups',
+                child: Text('Groups',
+                    style: TextStyle(
+                        fontSize: 14, color: Theme.of(context).accentColor)),
+              ),
               Tab(
                   icon: Text(
                 "Chats",
-                style: Theme.of(context).textTheme.title,
+                style: TextStyle(
+                    fontSize: 14, color: Theme.of(context).accentColor),
               )),
               Tab(
                   icon: Text(
                 "Explore",
-                style: Theme.of(context).textTheme.title,
+                style: TextStyle(
+                    fontSize: 14, color: Theme.of(context).accentColor),
               )),
               Tab(
                   icon: Text(
                 "Nearby",
-                style: Theme.of(context).textTheme.title,
+                style: TextStyle(
+                    fontSize: 14, color: Theme.of(context).accentColor),
               )),
             ],
           ),

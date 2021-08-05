@@ -42,7 +42,7 @@ void setupLocator() {
   getIt.registerFactory(() => NearbyGroupsViewModel());
   // getIt.registerFactory(() => AddressViewModel());
 
-  getIt.registerFactory(() => ProdutsViewModel());
+  getIt.registerFactory(() => ProductsViewModel());
 
   // getIt.registerFactory(() => WebsiteViewModel());
 }

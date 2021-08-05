@@ -121,11 +121,37 @@ class ApiService extends BaseApi {
     return response;
   }
 
+  //all products
   Future<ApiResponse> getProducts() async {
     ApiResponse response;
     try {
       response = await getWithoutAuthRequest(
         endpoint: products,
+      );
+      print(response.data);
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  Future<ApiResponse> delectWishlist(String id) async {
+    ApiResponse response;
+    try {
+      response = await deleteRequest(endpoint: wishlist, id: id);
+      print(response.data);
+    } catch (e) {
+      response = ApiResponse(error: true, errorMessage: e.toString());
+    }
+    return response;
+  }
+
+  Future<ApiResponse> getPagiProducts(String Offset) async {
+    ApiResponse response;
+    try {
+      response = await getRequest(
+        endpoint: products,
+        query: {"limit": "10", "offset": "$Offset"},
       );
       print(response.data);
     } catch (e) {
