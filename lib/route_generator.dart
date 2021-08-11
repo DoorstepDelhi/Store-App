@@ -1,6 +1,7 @@
 import 'package:store_app/src/screens/account.dart';
 import 'package:store_app/src/screens/all_products.dart';
 import 'package:store_app/src/screens/chatbotscreen.dart';
+import 'package:store_app/src/screens/explore_more.dart';
 import 'package:store_app/src/screens/favorites.dart';
 import 'package:store_app/src/screens/group_info.dart';
 import 'package:store_app/src/screens/messages.dart';
@@ -107,6 +108,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => FavoritesWidget());
       case '/Products':
         return MaterialPageRoute(builder: (_) => Products());
+      case '/Exploremore':
+        return MaterialPageRoute(builder: (_) => ExploreMore());
 
 //      case '/second':
 //      // Validation of correct data type

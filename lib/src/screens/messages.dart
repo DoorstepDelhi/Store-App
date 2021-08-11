@@ -2,6 +2,7 @@ import 'package:store_app/enum/view_state.dart';
 import 'package:store_app/provider/base_view.dart';
 import 'package:store_app/src/screens/contact_people.dart';
 import 'package:store_app/src/screens/explore.dart';
+import 'package:store_app/src/screens/explore_more.dart';
 import 'package:store_app/src/screens/nearby.dart';
 import 'package:store_app/src/widgets/DrawerWidget.dart';
 import 'package:store_app/src/widgets/ShoppingCartButtonWidget.dart';
