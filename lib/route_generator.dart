@@ -87,7 +87,7 @@ class RouteGenerator {
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
       case '/Shipping Address':
-        return MaterialPageRoute(builder: (_) => MyHomePage());
+        return MaterialPageRoute(builder: (_) => MyAddress());
       case '/Order':
         return MaterialPageRoute(builder: (_) => OrderSummaryWidget());
       case '/Chat':

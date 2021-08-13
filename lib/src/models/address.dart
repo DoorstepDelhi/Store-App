@@ -1,7 +1,5 @@
-// To parse this JSON data, do
-//
-//     final address = addressFromJson(jsonString);
-
+import 'package:flutter/foundation.dart';
+//import 'package:store_app/src/models/address.dart';
 import 'dart:convert';
 
 List<Address> addressFromJson(String str) =>
@@ -10,25 +8,26 @@ List<Address> addressFromJson(String str) =>
 String addressToJson(List<Address> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Address {
-  Address({
-    this.fullName,
-    this.streetAddress1,
-    this.streetAddress2,
-    this.city,
-    this.state,
-    this.postalCode,
-    this.phone,
-  });
-
+class Address with ChangeNotifier {
+  String id;
   String fullName;
+  double phone;
   String streetAddress1;
   String streetAddress2;
   String city;
   String state;
-  String postalCode;
-  String phone;
+  double postalcode;
 
+  Address({
+    this.id,
+    this.fullName,
+    this.phone,
+    this.streetAddress1,
+    this.streetAddress2,
+    this.city,
+    this.state,
+    this.postalcode,
+  });
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         fullName: json["full_name"] == null ? null : json["full_name"],
         streetAddress1:
@@ -37,7 +36,7 @@ class Address {
             json["street_address_2"] == null ? null : json["street_address_2"],
         city: json["city"] == null ? null : json["city"],
         state: json["state"] == null ? null : json["state"],
-        postalCode: json["postal_code"] == null ? null : json["postal_code"],
+        postalcode: json["postal_code"] == null ? null : json["postal_code"],
         phone: json["phone"] == null ? null : json["phone"],
       );
 
@@ -47,7 +46,7 @@ class Address {
         "street_address_2": streetAddress2 == null ? null : streetAddress2,
         "city": city == null ? null : city,
         "state": state == null ? null : state,
-        "postal_code": postalCode == null ? null : postalCode,
+        "postal_code": postalcode == null ? null : postalcode,
         "phone": phone == null ? null : phone,
       };
 }
